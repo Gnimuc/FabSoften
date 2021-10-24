@@ -1,0 +1,1 @@
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/libfabsoften.cpp)
