@@ -29,17 +29,17 @@ target_compile_features(FabSoften PRIVATE cxx_std_17)
 include(cmake/install_config.cmake)
 
 # test
-if(BUILD_TESTS)
+if(FABSOFTEN_BUILD_TESTS)
     add_subdirectory(external/Catch2)
     add_subdirectory(tests)
 endif()
 
 # tool
-if(BUILD_TOOLS)
+if(FABSOFTEN_BUILD_TOOLS)
     add_subdirectory(tools)
 endif()
 
 # examples
-if(BUILD_EXAMPLES)
+if(FABSOFTEN_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
