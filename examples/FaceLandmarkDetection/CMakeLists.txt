@@ -1,0 +1,2 @@
+add_executable(FaceLandmarkDetection face_landmark_detection.cpp)
+target_link_libraries(FaceLandmarkDetection PRIVATE dlib::dlib)

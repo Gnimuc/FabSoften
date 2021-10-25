@@ -1,12 +1,19 @@
-cmake_minimum_required(VERSION 3.14...3.21)
+cmake_minimum_required(VERSION 3.19...3.21)
 
 project(FabSoften LANGUAGES CXX)
 
 include(cmake/utils.cmake)
 include(cmake/options.cmake)
 
+# fetch dependencies
+add_subdirectory(external)
+# dlib
+add_subdirectory(external/dlib)
+
+# OpenCV
 find_package(OpenCV 4 REQUIRED)
 
+# config library
 add_library(FabSoften SHARED)
 
 add_subdirectory(src)
@@ -30,4 +37,9 @@ endif()
 # tool
 if(BUILD_TOOLS)
     add_subdirectory(tools)
+endif()
+
+# examples
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
 endif()
