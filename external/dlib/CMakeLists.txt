@@ -6,4 +6,6 @@ FetchContent_Declare(
     GIT_TAG        v19.18
 )
 
+message(STATUS "Checking dlib...")
+
 FetchContent_MakeAvailable(dlib)

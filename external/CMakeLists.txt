@@ -8,6 +8,8 @@ FetchContent_Declare(
     DOWNLOAD_NO_EXTRACT true
 )
 
+message(STATUS "Checking shape_predictor_68_face_landmarks.dat...")
+
 FetchContent_MakeAvailable(shape_predictor_68_face_landmarks)
 
 set(face_model_dir ${shape_predictor_68_face_landmarks_SOURCE_DIR})
@@ -33,15 +35,28 @@ if (NOT EXISTS ${face_model_dat})
                 message(SEND_ERROR "Cannot find 7zip. Please make sure 7z is avaliable on the command line.")
             endif()
         else()
+            # Unfortunately, CMake does not support extracting .bz2 files at the moment
             # execute_process(
-            #     COMMAND ${CMAKE_COMMAND} -E tar xvf ${face_model_archive} -o ${face_model_srcdir}
+            #     COMMAND ${CMAKE_COMMAND} -E tar xjvf ${face_model_archive} -o ${face_model_srcdir}
             #     WORKING_DIRECTORY ${face_model_dir}
             # )
-            file(
-                ARCHIVE_EXTRACT
-                INPUT ${face_model_archive}
-                DESTINATION ${face_model_srcdir}
-            )
+            # file(
+            #     ARCHIVE_EXTRACT
+            #     INPUT ${face_model_archive}
+            #     DESTINATION ${face_model_srcdir}
+            # )
+            find_program(EXE_BZIP2 bzip2)
+            if (EXE_BZIP2)
+                message(STATUS "Found bzip2: ${EXE_BZIP2}")
+                # need to use bzip2 for extracting .bz2 archives on Linux/macOS
+                execute_process(
+                    COMMAND ${EXE_BZIP2} -d -k -f ${face_model_archive}
+                    WORKING_DIRECTORY ${face_model_dir}
+                )
+                file(COPY ${face_model_dir}/shape_predictor_68_face_landmarks.dat DESTINATION ${face_model_srcdir})
+            else()
+                message(SEND_ERROR "Cannot find bzip2. Please make sure bzip2 is avaliable on the command line.")
+            endif()
         endif()
     endif()
 else()
