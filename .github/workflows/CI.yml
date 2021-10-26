@@ -2,11 +2,14 @@ name: CI
 
 on:
   push:
+    branches: ['**']
   pull_request:
+    branches: ['**']
 
 env:
   BUILD_TYPE: Release
   OPENCV_VER: 4.5.4
+  DLIB_FACE_MODEL: shape_predictor_68_face_landmarks.dat.bz2
 
 jobs:
   build:
@@ -14,26 +17,51 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set Environment Variables
-      id: env
+
+    - name: Set OpenCV Prefix
+      id: cv
       run: echo "::set-output name=OPENCV_PREFIX::C:\opencv\${{env.OPENCV_VER}}"
+
+    - name: Set dlib Prefix
+      id: dlib
+      run: echo "::set-output name=DLIB_PREFIX::C:\dlib\models"
+
     - name: Cache
       id: cache
       uses: actions/cache@v1.1.2
       with:
-        path: ${{steps.env.outputs.OPENCV_PREFIX}}
-        key: OpenCV${{env.OPENCV_VER}}Cached
-    - name: Download & Install OpenCV
+        path: |
+          ${{steps.cv.outputs.OPENCV_PREFIX}}
+          ${{steps.dlib.outputs.DLIB_PREFIX}}
+        key: ${{runner.os}}-OpenCV-${{env.OPENCV_VER}}
+
+    - name: Download & Install & Cache OpenCV
       if: steps.cache.outputs.cache-hit != 'true'
       run: | 
-        Invoke-WebRequest -Uri https://sourceforge.net/projects/opencvlibrary/files/${{env.OPENCV_VER}}/opencv-${{env.OPENCV_VER}}-vc14_vc15.exe/download -OutFile ../opencv-${{env.OPENCV_VER}}.exe
-        $installer = Start-Process -FilePath ../opencv-${{env.OPENCV_VER}}.exe -Wait -PassThru -ArgumentList @("-o${{steps.env.outputs.OPENCV_PREFIX}} -y");
+        Invoke-WebRequest -Uri https://sourceforge.net/projects/opencvlibrary/files/${{env.OPENCV_VER}}/opencv-${{env.OPENCV_VER}}-vc14_vc15.exe/download -UserAgent "NativeHost" -OutFile ../opencv-${{env.OPENCV_VER}}.exe
+        $installer = Start-Process -FilePath ../opencv-${{env.OPENCV_VER}}.exe -Wait -PassThru -ArgumentList @("-o${{steps.cv.outputs.OPENCV_PREFIX}} -y");
         $installer.WaitForExit();
+        ls ${{steps.cv.outputs.OPENCV_PREFIX}}
 
     - name: Setup OpenCV
-      run: echo "${{steps.env.outputs.OPENCV_PREFIX}}\build\x64\vc15\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      run: echo "${{steps.env.outputs.OPENCV_PREFIX}}\build\x64\vc15\lib" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-        
+      run: |
+        echo "${{steps.cv.outputs.OPENCV_PREFIX}}\opencv\build\x64\vc15\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        echo "${{steps.cv.outputs.OPENCV_PREFIX}}\opencv\build\x64\vc15\lib" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    
+    - name: Download & Cache dlib Models and 7zip
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        Invoke-WebRequest -Uri https://github.com/davisking/dlib-models/raw/master/${{env.DLIB_FACE_MODEL}} -OutFile ../${{env.DLIB_FACE_MODEL}}
+        New-Item ${{steps.dlib.outputs.DLIB_PREFIX}} -ItemType directory
+        Move-Item -Path ../${{env.DLIB_FACE_MODEL}} -Destination ${{steps.dlib.outputs.DLIB_PREFIX}}
+        Invoke-WebRequest -Uri https://www.7-zip.org/a/7z1900-x64.exe -OutFile ../7z.exe
+        $installer = Start-Process -FilePath ../7z.exe -Wait -PassThru -ArgumentList @("/S /D=${{steps.dlib.outputs.DLIB_PREFIX}}\7zip\");
+        $installer.WaitForExit();
+        ls ${{steps.dlib.outputs.DLIB_PREFIX}}
+    
+    - name: Extract Models
+      run:  Start-Process -FilePath ${{steps.dlib.outputs.DLIB_PREFIX}}\7zip\7z.exe -Wait -PassThru -ArgumentList @("x ${{steps.dlib.outputs.DLIB_PREFIX}}\${{env.DLIB_FACE_MODEL}} -o${{github.workspace}}\models");
+
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
