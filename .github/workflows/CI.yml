@@ -8,6 +8,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  OPENCV_VER: 4.5.4
 
 jobs:
   build:
@@ -15,11 +16,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Setup OpenCV
-      uses: Dovyski/setup-opencv-action@v1
+    - name: Set Environment Variables
+      id: env
+      run: echo "::set-output name=OPENCV_PREFIX::C:\opencv\${{env.OPENCV_VER}}"
+    - name: Cache
+      id: cache
+      uses: actions/cache@v1.1.2
       with:
-        opencv-version: '4.5.0'
+        path: ${{steps.env.outputs.OPENCV_PREFIX}}
+        key: OpenCV${{env.OPENCV_VER}}Cached
+    - name: Download & Install OpenCV
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: | 
+        Invoke-WebRequest -Uri https://sourceforge.net/projects/opencvlibrary/files/${{env.OPENCV_VER}}/opencv-${{env.OPENCV_VER}}-vc14_vc15.exe/download -OutFile ../opencv-${{env.OPENCV_VER}}.exe
+        $installer = Start-Process -FilePath ../opencv-${{env.OPENCV_VER}}.exe -Wait -PassThru -ArgumentList @("-o${{steps.env.outputs.OPENCV_PREFIX}} -y");
+        $installer.WaitForExit();
+
+    - name: Setup OpenCV
+      run: echo "${{steps.env.outputs.OPENCV_PREFIX}}\build\x64\vc15\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      run: echo "${{steps.env.outputs.OPENCV_PREFIX}}\build\x64\vc15\lib" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
