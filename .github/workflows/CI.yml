@@ -28,7 +28,7 @@ jobs:
 
     - name: Cache
       id: cache
-      uses: actions/cache@v1.1.2
+      uses: actions/cache@v2.1.6
       with:
         path: |
           ${{steps.cv.outputs.OPENCV_PREFIX}}
