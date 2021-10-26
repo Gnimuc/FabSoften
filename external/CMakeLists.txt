@@ -10,15 +10,14 @@ FetchContent_Declare(
 
 message(STATUS "Checking shape_predictor_68_face_landmarks.dat...")
 
-FetchContent_MakeAvailable(shape_predictor_68_face_landmarks)
-
-set(face_model_dir ${shape_predictor_68_face_landmarks_SOURCE_DIR})
-set(face_model_archive ${face_model_dir}/shape_predictor_68_face_landmarks.dat.bz2)
 set(face_model_srcdir ${CMAKE_SOURCE_DIR}/models)
 set(face_model_dat ${face_model_srcdir}/shape_predictor_68_face_landmarks.dat)
 
 if (NOT EXISTS ${face_model_dat})
-    message(STATUS "${face_model_dat} is missing. Try to fetch again...")
+    message(STATUS "${face_model_dat} is missing. Try to fetch and unpack...")
+    FetchContent_MakeAvailable(shape_predictor_68_face_landmarks)
+    set(face_model_dir ${shape_predictor_68_face_landmarks_SOURCE_DIR})
+    set(face_model_archive ${face_model_dir}/shape_predictor_68_face_landmarks.dat.bz2)
     if(EXISTS ${face_model_archive})
         message(STATUS "Check downloaded info:")
         print_status(face_model_dir face_model_archive)
