@@ -20,19 +20,17 @@ jobs:
 
     - name: Set OpenCV Prefix
       id: cv
-      run: echo "::set-output name=OPENCV_PREFIX::C:\opencv\${{env.OPENCV_VER}}"
+      run: echo "::set-output name=OPENCV_PREFIX::C:\depot\opencv\${{env.OPENCV_VER}}"
 
     - name: Set dlib Prefix
       id: dlib
-      run: echo "::set-output name=DLIB_PREFIX::C:\dlib\models"
+      run: echo "::set-output name=DLIB_PREFIX::C:\depot\dlib\models"
 
     - name: Cache
       id: cache
       uses: actions/cache@v2.1.6
       with:
-        path: |
-          ${{steps.cv.outputs.OPENCV_PREFIX}}
-          ${{steps.dlib.outputs.DLIB_PREFIX}}
+        path: C:\depot
         key: ${{runner.os}}-OpenCV-${{env.OPENCV_VER}}
 
     - name: Download & Install & Cache OpenCV
