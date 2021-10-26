@@ -30,7 +30,8 @@ include(cmake/install_config.cmake)
 
 # test
 if(FABSOFTEN_BUILD_TESTS)
-    add_subdirectory(external/Catch2)
+    enable_testing()
+    add_subdirectory(external/Catch2)    
     add_subdirectory(tests)
 endif()
 
