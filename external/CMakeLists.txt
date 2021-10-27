@@ -25,7 +25,7 @@ if (NOT EXISTS ${face_model_dat})
             find_program(EXE_7ZIP 7z.exe)
             if (EXE_7ZIP)
                 message(STATUS "Found 7zip: ${EXE_7ZIP}")
-                # need to use 7zip for extracting .bz2 archives on Windows
+                # Use 7zip for extracting .bz2 archives on Windows
                 execute_process(
                     COMMAND ${EXE_7ZIP} x ${face_model_archive} -o${face_model_srcdir}
                     WORKING_DIRECTORY ${face_model_dir}
@@ -47,7 +47,7 @@ if (NOT EXISTS ${face_model_dat})
             find_program(EXE_BZIP2 bzip2)
             if (EXE_BZIP2)
                 message(STATUS "Found bzip2: ${EXE_BZIP2}")
-                # need to use bzip2 for extracting .bz2 archives on Linux/macOS
+                # Use bzip2 for extracting .bz2 archives on Linux/macOS
                 execute_process(
                     COMMAND ${EXE_BZIP2} -d -k -f ${face_model_archive}
                     WORKING_DIRECTORY ${face_model_dir}

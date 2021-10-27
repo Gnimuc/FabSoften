@@ -2,18 +2,16 @@ cmake_minimum_required(VERSION 3.21)
 
 project(FabSoften LANGUAGES CXX)
 
+# Modules
 include(cmake/utils.cmake)
 include(cmake/options.cmake)
 
-# fetch dependencies
+# External Dependencies
 add_subdirectory(external)
-# dlib
 add_subdirectory(external/dlib)
-
-# OpenCV
 find_package(OpenCV 4 REQUIRED)
 
-# config library
+# Core Library
 add_library(FabSoften SHARED)
 
 add_subdirectory(src)
@@ -25,22 +23,18 @@ target_include_directories(FabSoften PUBLIC
 
 target_compile_features(FabSoften PRIVATE cxx_std_17)
 
-# install
 include(cmake/install_config.cmake)
 
-# test
 if(FABSOFTEN_BUILD_TESTS)
     enable_testing()
     add_subdirectory(external/Catch2)
     add_subdirectory(tests)
 endif()
 
-# tool
 if(FABSOFTEN_BUILD_TOOLS)
     add_subdirectory(tools)
 endif()
 
-# examples
 if(FABSOFTEN_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()

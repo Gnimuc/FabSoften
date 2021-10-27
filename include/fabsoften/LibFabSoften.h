@@ -1,7 +1,7 @@
 #ifndef LIBFABSOFTEN_H
 #define LIBFABSOFTEN_H
 
-#include "fabsoften/platform.h"
+#include "fabsoften/Platform.h"
 
 #ifdef __cplusplus
 extern "C" {

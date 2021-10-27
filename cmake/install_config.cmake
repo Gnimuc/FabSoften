@@ -1,11 +1,11 @@
-# public headers
+# Set Public Headers
 set(pub_hdrs 
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/fabsoften/libfabsoften.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/fabsoften/platform.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/fabsoften/LibFabSoften.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/fabsoften/Platform.h
 )
 set_target_properties(FabSoften PROPERTIES PUBLIC_HEADER "${pub_hdrs}")
 
-# install compilation database
+# Install CompilationDatabase
 set_target_properties(FabSoften PROPERTIES EXPORT_COMPILE_COMMANDS true)
 set(ccmds_json ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json)
 if(EXISTS ${ccmds_json})
@@ -13,7 +13,7 @@ if(EXISTS ${ccmds_json})
     install(FILES ${ccmds_json} DESTINATION share)
 endif()
 
-# install targets
+# Install Binaries
 install(TARGETS FabSoften
         EXPORT FabSoftenTargets
         RUNTIME DESTINATION bin
@@ -22,6 +22,7 @@ install(TARGETS FabSoften
         INCLUDES DESTINATION include/fabsoften
         PUBLIC_HEADER DESTINATION include/fabsoften)
 
+# Install CMake targets
 install(EXPORT FabSoftenTargets
         NAMESPACE FabSoften::
         FILE FabSoften-config.cmake
