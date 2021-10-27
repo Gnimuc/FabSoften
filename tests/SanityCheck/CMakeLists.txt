@@ -1,4 +1,4 @@
-add_executable(SanityCheck sanity_check.cpp sanity_check.h)
+add_executable(SanityCheck SanityCheck.cpp SanityCheck.h)
 target_link_libraries(SanityCheck PRIVATE FabSoften Catch2::Catch2WithMain)
 
 add_custom_command(TARGET SanityCheck POST_BUILD
