@@ -28,12 +28,9 @@ On Windows, it's highly recommended to use `Powershell` or [Windows Terminal](ht
 ```powershell
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=~/opt
-cmake --build . --config Release --target Install
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/your_home_dir
+cmake --build . --config Release
+ctest --Release
 ```
-
-The above example installs everything to the `opt` folder in your home directory(e.g. `C:\Users\your_user_name`) and this can be changed by editing the definition of `CMAKE_INSTALL_PREFIX` when configuring CMake.
-
-Note that, `${CMAKE_INSTALL_PREFIX}\bin` may need to be added in the environment variable `Path`.
 
 ## Examples
