@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19...3.21)
+cmake_minimum_required(VERSION 3.21)
 
 project(FabSoften LANGUAGES CXX)
 
@@ -31,7 +31,7 @@ include(cmake/install_config.cmake)
 # test
 if(FABSOFTEN_BUILD_TESTS)
     enable_testing()
-    add_subdirectory(external/Catch2)    
+    add_subdirectory(external/Catch2)
     add_subdirectory(tests)
 endif()
 
