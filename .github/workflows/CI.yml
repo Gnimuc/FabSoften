@@ -26,6 +26,10 @@ jobs:
       id: dlib
       run: echo "::set-output name=DLIB_PREFIX::C:\depot\dlib\models"
 
+    - name: Set Doxygen Prefix
+      id: doxygen
+      run: echo "::set-output name=DOXYGEN_PREFIX::C:\depot\doxygen"
+
     - name: Set Install Prefix
       id: pfx
       run: echo "::set-output name=INSTALL_PREFIX::C:\opt"
@@ -35,7 +39,19 @@ jobs:
       uses: actions/cache@v2.1.6
       with:
         path: C:\depot
-        key: ${{runner.os}}-OpenCV-${{env.OPENCV_VER}}
+        key: OpenCV-${{env.OPENCV_VER}}-Doxygen
+
+    - name: Download & Cache Doxygen
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        New-Item ${{steps.doxygen.outputs.DOXYGEN_PREFIX}} -ItemType directory
+        Invoke-WebRequest -Uri https://www.doxygen.nl/files/doxygen-1.9.2-setup.exe -UserAgent "NativeHost" -OutFile ${{steps.doxygen.outputs.DOXYGEN_PREFIX}}\doxygen_setup.exe
+        ls ${{steps.doxygen.outputs.DOXYGEN_PREFIX}}
+    
+    - name: Install Doxygen
+      run: |
+        $installer = Start-Process -FilePath ${{steps.doxygen.outputs.DOXYGEN_PREFIX}}\doxygen_setup.exe -Wait -PassThru -ArgumentList @("/VERYSILENT");
+        $installer.WaitForExit();
 
     - name: Download & Install & Cache OpenCV
       if: steps.cache.outputs.cache-hit != 'true'
@@ -74,10 +90,19 @@ jobs:
     - name: Build
       working-directory: ${{github.workspace}}\build
       run: |
-        cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=${{steps.pfx.outputs.INSTALL_PREFIX}} -DFABSOFTEN_BUILD_TESTS=true
+        cmake .. -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=${{steps.pfx.outputs.INSTALL_PREFIX}} -DFABSOFTEN_BUILD_TESTS=true -DFABSOFTEN_BUILD_DOCS=true
         cmake --build . --config ${{env.BUILD_TYPE}}
 
     - name: Test
       working-directory: ${{github.workspace}}\build
       run: ctest -C ${{env.BUILD_TYPE}} --verbose
       
+    - name: Run Doxygen
+      working-directory: ${{github.workspace}}\build
+      run: cmake --build . --config ${{env.BUILD_TYPE}} --target FabSoftenDocs
+
+    - name: Deploy Docs
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{github.workspace}}\build\docs\html
