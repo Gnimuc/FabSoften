@@ -12,7 +12,7 @@ env:
   DLIB_FACE_MODEL: shape_predictor_68_face_landmarks.dat.bz2
 
 jobs:
-  build:
+  Windows:
     runs-on: windows-latest
 
     steps:
