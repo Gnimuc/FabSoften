@@ -1,6 +1,7 @@
 # FabSoften
 
 [![CI](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml/badge.svg)](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml)
+[![Build Status](https://dev.azure.com/Gnimuc/FabSoften/_apis/build/status/Gnimuc.FabSoften?branchName=main)](https://dev.azure.com/Gnimuc/FabSoften/_build/latest?definitionId=1&branchName=main)
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 [![Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://gnimuc.github.io/FabSoften)
 
@@ -12,7 +13,8 @@ This project is an unofficial implementation of [FabSoften: face beautification 
 
 Before you begin, you'll install the following softwares on your system:
 
-- [OpenCV](https://github.com/opencv/opencv): Open Source Computer Vision Library
+- [OpenCV 4](https://github.com/opencv/opencv): Open Source Computer Vision Library
+- [doxygen](https://github.com/doxygen/doxygen)(optional): The de facto standard tool for generating documentation from annotated C++ sources
 - [7zip](https://www.7-zip.org/)(optional): A file archiver with a high compression ratio
 
 [7zip](https://www.7-zip.org/) is used for extracting [bzip2](https://en.wikipedia.org/wiki/Bzip2) files(e.g. `shape_predictor_68_face_landmarks.dat.bz2`). If you'd like to [manually provide those models](./models/README.md) without auto-downloading through CMake, there is no need to use 7zip. If not, make sure `7z -h` works on the command line, for example:
@@ -40,7 +42,7 @@ On Windows, it's highly recommended to use `Powershell` or [Windows Terminal](ht
 ```powershell
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/your_home_dir
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/your_install_prefix_dir
 cmake --build . --config Release
 ctest --Release
 ```
