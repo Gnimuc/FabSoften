@@ -2,12 +2,15 @@
 
 [![CI](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml/badge.svg)](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml)
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
+[![Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://gnimuc.github.io/FabSoften)
 
 <!-- This project is mainly developed on Windows, and there is no intention to support other platforms at the moment. PRs are always welcome! -->
 
 This project is an unofficial implementation of [FabSoften: face beautification via dynamic skin smoothing, guided feathering, and texture restoration](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w31/Velusamy_FabSoften_Face_Beautification_via_Dynamic_Skin_Smoothing_Guided_Feathering_and_CVPRW_2020_paper.pdf). 
 
 ## Prerequisites
+
+Before you begin, you'll install the following softwares on your system:
 
 - [OpenCV](https://github.com/opencv/opencv): Open Source Computer Vision Library
 - [7zip](https://www.7-zip.org/)(optional): A file archiver with a high compression ratio
