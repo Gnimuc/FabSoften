@@ -1,7 +1,7 @@
 # FabSoften
 
-[![CI](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml/badge.svg)](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml)
 [![Build Status](https://dev.azure.com/Gnimuc/FabSoften/_apis/build/status/Gnimuc.FabSoften?branchName=main)](https://dev.azure.com/Gnimuc/FabSoften/_build/latest?definitionId=1&branchName=main)
+[![CI](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml/badge.svg)](https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml)
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 [![Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://gnimuc.github.io/FabSoften)
 
