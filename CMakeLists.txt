@@ -9,6 +9,7 @@ include(cmake/options.cmake)
 # External Dependencies
 add_subdirectory(external)
 add_subdirectory(external/dlib)
+add_subdirectory(external/tinyspline)
 find_package(OpenCV 4 REQUIRED)
 
 # Core Library
