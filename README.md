@@ -13,7 +13,8 @@ This project is an unofficial implementation of [FabSoften: face beautification 
 
 Before you begin, you'll install the following softwares on your system:
 
-- [OpenCV 4](https://github.com/opencv/opencv): Open Source Computer Vision Library
+- [CMake 3.21+](https://cmake.org/): An open-source, cross-platform family of tools designed to build, test and package software
+- [OpenCV 4+](https://github.com/opencv/opencv): Open Source Computer Vision Library
 - [doxygen](https://github.com/doxygen/doxygen)(optional): The de facto standard tool for generating documentation from annotated C++ sources
 - [7zip](https://www.7-zip.org/)(optional): A file archiver with a high compression ratio
 
