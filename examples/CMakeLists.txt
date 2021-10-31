@@ -1,1 +1,2 @@
 add_subdirectory(FaceLandmarkDetection)
+add_subdirectory(BinarySkinMask)
