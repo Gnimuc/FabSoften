@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>FabSoften: Face Landmark Detection</title>
+<title>FabSoften: Binary Skin Mask</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,15 +62,18 @@ $(function() {
 
 </div><!-- top -->
 <div><div class="header">
-  <div class="headertitle"><div class="title">Face Landmark Detection </div></div>
+  <div class="headertitle"><div class="title">Binary Skin Mask </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p >This example demonstrates how to use OpenCV and dlib for face landmark detection.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<div class="textblock"><p >This example demonstrates:</p><ol type="1">
+<li>how to use tinyspline for getting an approximate outer contour of facial features</li>
+<li>how to use OpenCV for estimating an ellipse that can complete the upper face region</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md2"></a>
 References</h1>
 <ul>
-<li><a href="https://github.com/davisking/dlib/blob/master/examples/face_landmark_detection_ex.cpp">https://github.com/davisking/dlib/blob/master/examples/face_landmark_detection_ex.cpp</a></li>
-<li><a href="https://docs.opencv.org/4.5.3/d0/d2e/classcv_1_1CommandLineParser.html#details">https://docs.opencv.org/4.5.3/d0/d2e/classcv_1_1CommandLineParser.html#details</a> </li>
+<li><a href="https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/">https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/</a></li>
+<li><a href="https://github.com/msteinbeck/tinyspline/blob/master/src/tinysplinecxx.h">https://github.com/msteinbeck/tinyspline/blob/master/src/tinysplinecxx.h</a> </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
