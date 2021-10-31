@@ -67,7 +67,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">FaceLandmarkDetection.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -86,7 +87,17 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_face_landmark_detection_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Face landmark detection example.  <a href="_face_landmark_detection_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">More...</a><br /></td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_face_landmark_detection_8cpp.html#a7e1ede4e5c8297e549d7fa4a6b0e47c9">cmdKeys</a></td></tr>
+<tr class="memdesc:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line keys for command line parsing.  <a href="_face_landmark_detection_8cpp.html#a7e1ede4e5c8297e549d7fa4a6b0e47c9">More...</a><br /></td></tr>
+<tr class="separator:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabd421bfb23e21854b3b1c88c6c056e9"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9">landmarkWin</a> = &quot;FaceLandmarkDetection&quot;</td></tr>
+<tr class="memdesc:aabd421bfb23e21854b3b1c88c6c056e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Face Landmark Detection Window.  <a href="_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9">More...</a><br /></td></tr>
+<tr class="separator:aabd421bfb23e21854b3b1c88c6c056e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >An example of how to do face landmark detection with OpenCV and dlib. </p>
@@ -116,6 +127,64 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Face landmark detection example. </p>
+<p >Usage: FaceLandmarkDetection.exe [params] image landmark_model </p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a7e1ede4e5c8297e549d7fa4a6b0e47c9" name="a7e1ede4e5c8297e549d7fa4a6b0e47c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e1ede4e5c8297e549d7fa4a6b0e47c9">&#9670;&nbsp;</a></span>cmdKeys</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto cmdKeys</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">    <span class="stringliteral">&quot;{help h usage ?   |       | print this message            }&quot;</span></div>
+<div class="line">    <span class="stringliteral">&quot;{@image           |&lt;none&gt; | input image                   }&quot;</span></div>
+<div class="line">    <span class="stringliteral">&quot;{@landmark_model  |&lt;none&gt; | face landmark detection model }&quot;</span></div>
+<div class="line">    <span class="stringliteral">&quot;{images_dir       |       | search path for images        }&quot;</span></div>
+<div class="line">    <span class="stringliteral">&quot;{models_dir       |       | search path for models        }&quot;</span></div>
+</div><!-- fragment -->
+<p>Command line keys for command line parsing. </p>
+
+</div>
+</div>
+<a id="aabd421bfb23e21854b3b1c88c6c056e9" name="aabd421bfb23e21854b3b1c88c6c056e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabd421bfb23e21854b3b1c88c6c056e9">&#9670;&nbsp;</a></span>landmarkWin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr auto landmarkWin = &quot;FaceLandmarkDetection&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Face Landmark Detection Window. </p>
 
 </div>
 </div>
