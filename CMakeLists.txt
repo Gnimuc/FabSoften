@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.21)
 
 project(FabSoften LANGUAGES CXX)
 
+# Turn on using VS solution folders
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 # Modules
 include(cmake/utils.cmake)
 include(cmake/options.cmake)
