@@ -1,6 +1,6 @@
 add_executable(FaceLandmarkDetection FaceLandmarkDetection.cpp)
 target_link_libraries(FaceLandmarkDetection PRIVATE dlib::dlib ${OpenCV_LIBS})
-target_compile_features(FaceLandmarkDetection PRIVATE cxx_std_23) # to enable `/std:c++latest` 
+target_compile_features(FaceLandmarkDetection PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>) # to enable `/std:c++latest` 
 
 target_compile_options(FaceLandmarkDetection PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/W3>

@@ -25,7 +25,7 @@ target_include_directories(FabSoften PUBLIC
                            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                            $<INSTALL_INTERFACE:include>)
 
-target_compile_features(FabSoften PRIVATE cxx_std_20)
+target_compile_features(FabSoften PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>)
 
 set_property(TARGET FabSoften PROPERTY ASSETS_DIR ${PROJECT_SOURCE_DIR}/assets)
 set_property(TARGET FabSoften PROPERTY MODELS_DIR ${PROJECT_SOURCE_DIR}/models)

@@ -11,6 +11,9 @@ This project is an unofficial implementation of [FabSoften: face beautification 
 
 ## Prerequisites
 
+This project uses some C++20 features(e.g. [The One Ranges Proposal](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0896r4.pdf)), so you need a relatively new C++ compiler.
+As for the `ranges` feature, you need GCC 10+, Clang++ 13+, Microsoft Visual Studio 2019 16.10+. For other features, please check https://en.cppreference.com/w/cpp/compiler_support.
+
 Before you begin, you'll install the following softwares on your system:
 
 - [CMake 3.21+](https://cmake.org/): An open-source, cross-platform family of tools designed to build, test and package software

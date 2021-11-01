@@ -1,6 +1,6 @@
 add_executable(BinarySkinMask BinarySkinMask.cpp)
 target_link_libraries(BinarySkinMask PRIVATE dlib::dlib ${OpenCV_LIBS} tinysplinecxx)
-target_compile_features(BinarySkinMask PRIVATE cxx_std_23) # to enable `/std:c++latest` 
+target_compile_features(BinarySkinMask PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>) # to enable `/std:c++latest` 
 
 target_compile_options(BinarySkinMask PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/W3>
