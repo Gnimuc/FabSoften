@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['landmarkwin_0',['landmarkWin',['../_binary_skin_mask_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;FaceLandmarkDetection.cpp']]]
+  ['edgewin_0',['edgeWin',['../_spot_concealment_8cpp.html#a7923041e2f1c56f3b532c483ff73eac0',1,'SpotConcealment.cpp']]]
 ];

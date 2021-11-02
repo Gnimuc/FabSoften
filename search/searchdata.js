@@ -3,9 +3,9 @@ var indexSectionsWithContent =
   0: "bceflmprst",
   1: "bflprs",
   2: "fmt",
-  3: "cls",
+  3: "cels",
   4: "f",
-  5: "beflm"
+  5: "beflms"
 };
 
 var indexSectionNames =

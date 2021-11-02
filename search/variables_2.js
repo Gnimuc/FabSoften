@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['skinmaskwin_0',['skinMaskWin',['../_binary_skin_mask_8cpp.html#aa580d3cc3e242d63069415cd2189c0f9',1,'BinarySkinMask.cpp']]]
+  ['landmarkwin_0',['landmarkWin',['../_binary_skin_mask_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;FaceLandmarkDetection.cpp'],['../_spot_concealment_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;SpotConcealment.cpp']]]
 ];
