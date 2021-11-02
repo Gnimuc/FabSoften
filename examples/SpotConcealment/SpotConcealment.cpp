@@ -217,7 +217,7 @@ int main(int argc, char **argv) {
   }
 
   // Spot Concealment
-  // Convert the RGB image to an intensity one
+  // Convert the RGB image to a single channel gray image
   cv::Mat grayImg;
   cv::cvtColor(workImg, grayImg, cv::COLOR_BGR2GRAY);
 
@@ -227,34 +227,21 @@ int main(int argc, char **argv) {
   const auto sigmaX = grayImg.rows / 200.0;
   cv::GaussianBlur(grayImg, blurImg1, cv::Size(3, 3), 0);
   cv::GaussianBlur(grayImg, blurImg2, cv::Size(0, 0), sigmaX, sigmaY);
-  cv::absdiff(blurImg1, blurImg2, dogImg); 
-  
+  cv::subtract(blurImg2, blurImg1, dogImg);
+
   // Apply binary mask to the image
   cv::bitwise_and(maskImg, dogImg, dogImg);
-  constexpr auto rejectT = 17.5;
-  cv::threshold(dogImg, dogImg, rejectT, 255, cv::THRESH_BINARY);
+
+  // Discard uniform skin regions
+  cv::Mat threshImg;
+  constexpr auto rejectThresh = 1;
+  cv::threshold(dogImg, threshImg, rejectThresh, 255, cv::THRESH_TOZERO);
 
   // Apply Canny Edge Detection
+  cv::GaussianBlur(threshImg, threshImg, cv::Size(0, 0), 3);
   cv::Mat edgeImg;
-  cv::GaussianBlur(dogImg, dogImg, cv::Size(0, 0), 1);
-  cv::Canny(dogImg, edgeImg, 10, 150); 
-  
-
-  //cv::normalize(dogImg, dogImg, 0, 255, cv::NORM_MINMAX);
-  //cv::threshold(dogImg, dogImg, 30, 0, cv::THRESH_TOZERO);
-  // cv::bitwise_not(edgeImg, edgeImg);
-  // cv::bitwise_and(edgeImg, blurImg, blurImg);
-  //const auto upperT = cv::threshold(dogImg, edgeImg, 10, 255, cv::THRESH_BINARY + cv::THRESH_OTSU);
-  //const auto lowT = 0.5 * upperT;
-  // std::cout << lowT << "|" << upperT << std::endl; 
-  // 
-  //try {
-  //  cv::GaussianBlur(cannyImg, cannyImg, cv::Size(0, 0), 1);
-  //  cv::Canny(cannyImg, edgeImg, 0.3, 0.5);
-  //} catch (cv::Exception &e) {
-  //  const char *err_msg = e.what();
-  //  std::cout << "exception caught: " << err_msg << std::endl;
-  //}
+  cv::Canny(threshImg, edgeImg, 1000, 3000, 7, false);
+  //cv::imwrite("../../testImg.bmp", edgeImg);
 
   // Fit image to the screen and show image
   cv::namedWindow(landmarkWin, cv::WINDOW_NORMAL);
@@ -272,7 +259,6 @@ int main(int argc, char **argv) {
   cv::setWindowProperty(skinMaskWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   cv::resizeWindow(skinMaskWin, scaledW, scaledH);
   cv::moveWindow(skinMaskWin, scaledW, 0);
-   cv::normalize(dogImg, dogImg, 0, 255, cv::NORM_MINMAX);
   cv::imshow(skinMaskWin, dogImg);
 
   // Show edges
@@ -280,7 +266,6 @@ int main(int argc, char **argv) {
   cv::setWindowProperty(edgeWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   cv::resizeWindow(edgeWin, scaledW, scaledH);
   cv::moveWindow(edgeWin, 2 * scaledW, 0);
-  cv::normalize(edgeImg, edgeImg, 0, 255, cv::NORM_MINMAX);
   cv::imshow(edgeWin, edgeImg);
   cv::waitKey();
   cv::destroyAllWindows();
