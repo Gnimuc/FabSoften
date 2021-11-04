@@ -22,22 +22,22 @@ static constexpr auto cmdKeys =
     "{images_dir       |       | search path for images        }"
     "{models_dir       |       | search path for models        }";
 
-/// @brief Face Landmark Detection Window
-static constexpr auto landmarkWin = "FaceLandmarkDetection";
+/// @brief Show input image
+static constexpr auto imageWin = "Input Image";
 
-/// @brief Binary Skin Mask Window
-static constexpr auto skinMaskWin = "BinarySkinMask";
+/// @brief Show Canny edge detection results
+static constexpr auto cannyWin = "Canny Edges";
 
-/// @brief Canny Edge Detection Window
-static constexpr auto edgeWin = "CannyEdgeDetection";
+/// @brief Show preprocessed image
+static constexpr auto processedWin = "Preprocessed Image";
 
-/// @brief Bianry skin mask example
+/// @brief blemish concealment example
 ///
 /// Usage: SpotConcealment.exe [params] image landmark_model
 int main(int argc, char **argv) {
   // Handle command line arguments
   cv::CommandLineParser parser(argc, argv, cmdKeys);
-  parser.about("Bianry skin mask example");
+  parser.about("Blemish concealment example");
   if (parser.has("help")) {
     parser.printMessage();
     return 0;
@@ -66,13 +66,17 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  // Leave the original image untouched
+  // Leave the original input image untouched
   cv::Mat workImg = inputImg.clone();
-  //cv::pyrDown(inputImg, workImg);
-  //cv::pyrDown(workImg, workImg);
-  //cv::pyrDown(workImg, workImg);
+
+  // Downsampling
+  // cv::pyrDown(inputImg, workImg);
+  // cv::pyrDown(workImg, workImg);
+  // cv::pyrDown(workImg, workImg);
+
   // Make a copy for drawing landmarks
   cv::Mat landmarkImg = workImg.clone();
+
   // Make a copy for drawing binary mask
   cv::Mat maskImg = cv::Mat::zeros(workImg.size(), CV_8UC1);
 
@@ -125,12 +129,15 @@ int main(int argc, char **argv) {
   const auto rightEye = [](const auto i) { return i >= 36 && i <= 41; };
   const auto leftEye = [](const auto i) { return i >= 42 && i <= 47; };
   const auto mouthBoundary = [](const auto i) { return i >= 48 && i <= 59; };
+  const auto rightEyeBrow = [](const auto i) { return i >= 17 && i <= 21; };
+  const auto leftEyeBrow = [](const auto i) { return i >= 22 && i <= 26; };
 
   const auto detect = [&](const auto &face) { return landmarkDetector(dlibImg, face); };
   for (const auto &shape : faces | std::views::transform(detect)) {
     std::vector<tinyspline::real> knots;
     // Join the landmark points on the boundary of facial features using cubic curve
-    const auto getCurve = [&]<typename T>(T predicate, const auto n) {
+    const auto getCurve = [&]<typename T>(T predicate, const auto n, bool isClosed = true) {
+      knots.clear();
       for (auto i :
            std::views::iota(0) | std::views::filter(predicate) | std::views::take(n)) {
         const auto point = shape.part(i);
@@ -138,8 +145,10 @@ int main(int argc, char **argv) {
         knots.push_back(point.y());
       }
       // Make a closed curve
-      knots.push_back(knots[0]);
-      knots.push_back(knots[1]);
+      if (isClosed) {
+        knots.push_back(knots[0]);
+        knots.push_back(knots[1]);
+      }
       // Interpolate the curve
       auto spline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
       return spline;
@@ -159,7 +168,6 @@ int main(int argc, char **argv) {
     }
     // Draw binary mask
     cv::fillConvexPoly(maskImg, rightEyePts, cv::Scalar(255), cv::LINE_AA);
-    knots.clear();
 
     // Left eye cubic curve
     const auto leftEyeCurve = getCurve(leftEye, 6);
@@ -174,7 +182,6 @@ int main(int argc, char **argv) {
     }
     // Draw binary mask
     cv::fillConvexPoly(maskImg, leftEyePts, cv::Scalar(255), cv::LINE_AA);
-    knots.clear();
 
     // Mouth cubic curve
     const auto mouthCurve = getCurve(mouthBoundary, 12);
@@ -214,7 +221,45 @@ int main(int argc, char **argv) {
     cv::ellipse(maskTmp, box, cv::Scalar(0), -1, cv::FILLED);
     cv::bitwise_or(maskTmp, maskImg, maskImg);
     cv::bitwise_not(maskImg, maskImg);
+
+    // Also add simple eye brow masks
+    constexpr auto eyeBrowPointNum = 50;
+    const auto offset = workImg.cols / 100;
+    std::array<cv::Point, eyeBrowPointNum> eyeBrowPts;
+    const auto leftEyeBrowCurve = getCurve(leftEyeBrow, 5, false);
+    for (const auto i : std::views::iota(0, eyeBrowPointNum)) {
+      auto net = leftEyeBrowCurve(1.0 / eyeBrowPointNum * i);
+      auto result = net.result();
+      auto x = result[0], y = result[1];
+      eyeBrowPts[i] = cv::Point(x, y + offset);
+    }
+    const auto color = cv::Scalar(0, 0, 0);
+    const auto thickness = workImg.rows / 50;
+    const auto center = cv::Point(x, y);
+    cv::polylines(maskImg, eyeBrowPts, false, color, thickness, cv::LINE_AA);
+
+    const auto rightEyeBrowCurve = getCurve(rightEyeBrow, 5, false);
+    for (const auto i : std::views::iota(0, eyeBrowPointNum)) {
+      auto net = rightEyeBrowCurve(1.0 / eyeBrowPointNum * i);
+      auto result = net.result();
+      auto x = result[0], y = result[1];
+      eyeBrowPts[i] = cv::Point(x, y + offset);
+    }
+    cv::polylines(maskImg, eyeBrowPts, false, color, thickness, cv::LINE_AA);
   }
+
+  // Expand the mask a bit
+  cv::Mat maskEx;
+  cv::Mat maskElement = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(71, 71));
+  cv::morphologyEx(maskImg, maskEx, cv::MORPH_ERODE, maskElement);
+  cv::Mat maskExs[3] = {maskEx, maskEx, maskEx};
+  cv::Mat maskEx3C;
+  cv::merge(maskExs, 3, maskEx3C);
+    
+  // Make a preserved image for future use
+  cv::Mat preservedImg, maskPres;
+  cv::bitwise_not(maskEx3C, maskPres);
+  cv::bitwise_and(workImg, maskPres, preservedImg);
 
   // Spot Concealment
   // Convert the RGB image to a single channel gray image
@@ -234,39 +279,76 @@ int main(int argc, char **argv) {
 
   // Discard uniform skin regions
   cv::Mat threshImg;
-  constexpr auto rejectThresh = 1;
-  cv::threshold(dogImg, threshImg, rejectThresh, 255, cv::THRESH_TOZERO);
+  const int sizeAT = 2 * (std::min(dogImg.cols, dogImg.rows) / 50) + 1;
+  cv::adaptiveThreshold(dogImg, threshImg, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C,
+                        cv::THRESH_BINARY, sizeAT, 0);
+  // Eroding
+  cv::Mat elErode = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(7, 7));
+  cv::morphologyEx(threshImg, threshImg, cv::MORPH_ERODE, elErode);
 
   // Apply Canny Edge Detection
   cv::GaussianBlur(threshImg, threshImg, cv::Size(0, 0), 3);
   cv::Mat edgeImg;
-  cv::Canny(threshImg, edgeImg, 1000, 3000, 7, false);
-  //cv::imwrite("../../testImg.bmp", edgeImg);
+  cv::Canny(threshImg, edgeImg, 0, 10000, 7, false);
+
+  // Dilate detected edges so the extreme outer contours can cover those blemishes
+  cv::Mat elDilate = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(11, 11));
+  cv::morphologyEx(edgeImg, edgeImg, cv::MORPH_DILATE, elDilate);
+
+  // Find contours from those detected edges
+  std::vector<std::vector<cv::Point>> contours;
+  std::vector<cv::Vec4i> hierarchy;
+  cv::findContours(edgeImg.clone(), contours, hierarchy, cv::RETR_EXTERNAL,
+                   cv::CHAIN_APPROX_SIMPLE);
+
+  // Perform a depth-first traversal to find blemish boundaries
+  constexpr auto ignoreThreshold = 30;
+  constexpr auto traversalDepth = 10 * ignoreThreshold;
+  const auto isBlemish = [](const auto &contour) {
+    const auto len = cv::arcLength(contour, true);
+    return len < traversalDepth && len > ignoreThreshold;
+  };
+  auto preprocssedImg = workImg.clone();
+  for (const auto &contour : contours | std::views::filter(isBlemish)) {
+    float b = 0.0, g = 0.0, r = 0.0;
+    for (const auto &pt : contour) {
+      auto color = workImg.at<cv::Vec3b>(pt.y, pt.x);
+      b += color[0], g += color[1], r += color[2];
+    }
+    auto len = contour.size();
+    b /= len, g /= len, r /= len;
+    auto color = cv::Scalar(static_cast<int>(b), static_cast<int>(g), static_cast<int>(r));
+    cv::fillPoly(preprocssedImg, contour, color);
+  }
+  
+  // Undo blemish concealment in the preserved facial zone
+  cv::bitwise_and(preprocssedImg, maskEx3C, preprocssedImg);
+  cv::add(preprocssedImg, preservedImg, preprocssedImg);
 
   // Fit image to the screen and show image
-  cv::namedWindow(landmarkWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(landmarkWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  auto [x, y, resW, resH] = cv::getWindowImageRect(landmarkWin);
+  cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(imageWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  auto [x, y, resW, resH] = cv::getWindowImageRect(imageWin);
   auto [imgW, imgH] = landmarkImg.size();
   const auto scaleFactor = 30;
   const auto scaledW = scaleFactor * resW / 100;
   const auto scaledH = scaleFactor * imgH * resW / (imgW * 100);
-  cv::resizeWindow(landmarkWin, scaledW, scaledH);
-  cv::imshow(landmarkWin, landmarkImg);
+  cv::resizeWindow(imageWin, scaledW, scaledH);
+  cv::imshow(imageWin, inputImg);
 
-  // Show binary skin mask
-  cv::namedWindow(skinMaskWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(skinMaskWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(skinMaskWin, scaledW, scaledH);
-  cv::moveWindow(skinMaskWin, scaledW, 0);
-  cv::imshow(skinMaskWin, dogImg);
+  // Show Canny edge detection result
+  cv::namedWindow(cannyWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(cannyWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(cannyWin, scaledW, scaledH);
+  cv::moveWindow(cannyWin, scaledW, 0);
+  cv::imshow(cannyWin, edgeImg);
 
-  // Show edges
-  cv::namedWindow(edgeWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(edgeWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(edgeWin, scaledW, scaledH);
-  cv::moveWindow(edgeWin, 2 * scaledW, 0);
-  cv::imshow(edgeWin, edgeImg);
+  // Show preprocessed image
+  cv::namedWindow(processedWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(processedWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(processedWin, scaledW, scaledH);
+  cv::moveWindow(processedWin, 2 * scaledW, 0);
+  cv::imshow(processedWin, preprocssedImg);
   cv::waitKey();
   cv::destroyAllWindows();
 
