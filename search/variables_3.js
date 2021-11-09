@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['processedwin_0',['processedWin',['../_spot_concealment_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'SpotConcealment.cpp']]]
+  ['mapwin_0',['mapWin',['../_skin_map_generation_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38',1,'SkinMapGeneration.cpp']]]
 ];

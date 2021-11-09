@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['skinmaskwin_0',['skinMaskWin',['../_binary_skin_mask_8cpp.html#aa580d3cc3e242d63069415cd2189c0f9',1,'BinarySkinMask.cpp']]]
+  ['processedwin_0',['processedWin',['../_skin_map_generation_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SpotConcealment.cpp']]]
 ];

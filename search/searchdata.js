@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "bcefilmprst",
   1: "bflprs",
   2: "fmt",
-  3: "cilps",
+  3: "cilmps",
   4: "f",
   5: "beflms"
 };
