@@ -1,6 +1,6 @@
 /**
- * @file SpotConcealment.cpp
- * @brief An example demonstrates how to detect and conceal large blemishes with Canny Edge
+ * @file SkinMapGeneration.cpp
+ * @brief An example demonstrates how to generate a skin segmentaiton map using GMM.
  * detector.
  *
  */
@@ -11,6 +11,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/ml.hpp>
 #include <ranges>
 #include <tinysplinecxx.h>
 
@@ -25,19 +26,19 @@ static constexpr auto cmdKeys =
 /// @brief Show input image
 static constexpr auto imageWin = "Input Image";
 
-/// @brief Show Canny edge detection results
-static constexpr auto cannyWin = "Canny Edges";
+/// @brief Show skin map
+static constexpr auto mapWin = "Skin Map";
 
 /// @brief Show preprocessed image
-static constexpr auto processedWin = "Preprocessed Image";
+static constexpr auto processedWin = "preprocessed Image";
 
 /// @brief blemish concealment example
 ///
-/// Usage: SpotConcealment.exe [params] image landmark_model
+/// Usage: SkinMapGeneration.exe [params] image landmark_model
 int main(int argc, char **argv) {
   // Handle command line arguments
   cv::CommandLineParser parser(argc, argv, cmdKeys);
-  parser.about("Blemish concealment example");
+  parser.about("Skin map generation example");
   if (parser.has("help")) {
     parser.printMessage();
     return 0;
@@ -68,11 +69,6 @@ int main(int argc, char **argv) {
 
   // Leave the original input image untouched
   cv::Mat workImg = inputImg.clone();
-
-  // Downsampling
-  // cv::pyrDown(inputImg, workImg);
-  // cv::pyrDown(workImg, workImg);
-  // cv::pyrDown(workImg, workImg);
 
   // Make a copy for drawing landmarks
   cv::Mat landmarkImg = workImg.clone();
@@ -255,7 +251,7 @@ int main(int argc, char **argv) {
   cv::Mat maskExs[3] = {maskEx, maskEx, maskEx};
   cv::Mat maskEx3C;
   cv::merge(maskExs, 3, maskEx3C);
-    
+
   // Make a preserved image for future use
   cv::Mat preservedImg, maskPres;
   cv::bitwise_not(maskEx3C, maskPres);
@@ -308,7 +304,7 @@ int main(int argc, char **argv) {
     const auto len = cv::arcLength(contour, true);
     return len < traversalDepth && len > ignoreThreshold;
   };
-  auto preprocssedImg = workImg.clone();
+  auto preprocessedImg = workImg.clone();
   for (const auto &contour : contours | std::views::filter(isBlemish)) {
     float b = 0.0, g = 0.0, r = 0.0;
     for (const auto &pt : contour) {
@@ -318,37 +314,176 @@ int main(int argc, char **argv) {
     auto len = contour.size();
     b /= len, g /= len, r /= len;
     auto color = cv::Scalar(static_cast<int>(b), static_cast<int>(g), static_cast<int>(r));
-    cv::fillPoly(preprocssedImg, contour, color);
+    cv::fillPoly(preprocessedImg, contour, color);
   }
-  
+
   // Undo blemish concealment in the preserved facial zone
-  cv::bitwise_and(preprocssedImg, maskEx3C, preprocssedImg);
-  cv::add(preprocssedImg, preservedImg, preprocssedImg);
+  cv::bitwise_and(preprocessedImg, maskEx3C, preprocessedImg);
+  cv::add(preprocessedImg, preservedImg, preprocessedImg);
+
+  // Skin Mask Generation
+  // Generate skin and non-skin mask
+  // clang-format off
+  // The 68 facial landmark from the iBUG 300-W dataset(https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/):
+  // Right face:        1  2  3  4 31 32 33 30 29 28 39 40 41 36  0
+  // Left face:        15 14 13 12 35 34 33 30 29 28 42 47 46 45 16
+  const size_t rightFaceIdxs[15] = {1, 2, 3, 4, 31, 32, 33, 30, 29, 28, 39, 40, 41, 36, 1};
+  const size_t leftFaceIdxs[15] = {15, 14, 13, 12, 35, 34, 33, 30, 29, 28, 42, 47, 46, 45, 15};
+  // clang-format on
+  cv::Mat skinMask = cv::Mat::zeros(maskImg.size(), CV_8UC1);
+  for (const auto &shape : faces | std::views::transform(detect)) {
+    std::vector<cv::Point> landmarks;
+    for (auto i : std::views::iota(0) | std::views::take(shape.num_parts())) {
+      const auto point = shape.part(i);
+      landmarks.push_back(cv::Point(point.x(), point.y()));
+    }
+    std::vector<tinyspline::real> knots;
+    // Right face zone
+    for (auto idx : rightFaceIdxs) {
+      const auto pt = landmarks[idx];
+      knots.push_back(pt.x);
+      knots.push_back(pt.y);
+    }
+    auto rightFaceSpline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
+    constexpr auto sampleNum = 50;
+    std::array<cv::Point, sampleNum> rightFacePts;
+    for (const auto i : std::views::iota(0, sampleNum)) {
+      auto net = rightFaceSpline(1.0 / sampleNum * i);
+      auto result = net.result();
+      auto x = result[0], y = result[1];
+      rightFacePts[i] = cv::Point(x, y);
+    }
+    cv::fillConvexPoly(skinMask, rightFacePts, cv::Scalar(255), cv::LINE_AA);
+    knots.clear();
+    // Left face zone
+    for (auto idx : leftFaceIdxs) {
+      const auto pt = landmarks[idx];
+      knots.push_back(pt.x);
+      knots.push_back(pt.y);
+    }
+    auto leftFaceSpline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
+    std::array<cv::Point, sampleNum> leftFacePts;
+    for (const auto i : std::views::iota(0, sampleNum)) {
+      auto net = leftFaceSpline(1.0 / sampleNum * i);
+      auto result = net.result();
+      auto x = result[0], y = result[1];
+      leftFacePts[i] = cv::Point(x, y);
+    }
+    cv::fillConvexPoly(skinMask, leftFacePts, cv::Scalar(255), cv::LINE_AA);
+  };
+  // skin mask
+  cv::bitwise_and(skinMask, maskEx, skinMask);
+  cv::morphologyEx(skinMask, skinMask, cv::MORPH_CLOSE, maskElement);
+  cv::Mat skinMaskExs[3] = {skinMask, skinMask, skinMask};
+  cv::Mat skinMaskEx3C;
+  cv::merge(skinMaskExs, 3, skinMaskEx3C);
+  cv::Mat skinPre = preprocessedImg.clone();
+  cv::bitwise_and(skinMaskEx3C, skinPre, skinPre);
+  // non-skin mask
+  cv::Mat nonSkinMask;
+  cv::bitwise_not(maskEx, nonSkinMask);
+  cv::Mat nonSkinMaskExs[3] = {nonSkinMask, nonSkinMask, nonSkinMask};
+  cv::Mat nonSkinMaskEx3C;
+  cv::merge(nonSkinMaskExs, 3, nonSkinMaskEx3C);
+  cv::Mat nonSkinPre = preprocessedImg.clone();
+  cv::bitwise_and(nonSkinMaskEx3C, nonSkinPre, nonSkinPre);
+
+  // Generate a skin mask cluster
+  // Downsampling
+  cv::Mat skinPreDn;
+  cv::pyrDown(skinPre, skinPreDn);
+  cv::pyrDown(skinPreDn, skinPreDn);
+  // cv::pyrDown(skinPreDn, skinPreDn);
+  skinPreDn.convertTo(skinPreDn, CV_64F);
+  cv::randShuffle(skinPreDn);
+  constexpr auto nsamples = 1000;
+  cv::Mat skinSamples;
+  const auto getSkinColor = [&](auto i) { return skinPreDn.at<cv::Vec3d>(i); };
+  const auto isNotBlack = [](auto x) { return x != cv::Vec3d(0, 0, 0); };
+  for (const auto v : std::views::iota(0) | std::views::transform(getSkinColor) |
+                          std::views::filter(isNotBlack) | std::views::take(nsamples))
+    skinSamples.push_back(v);
+  skinSamples = skinSamples.reshape(1, 0);
+  auto skinModel = cv::ml::EM::create();
+  constexpr auto K = 6;
+  skinModel->setClustersNumber(K);
+  skinModel->setCovarianceMatrixType(cv::ml::EM::COV_MAT_SPHERICAL);
+  skinModel->setTermCriteria(
+      cv::TermCriteria(cv::TermCriteria::COUNT + cv::TermCriteria::EPS, 300, 0.1));
+  skinModel->trainEM(skinSamples);
+
+  cv::RNG rng(1);
+  std::array<cv::Scalar, K> colors;
+  for (const auto i : std::views::iota(0, K))
+    colors[i] = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+
+  // Generate a non-skin mask cluster
+  // cv::Mat nonSkinPreDn;
+  // cv::pyrDown(nonSkinPre, nonSkinPreDn);
+  // cv::pyrDown(nonSkinPreDn, nonSkinPreDn);
+  //// cv::pyrDown(nonSkinPreDn, nonSkinPreDn);
+  // nonSkinPreDn.convertTo(nonSkinPreDn, CV_64F);
+  // cv::randShuffle(nonSkinPreDn);
+  // cv::Mat nonSkinSamples;
+  // const auto getNonSkinColor = [&](auto i) { return nonSkinPreDn.at<cv::Vec3d>(i); };
+  // for (const auto v : std::views::iota(0) | std::views::transform(getNonSkinColor) |
+  //                        std::views::filter(isNotBlack) | std::views::take(nsamples))
+  //  nonSkinSamples.push_back(v);
+  // nonSkinSamples = nonSkinSamples.reshape(1, 0);
+  // auto nonSkinModel = cv::ml::EM::create();
+  // nonSkinModel->setClustersNumber(8);
+  // nonSkinModel->trainEM(nonSkinSamples);
+
+  // Generate a skin probability mask
+  // Downsampling
+  cv::Mat predictImgDn;
+  cv::pyrDown(workImg, predictImgDn);
+  cv::pyrDown(predictImgDn, predictImgDn);
+  // cv::pyrDown(predictImgDn, predictImgDn);
+  cv::Mat sample(1, 3, CV_64FC1);
+  cv::Mat probs;
+  cv::Mat skinProbMask = cv::Mat::zeros(skinPreDn.size(), CV_8UC3);
+  for (const auto i : std::views::iota(0) | std::views::take(predictImgDn.total())) {
+    auto v = predictImgDn.at<cv::Vec3b>(i);
+    sample.at<double>(0) = v[0];
+    sample.at<double>(1) = v[1];
+    sample.at<double>(2) = v[2];
+    auto result = skinModel->predict2(sample, probs);
+    int idx = cvRound(result[1]);
+    auto c = colors[idx];
+    // if (probs.at<double>(idx) > 0.9)
+    skinProbMask.at<cv::Vec3b>(i) = cv::Vec3b(c[0], c[1], c[2]);
+  }
 
   // Fit image to the screen and show image
   cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(imageWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   auto [x, y, resW, resH] = cv::getWindowImageRect(imageWin);
-  auto [imgW, imgH] = landmarkImg.size();
+  auto [imgW, imgH] = inputImg.size();
   const auto scaleFactor = 30;
   const auto scaledW = scaleFactor * resW / 100;
   const auto scaledH = scaleFactor * imgH * resW / (imgW * 100);
   cv::resizeWindow(imageWin, scaledW, scaledH);
   cv::imshow(imageWin, inputImg);
 
-  // Show Canny edge detection result
-  cv::namedWindow(cannyWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(cannyWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(cannyWin, scaledW, scaledH);
-  cv::moveWindow(cannyWin, scaledW, 0);
-  cv::imshow(cannyWin, edgeImg);
+  // Show generated skin map
+  cv::namedWindow(mapWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(mapWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(mapWin, scaledW, scaledH);
+  cv::moveWindow(mapWin, scaledW, 0);
+  cv::addWeighted(skinMaskEx3C, 0.3, workImg, 1, 0, skinMaskEx3C);
+  // predictImgDn.convertTo(predictImgDn, CV_8U);
+  cv::imshow(mapWin, skinProbMask);
 
   // Show preprocessed image
   cv::namedWindow(processedWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(processedWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   cv::resizeWindow(processedWin, scaledW, scaledH);
   cv::moveWindow(processedWin, 2 * scaledW, 0);
-  cv::imshow(processedWin, preprocssedImg);
+  cv::Mat skinProbMaskUp;
+  cv::resize(skinProbMask, skinProbMaskUp, workImg.size(), cv::INTER_LINEAR);
+  cv::addWeighted(skinProbMaskUp, 0.3, workImg, 1, 0, skinProbMaskUp);
+  cv::imshow(processedWin, skinProbMaskUp);
   cv::waitKey();
   cv::destroyAllWindows();
 
