@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>FabSoften: examples/SkinMapGeneration/SkinMapGeneration.cpp File Reference</title>
+<title>FabSoften: examples/ADF/ADF.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,18 +62,18 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="dir_50dfa848ed7b7f0c46a6c20bc802a76a.html">SkinMapGeneration</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li><li class="navelem"><a class="el" href="dir_196178cfa4a3d77a0825a1309313ff9e.html">ADF</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">SkinMapGeneration.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">ADF.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>An example demonstrates how to generate a skin segmentaiton map using GMM.  
+<p>Attribute-aware Dynamic Guided Filter.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;dlib/image_processing.h&gt;</code><br />
 <code>#include &lt;dlib/image_processing/frontal_face_detector.h&gt;</code><br />
@@ -88,27 +88,27 @@ $(function() {
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_skin_map_generation_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
-<tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skin map generation example.  <a href="_skin_map_generation_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">More...</a><br /></td></tr>
+<tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_a_d_f_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
+<tr class="memdesc:a3c04138a5bfe5d72780bb7e82a18e627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attribute-aware Dynamic Guided Filter.  <a href="_a_d_f_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">More...</a><br /></td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_skin_map_generation_8cpp.html#a7e1ede4e5c8297e549d7fa4a6b0e47c9">cmdKeys</a></td></tr>
-<tr class="memdesc:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line keys for command line parsing.  <a href="_skin_map_generation_8cpp.html#a7e1ede4e5c8297e549d7fa4a6b0e47c9">More...</a><br /></td></tr>
+<tr class="memitem:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_a_d_f_8cpp.html#a7e1ede4e5c8297e549d7fa4a6b0e47c9">cmdKeys</a></td></tr>
+<tr class="memdesc:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Command line keys for command line parsing.  <a href="_a_d_f_8cpp.html#a7e1ede4e5c8297e549d7fa4a6b0e47c9">More...</a><br /></td></tr>
 <tr class="separator:a7e1ede4e5c8297e549d7fa4a6b0e47c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf13bbae2f00f893b4f0ddff8b165a77"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_skin_map_generation_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77">imageWin</a> = &quot;Input Image&quot;</td></tr>
-<tr class="memdesc:acf13bbae2f00f893b4f0ddff8b165a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show input image.  <a href="_skin_map_generation_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77">More...</a><br /></td></tr>
+<tr class="memitem:acf13bbae2f00f893b4f0ddff8b165a77"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_a_d_f_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77">imageWin</a> = &quot;Input Image&quot;</td></tr>
+<tr class="memdesc:acf13bbae2f00f893b4f0ddff8b165a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show input image.  <a href="_a_d_f_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77">More...</a><br /></td></tr>
 <tr class="separator:acf13bbae2f00f893b4f0ddff8b165a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b0389fcc6ce047db51a9a915a06de38"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_skin_map_generation_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38">mapWin</a> = &quot;Skin Map&quot;</td></tr>
-<tr class="memdesc:a2b0389fcc6ce047db51a9a915a06de38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show skin map.  <a href="_skin_map_generation_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38">More...</a><br /></td></tr>
+<tr class="memitem:a2b0389fcc6ce047db51a9a915a06de38"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_a_d_f_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38">mapWin</a> = &quot;Skin Map&quot;</td></tr>
+<tr class="memdesc:a2b0389fcc6ce047db51a9a915a06de38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show skin map.  <a href="_a_d_f_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38">More...</a><br /></td></tr>
 <tr class="separator:a2b0389fcc6ce047db51a9a915a06de38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b86d2ded07170b5b35847ad413cb56"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_skin_map_generation_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56">processedWin</a> = &quot;Preprocessed Image&quot;</td></tr>
-<tr class="memdesc:ac1b86d2ded07170b5b35847ad413cb56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show preprocessed image.  <a href="_skin_map_generation_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56">More...</a><br /></td></tr>
+<tr class="memitem:ac1b86d2ded07170b5b35847ad413cb56"><td class="memItemLeft" align="right" valign="top">static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_a_d_f_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56">processedWin</a> = &quot;Preprocessed Image&quot;</td></tr>
+<tr class="memdesc:ac1b86d2ded07170b5b35847ad413cb56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show preprocessed image.  <a href="_a_d_f_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56">More...</a><br /></td></tr>
 <tr class="separator:ac1b86d2ded07170b5b35847ad413cb56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >An example demonstrates how to generate a skin segmentaiton map using GMM. </p>
+<div class="textblock"><p >Attribute-aware Dynamic Guided Filter. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a3c04138a5bfe5d72780bb7e82a18e627" name="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c04138a5bfe5d72780bb7e82a18e627">&#9670;&nbsp;</a></span>main()</h2>
@@ -136,8 +136,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Skin map generation example. </p>
-<p >Usage: SkinMapGeneration.exe [params] image landmark_model </p>
+<p>Attribute-aware Dynamic Guided Filter. </p>
+<p >Usage: ADF.exe [params] image landmark_model </p>
 
 </div>
 </div>

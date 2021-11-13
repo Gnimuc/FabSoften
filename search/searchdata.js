@@ -1,11 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "bcefilmprst",
-  1: "bflprs",
+  0: "abcefilmprst",
+  1: "abflprs",
   2: "fmt",
   3: "cilmps",
   4: "f",
-  5: "beflms"
+  5: "abeflms"
 };
 
 var indexSectionNames =

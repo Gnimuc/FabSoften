@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['readme_2emd_0',['README.md',['../assets_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../examples_2_binary_skin_mask_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../examples_2_face_landmark_detection_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../examples_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../examples_2_skin_map_generation_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../examples_2_spot_concealment_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../external_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../models_2_r_e_a_d_m_e_8md.html',1,'(Global Namespace)'],['../_r_e_a_d_m_e_8md.html',1,'(Global Namespace)']]]
+  ['platform_2eh_0',['Platform.h',['../_platform_8h.html',1,'']]],
+  ['processedwin_1',['processedWin',['../_a_d_f_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;ADF.cpp'],['../_skin_map_generation_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SpotConcealment.cpp']]]
 ];
