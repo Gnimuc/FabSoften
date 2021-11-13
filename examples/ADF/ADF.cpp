@@ -127,125 +127,131 @@ int main(int argc, char **argv) {
   const auto rightEyeBrow = [](const auto i) { return i >= 17 && i <= 21; };
   const auto leftEyeBrow = [](const auto i) { return i >= 22 && i <= 26; };
 
+  std::vector<cv::Point> landmarks;
+  constexpr auto nFace = 1; // TODO: support multiple faces?
   const auto detect = [&](const auto &face) { return landmarkDetector(dlibImg, face); };
-  for (const auto &shape : faces | std::views::transform(detect)) {
-    std::vector<tinyspline::real> knots;
-    // Join the landmark points on the boundary of facial features using cubic curve
-    const auto getCurve = [&]<typename T>(T predicate, const auto n, bool isClosed = true) {
-      knots.clear();
-      for (const auto i :
-           std::views::iota(0) | std::views::filter(predicate) | std::views::take(n)) {
-        const auto &point = shape.part(i);
-        knots.push_back(point.x());
-        knots.push_back(point.y());
-      }
-      // Make a closed curve
-      if (isClosed) {
-        knots.push_back(knots[0]);
-        knots.push_back(knots[1]);
-      }
-      // Interpolate the curve
-      auto spline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
-      return spline;
-    };
-
-    // Right eye cubic curve
-    constexpr auto nEyeCurve = 6;
-    const auto rightEyeCurve = getCurve(rightEye, nEyeCurve);
-    // Sample landmark points from the curve
-    constexpr auto eyePointNum = 25;
-    std::array<cv::Point, eyePointNum> rightEyePts;
-    for (const auto i : std::views::iota(0, eyePointNum)) {
-      const auto net = rightEyeCurve(1.0 / eyePointNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      drawLandmark(x, y);
-      rightEyePts[i] = cv::Point(x, y);
+  for (const auto &shape :
+       faces | std::views::transform(detect) | std::views::take(nFace)) {
+    for (const auto i : std::views::iota(0) | std::views::take(shape.num_parts())) {
+      const auto &pt = shape.part(i);
+      landmarks.push_back(cv::Point(pt.x(), pt.y()));
     }
-    // Draw binary mask
-    cv::fillConvexPoly(maskImg, rightEyePts, cv::Scalar(255), cv::LINE_AA);
-
-    // Left eye cubic curve
-    const auto leftEyeCurve = getCurve(leftEye, nEyeCurve);
-    std::array<cv::Point, eyePointNum> leftEyePts;
-    // Sample landmark points from the curve
-    for (const auto i : std::views::iota(0, eyePointNum)) {
-      const auto net = leftEyeCurve(1.0 / eyePointNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      drawLandmark(x, y);
-      leftEyePts[i] = cv::Point(x, y);
-    }
-    // Draw binary mask
-    cv::fillConvexPoly(maskImg, leftEyePts, cv::Scalar(255), cv::LINE_AA);
-
-    // Mouth cubic curve
-    constexpr auto nMouthCurve = 12;
-    const auto mouthCurve = getCurve(mouthBoundary, nMouthCurve);
-    constexpr auto mouthPointNum = 40;
-    std::array<cv::Point, mouthPointNum> mouthPts;
-    // Sample landmark points from the curve
-    for (const auto i : std::views::iota(0, mouthPointNum)) {
-      const auto net = mouthCurve(1.0 / mouthPointNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      drawLandmark(x, y);
-      mouthPts[i] = cv::Point(x, y);
-    }
-    // Draw binary mask
-    cv::fillPoly(maskImg, mouthPts, cv::Scalar(255), cv::LINE_AA);
-
-    // Estimate an ellipse that can complete the upper face region
-    constexpr auto nJaw = 17;
-    std::vector<cv::Point> lowerFacePts;
-    for (auto i : std::views::iota(0) | std::views::filter(jaw) | std::views::take(nJaw)) {
-      const auto &point = shape.part(i);
-      const auto x = point.x(), y = point.y();
-      drawLandmark(x, y);
-      lowerFacePts.push_back(cv::Point(x, y));
-    }
-    // Guess a point located in the upper face region
-    // Pb: 8 (bottom of jaw)
-    // Pt: 27 (top of nose
-    const auto &Pb = shape.part(8);
-    const auto &Pt = shape.part(27);
-    const auto x = Pb.x();
-    const auto y = Pt.y() - 0.85 * abs(Pb.y() - Pt.y());
-    drawLandmark(x, y);
-    lowerFacePts.push_back(cv::Point(x, y));
-    // Fit ellipse
-    auto box = cv::fitEllipseDirect(lowerFacePts);
-    cv::Mat maskTmp = cv::Mat(maskImg.size(), CV_8UC1, cv::Scalar(255));
-    cv::ellipse(maskTmp, box, cv::Scalar(0), /*thickness=*/-1, cv::FILLED);
-    cv::bitwise_or(maskTmp, maskImg, maskImg);
-    cv::bitwise_not(maskImg, maskImg);
-
-    // Also add simple eye brow masks
-    constexpr auto nEyeBrow = 5;
-    constexpr auto eyeBrowPointNum = 50;
-    const auto offset = workImg.cols / 100;
-    std::array<cv::Point, eyeBrowPointNum> eyeBrowPts;
-    const auto leftEyeBrowCurve = getCurve(leftEyeBrow, nEyeBrow, false);
-    for (const auto i : std::views::iota(0, eyeBrowPointNum)) {
-      const auto net = leftEyeBrowCurve(1.0 / eyeBrowPointNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      eyeBrowPts[i] = cv::Point(x, y + offset);
-    }
-    const auto color = cv::Scalar(0, 0, 0);
-    const auto thickness = workImg.rows / 50;
-    const auto center = cv::Point(x, y);
-    cv::polylines(maskImg, eyeBrowPts, /*isClosed=*/false, color, thickness, cv::LINE_AA);
-
-    const auto rightEyeBrowCurve = getCurve(rightEyeBrow, nEyeBrow, false);
-    for (const auto i : std::views::iota(0, eyeBrowPointNum)) {
-      const auto net = rightEyeBrowCurve(1.0 / eyeBrowPointNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      eyeBrowPts[i] = cv::Point(x, y + offset);
-    }
-    cv::polylines(maskImg, eyeBrowPts, /*isClosed=*/false, color, thickness, cv::LINE_AA);
   }
+
+  // Join the landmark points on the boundary of facial features using cubic curve
+  std::vector<tinyspline::real> knots;
+  const auto getCurve = [&]<typename T>(T predicate, const auto n, bool isClosed = true) {
+    knots.clear();
+    for (const auto i :
+         std::views::iota(0) | std::views::filter(predicate) | std::views::take(n)) {
+      const auto &point = landmarks[i];
+      knots.push_back(point.x);
+      knots.push_back(point.y);
+    }
+    // Make a closed curve
+    if (isClosed) {
+      knots.push_back(knots[0]);
+      knots.push_back(knots[1]);
+    }
+    // Interpolate the curve
+    auto spline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
+    return spline;
+  };
+
+  // Right eye cubic curve
+  constexpr auto nEyeCurve = 6;
+  const auto rightEyeCurve = getCurve(rightEye, nEyeCurve);
+  // Sample landmark points from the curve
+  constexpr auto eyePointNum = 25;
+  std::array<cv::Point, eyePointNum> rightEyePts;
+  for (const auto i : std::views::iota(0, eyePointNum)) {
+    const auto net = rightEyeCurve(1.0 / eyePointNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    drawLandmark(x, y);
+    rightEyePts[i] = cv::Point(x, y);
+  }
+  // Draw binary mask
+  cv::fillConvexPoly(maskImg, rightEyePts, cv::Scalar(255), cv::LINE_AA);
+
+  // Left eye cubic curve
+  const auto leftEyeCurve = getCurve(leftEye, nEyeCurve);
+  std::array<cv::Point, eyePointNum> leftEyePts;
+  // Sample landmark points from the curve
+  for (const auto i : std::views::iota(0, eyePointNum)) {
+    const auto net = leftEyeCurve(1.0 / eyePointNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    drawLandmark(x, y);
+    leftEyePts[i] = cv::Point(x, y);
+  }
+  // Draw binary mask
+  cv::fillConvexPoly(maskImg, leftEyePts, cv::Scalar(255), cv::LINE_AA);
+
+  // Mouth cubic curve
+  constexpr auto nMouthCurve = 12;
+  const auto mouthCurve = getCurve(mouthBoundary, nMouthCurve);
+  constexpr auto mouthPointNum = 40;
+  std::array<cv::Point, mouthPointNum> mouthPts;
+  // Sample landmark points from the curve
+  for (const auto i : std::views::iota(0, mouthPointNum)) {
+    const auto net = mouthCurve(1.0 / mouthPointNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    drawLandmark(x, y);
+    mouthPts[i] = cv::Point(x, y);
+  }
+  // Draw binary mask
+  cv::fillPoly(maskImg, mouthPts, cv::Scalar(255), cv::LINE_AA);
+
+  // Estimate an ellipse that can complete the upper face region
+  constexpr auto nJaw = 17;
+  std::vector<cv::Point> lowerFacePts;
+  for (auto i : std::views::iota(0) | std::views::filter(jaw) | std::views::take(nJaw)) {
+    const auto &point = landmarks[i];
+    drawLandmark(point.x, point.y);
+    lowerFacePts.push_back(point);
+  }
+  // Guess a point located in the upper face region
+  // Pb: 8 (bottom of jaw)
+  // Pt: 27 (top of nose
+  const auto &Pb = landmarks[8];
+  const auto &Pt = landmarks[27];
+  const auto xUp = Pb.x;
+  const auto yUp = Pt.y - 0.85 * abs(Pb.y - Pt.y);
+  drawLandmark(xUp, yUp);
+  lowerFacePts.push_back(cv::Point(xUp, yUp));
+  // Fit ellipse
+  auto box = cv::fitEllipseDirect(lowerFacePts);
+  cv::Mat maskTmp = cv::Mat(maskImg.size(), CV_8UC1, cv::Scalar(255));
+  cv::ellipse(maskTmp, box, cv::Scalar(0), /*thickness=*/-1, cv::FILLED);
+  cv::bitwise_or(maskTmp, maskImg, maskImg);
+  cv::bitwise_not(maskImg, maskImg);
+
+  // Also add simple eye brow masks
+  constexpr auto nEyeBrow = 5;
+  constexpr auto eyeBrowPointNum = 50;
+  const auto offset = workImg.cols / 100;
+  std::array<cv::Point, eyeBrowPointNum> eyeBrowPts;
+  const auto leftEyeBrowCurve = getCurve(leftEyeBrow, nEyeBrow, false);
+  for (const auto i : std::views::iota(0, eyeBrowPointNum)) {
+    const auto net = leftEyeBrowCurve(1.0 / eyeBrowPointNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    eyeBrowPts[i] = cv::Point(x, y + offset);
+  }
+  const auto color = cv::Scalar(0, 0, 0);
+  const auto thickness = workImg.rows / 50;
+  cv::polylines(maskImg, eyeBrowPts, /*isClosed=*/false, color, thickness, cv::LINE_AA);
+
+  const auto rightEyeBrowCurve = getCurve(rightEyeBrow, nEyeBrow, false);
+  for (const auto i : std::views::iota(0, eyeBrowPointNum)) {
+    const auto net = rightEyeBrowCurve(1.0 / eyeBrowPointNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    eyeBrowPts[i] = cv::Point(x, y + offset);
+  }
+  cv::polylines(maskImg, eyeBrowPts, /*isClosed=*/false, color, thickness, cv::LINE_AA);
 
   // Expand the mask a bit
   cv::Mat maskEx;
@@ -335,46 +341,40 @@ int main(int argc, char **argv) {
   const size_t leftFaceIdxs[15] = {15, 14, 13, 12, 35, 34, 33, 30, 29, 28, 42, 47, 46, 45, 15};
   // clang-format on
   cv::Mat skinMask = cv::Mat::zeros(maskImg.size(), CV_8UC1);
-  for (const auto &shape : faces | std::views::transform(detect)) {
-    std::vector<cv::Point> landmarks;
-    for (auto i : std::views::iota(0) | std::views::take(shape.num_parts())) {
-      const auto point = shape.part(i);
-      landmarks.push_back(cv::Point(point.x(), point.y()));
-    }
-    std::vector<tinyspline::real> knots;
-    // Right face zone
-    for (const auto idx : rightFaceIdxs) {
-      const auto &pt = landmarks[idx];
-      knots.push_back(pt.x);
-      knots.push_back(pt.y);
-    }
-    auto rightFaceSpline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
-    constexpr auto sampleNum = 50;
-    std::array<cv::Point, sampleNum> rightFacePts;
-    for (const auto i : std::views::iota(0, sampleNum)) {
-      const auto net = rightFaceSpline(1.0 / sampleNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      rightFacePts[i] = cv::Point(x, y);
-    }
-    cv::fillConvexPoly(skinMask, rightFacePts, cv::Scalar(255), cv::LINE_AA);
-    knots.clear();
-    // Left face zone
-    for (const auto idx : leftFaceIdxs) {
-      const auto &pt = landmarks[idx];
-      knots.push_back(pt.x);
-      knots.push_back(pt.y);
-    }
-    auto leftFaceSpline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
-    std::array<cv::Point, sampleNum> leftFacePts;
-    for (const auto i : std::views::iota(0, sampleNum)) {
-      const auto net = leftFaceSpline(1.0 / sampleNum * i);
-      const auto result = net.result();
-      const auto x = result[0], y = result[1];
-      leftFacePts[i] = cv::Point(x, y);
-    }
-    cv::fillConvexPoly(skinMask, leftFacePts, cv::Scalar(255), cv::LINE_AA);
-  };
+  // Right face zone
+  knots.clear();
+  for (const auto idx : rightFaceIdxs) {
+    const auto &pt = landmarks[idx];
+    knots.push_back(pt.x);
+    knots.push_back(pt.y);
+  }
+  auto rightFaceSpline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
+  constexpr auto sampleNum = 50;
+  std::array<cv::Point, sampleNum> rightFacePts;
+  for (const auto i : std::views::iota(0, sampleNum)) {
+    const auto net = rightFaceSpline(1.0 / sampleNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    rightFacePts[i] = cv::Point(x, y);
+  }
+  cv::fillConvexPoly(skinMask, rightFacePts, cv::Scalar(255), cv::LINE_AA);
+  // Left face zone
+  knots.clear();
+  for (const auto idx : leftFaceIdxs) {
+    const auto &pt = landmarks[idx];
+    knots.push_back(pt.x);
+    knots.push_back(pt.y);
+  }
+  auto leftFaceSpline = tinyspline::BSpline::interpolateCubicNatural(knots, 2);
+  std::array<cv::Point, sampleNum> leftFacePts;
+  for (const auto i : std::views::iota(0, sampleNum)) {
+    const auto net = leftFaceSpline(1.0 / sampleNum * i);
+    const auto result = net.result();
+    const auto x = result[0], y = result[1];
+    leftFacePts[i] = cv::Point(x, y);
+  }
+  cv::fillConvexPoly(skinMask, leftFacePts, cv::Scalar(255), cv::LINE_AA);
+
   // skin mask
   cv::bitwise_and(skinMask, maskEx, skinMask);
   cv::morphologyEx(skinMask, skinMask, cv::MORPH_CLOSE, maskElement);
