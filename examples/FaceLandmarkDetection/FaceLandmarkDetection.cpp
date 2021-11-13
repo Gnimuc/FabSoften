@@ -1,7 +1,7 @@
 /**
  * @file FaceLandmarkDetection.cpp
  * @brief An example of how to do face landmark detection with OpenCV and dlib.
- * 
+ *
  */
 
 #include <dlib/image_processing.h>
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     cv::samples::addSamplesDataSearchPath(parser.get<cv::String>("models_dir"));
 
   // Load image
-  auto imgArg = parser.get<cv::String>("@image");
+  const auto imgArg = parser.get<cv::String>("@image");
   if (!parser.check()) {
     parser.printErrors();
     parser.printMessage();
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
   }
   // Set `required=false` to prevent `findFile` from throwing an exception.
   // Instead, we check whether the image is valid via the `empty` method.
-  auto inputImg =
+  const auto inputImg =
       cv::imread(cv::samples::findFile(imgArg, /*required=*/false, /*silentMode=*/true));
   if (inputImg.empty()) {
     std::cout << "Could not open or find the image: " << imgArg << "\n"
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
   }
 
   // Load dlib's face landmark detection model
-  auto landmarkModelArg = parser.get<cv::String>("@landmark_model");
+  const auto landmarkModelArg = parser.get<cv::String>("@landmark_model");
   if (!parser.check()) {
     parser.printErrors();
     parser.printMessage();
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     parser.printMessage();
     return -1;
   }
-  
+
   dlib::shape_predictor landmarkDetector;
   dlib::deserialize(landmarkModelPath) >> landmarkDetector;
 
@@ -86,13 +86,13 @@ int main(int argc, char **argv) {
   // Need to use `dlib::cv_image` to bridge OpenCV and dlib.
   const auto dlibImg = dlib::cv_image<dlib::bgr_pixel>(inputImg);
   auto faceDetector = dlib::get_frontal_face_detector();
-  auto faces = faceDetector(dlibImg);  // FIXME: see issue #1
+  auto faces = faceDetector(dlibImg); // FIXME: see issue #1
 
   // Detect and draw landmarks
   const auto detect = [&](const auto &face) { return landmarkDetector(dlibImg, face); };
   for (const auto &shape : faces | std::views::transform(detect)) {
-    for (unsigned long i : std::views::iota(0) | std::views::take(shape.num_parts())) {
-      const auto point = shape.part(i);
+    for (const auto i : std::views::iota(0) | std::views::take(shape.num_parts())) {
+      const auto &point = shape.part(i);
       const auto center = cv::Point(point.x(), point.y());
       constexpr auto radius = 15;
       const auto color = cv::Scalar(0, 255, 255);
@@ -104,8 +104,8 @@ int main(int argc, char **argv) {
   // Fit image to the screen and show image
   cv::namedWindow(landmarkWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(landmarkWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  auto [x, y, resW, resH] = cv::getWindowImageRect(landmarkWin);
-  auto [imgW, imgH] = inputImg.size();
+  const auto [x, y, resW, resH] = cv::getWindowImageRect(landmarkWin);
+  const auto [imgW, imgH] = inputImg.size();
   const auto scale = 40;
   cv::resizeWindow(landmarkWin, scale * resW / 100, scale * imgH * resW / (imgW * 100));
   cv::imshow(landmarkWin, inputImg);

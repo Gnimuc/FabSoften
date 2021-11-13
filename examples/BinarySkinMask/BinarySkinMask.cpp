@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     cv::samples::addSamplesDataSearchPath(parser.get<cv::String>("models_dir"));
 
   // Load image
-  auto imgArg = parser.get<cv::String>("@image");
+  const auto imgArg = parser.get<cv::String>("@image");
   if (!parser.check()) {
     parser.printErrors();
     parser.printMessage();
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
   }
   // Set `required=false` to prevent `findFile` from throwing an exception.
   // Instead, we check whether the image is valid via the `empty` method.
-  auto inputImg =
+  const auto inputImg =
       cv::imread(cv::samples::findFile(imgArg, /*required=*/false, /*silentMode=*/true));
   if (inputImg.empty()) {
     std::cout << "Could not open or find the image: " << imgArg << "\n"
@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
   cv::Mat maskImg = cv::Mat::zeros(inputImg.size(), CV_8UC1);
 
   // Load dlib's face landmark detection model
-  auto landmarkModelArg = parser.get<cv::String>("@landmark_model");
+  const auto landmarkModelArg = parser.get<cv::String>("@landmark_model");
   if (!parser.check()) {
     parser.printErrors();
     parser.printMessage();
@@ -121,9 +121,10 @@ int main(int argc, char **argv) {
     std::vector<tinyspline::real> knots;
     // Join the landmark points on the boundary of facial features using cubic curve
     const auto getCurve = [&]<typename T>(T predicate, const auto n) {
-      for (auto i :
+      knots.clear();
+      for (const auto i :
            std::views::iota(0) | std::views::filter(predicate) | std::views::take(n)) {
-        const auto point = shape.part(i);
+        const auto &point = shape.part(i);
         knots.push_back(point.x());
         knots.push_back(point.y());
       }
@@ -136,45 +137,45 @@ int main(int argc, char **argv) {
     };
 
     // Right eye cubic curve
-    const auto rightEyeCurve = getCurve(rightEye, 6);
+    constexpr auto nEyeCurve = 6;
+    const auto rightEyeCurve = getCurve(rightEye, nEyeCurve);
     // Sample landmark points from the curve
     constexpr auto eyePointNum = 25;
     std::array<cv::Point, eyePointNum> rightEyePts;
     for (const auto i : std::views::iota(0, eyePointNum)) {
-      auto net = rightEyeCurve(1.0 / eyePointNum * i);
-      auto result = net.result();
-      auto x = result[0], y = result[1];
+      const auto net = rightEyeCurve(1.0 / eyePointNum * i);
+      const auto result = net.result();
+      const auto x = result[0], y = result[1];
       drawLandmark(x, y);
       rightEyePts[i] = cv::Point(x, y);
     }
     // Draw binary mask
     cv::fillConvexPoly(maskImg, rightEyePts, cv::Scalar(255), cv::LINE_AA);
-    knots.clear();
 
     // Left eye cubic curve
-    const auto leftEyeCurve = getCurve(leftEye, 6);
+    const auto leftEyeCurve = getCurve(leftEye, nEyeCurve);
     std::array<cv::Point, eyePointNum> leftEyePts;
     // Sample landmark points from the curve
     for (const auto i : std::views::iota(0, eyePointNum)) {
-      auto net = leftEyeCurve(1.0 / eyePointNum * i);
-      auto result = net.result();
-      auto x = result[0], y = result[1];
+      const auto net = leftEyeCurve(1.0 / eyePointNum * i);
+      const auto result = net.result();
+      const auto x = result[0], y = result[1];
       drawLandmark(x, y);
       leftEyePts[i] = cv::Point(x, y);
     }
     // Draw binary mask
     cv::fillConvexPoly(maskImg, leftEyePts, cv::Scalar(255), cv::LINE_AA);
-    knots.clear();
 
     // Mouth cubic curve
-    const auto mouthCurve = getCurve(mouthBoundary, 12);
+    constexpr auto nMouthCurve = 12;
+    const auto mouthCurve = getCurve(mouthBoundary, nMouthCurve);
     constexpr auto mouthPointNum = 40;
     std::array<cv::Point, mouthPointNum> mouthPts;
     // Sample landmark points from the curve
     for (const auto i : std::views::iota(0, mouthPointNum)) {
-      auto net = mouthCurve(1.0 / mouthPointNum * i);
-      auto result = net.result();
-      auto x = result[0], y = result[1];
+      const auto net = mouthCurve(1.0 / mouthPointNum * i);
+      const auto result = net.result();
+      const auto x = result[0], y = result[1];
       drawLandmark(x, y);
       mouthPts[i] = cv::Point(x, y);
     }
@@ -182,26 +183,27 @@ int main(int argc, char **argv) {
     cv::fillPoly(maskImg, mouthPts, cv::Scalar(255), cv::LINE_AA);
 
     // Estimate an ellipse that can complete the upper face region
+    constexpr auto nJaw = 17;
     std::vector<cv::Point> lowerFacePts;
-    for (auto i : std::views::iota(0) | std::views::filter(jaw) | std::views::take(17)) {
-      const auto point = shape.part(i);
-      auto x = point.x(), y = point.y();
+    for (auto i : std::views::iota(0) | std::views::filter(jaw) | std::views::take(nJaw)) {
+      const auto &point = shape.part(i);
+      const auto x = point.x(), y = point.y();
       drawLandmark(x, y);
       lowerFacePts.push_back(cv::Point(x, y));
     }
     // Guess a point located in the upper face region
     // Pb: 8 (bottom of jaw)
     // Pt: 27 (top of nose
-    const auto Pb = shape.part(8);
-    const auto Pt = shape.part(27);
-    auto x = Pb.x();
-    auto y = Pt.y() - 0.85 * abs(Pb.y() - Pt.y());
+    const auto &Pb = shape.part(8);
+    const auto &Pt = shape.part(27);
+    const auto x = Pb.x();
+    const auto y = Pt.y() - 0.85 * abs(Pb.y() - Pt.y());
     drawLandmark(x, y);
     lowerFacePts.push_back(cv::Point(x, y));
     // Fit ellipse
-    auto box = cv::fitEllipseDirect(lowerFacePts);
+    const auto box = cv::fitEllipseDirect(lowerFacePts);
     cv::Mat maskTmp = cv::Mat(maskImg.size(), CV_8UC1, cv::Scalar(255));
-    cv::ellipse(maskTmp, box, cv::Scalar(0), -1, cv::FILLED);
+    cv::ellipse(maskTmp, box, cv::Scalar(0), /*thickness=*/-1, cv::FILLED);
     cv::bitwise_or(maskTmp, maskImg, maskImg);
     cv::bitwise_not(maskImg, maskImg);
   }
@@ -209,8 +211,8 @@ int main(int argc, char **argv) {
   // Fit image to the screen and show image
   cv::namedWindow(landmarkWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(landmarkWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  auto [x, y, resW, resH] = cv::getWindowImageRect(landmarkWin);
-  auto [imgW, imgH] = landmarkImg.size();
+  const auto [x, y, resW, resH] = cv::getWindowImageRect(landmarkWin);
+  const auto [imgW, imgH] = landmarkImg.size();
   const auto scaleFactor = 40;
   const auto scaledW = scaleFactor * resW / 100;
   const auto scaledH = scaleFactor * imgH * resW / (imgW * 100);
@@ -228,6 +230,7 @@ int main(int argc, char **argv) {
   cv::resizeWindow(skinMaskWin, scaledW, scaledH);
   cv::moveWindow(skinMaskWin, scaledW, 0);
   cv::imshow(skinMaskWin, maskImg);
+
   cv::waitKey();
   cv::destroyAllWindows();
 
