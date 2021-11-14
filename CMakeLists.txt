@@ -27,6 +27,8 @@ target_include_directories(FabSoften PUBLIC
 
 target_compile_features(FabSoften PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>)
 
+target_link_libraries(FabSoften PRIVATE ${OpenCV_LIBS})
+
 set_property(TARGET FabSoften PROPERTY ASSETS_DIR ${PROJECT_SOURCE_DIR}/assets)
 set_property(TARGET FabSoften PROPERTY MODELS_DIR ${PROJECT_SOURCE_DIR}/models)
 

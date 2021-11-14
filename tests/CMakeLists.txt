@@ -1,1 +1,2 @@
 add_subdirectory(SanityCheck)
+add_subdirectory(ADF)
