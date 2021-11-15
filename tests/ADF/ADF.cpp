@@ -34,32 +34,33 @@ TEST_CASE("ADF", "[integral image]") {
 
   constexpr auto r = 2; // radius
   const auto blockSize = cv::Size(2 * r + 1, 2 * r + 1);
+  const auto anchor = cv::Point(-1, -1);
   cv::Mat boxImg;
-  cv::boxFilter(img, boxImg, /*ddepth=*/-1, blockSize);
+  cv::boxFilter(img, boxImg, /*ddepth=*/-1, blockSize, anchor, /*normalize=*/true,
+                cv::BORDER_ISOLATED);
 
   const auto nRow = integralImg.rows, nCol = integralImg.cols;
-  constexpr auto border = cv::BORDER_DEFAULT;
   SECTION("boxfilter") {
     cv::Mat meanImg = cv::Mat::zeros(img.size(), CV_8UC3);
     for (size_t x = 0; x < img.rows; ++x)
       for (size_t y = 0; y < img.cols; ++y) {
-        const auto &sA =
-            integralImg.at<cv::Vec3i>(cv::borderInterpolate(x - r, nRow, border),
-                                      cv::borderInterpolate(y - r, nCol, border));
-        const auto &sB =
-            integralImg.at<cv::Vec3i>(cv::borderInterpolate(x - r, nRow, border),
-                                      cv::borderInterpolate(y + r + 1, nCol, border));
-        const auto &sC =
-            integralImg.at<cv::Vec3i>(cv::borderInterpolate(x + r + 1, nRow, border),
-                                      cv::borderInterpolate(y - r, nCol, border));
-        const auto &sD =
-            integralImg.at<cv::Vec3i>(cv::borderInterpolate(x + r + 1, nRow, border),
-                                      cv::borderInterpolate(y + r + 1, nCol, border));
+        const auto xA = std::max<int>(x - r, 0);
+        const auto yA = std::max<int>(y - r, 0);
+        const auto &sA = integralImg.at<cv::Vec3i>(xA, yA);
+        const auto xB = std::max<int>(x - r, 0);
+        const auto yB = std::min<int>(y + r + 1, nCol - 1);
+        const auto &sB = integralImg.at<cv::Vec3i>(xB, yB);
+        const auto xC = std::min<int>(x + r + 1, nRow - 1);
+        const auto yC = std::max<int>(y - r, 0);
+        const auto &sC = integralImg.at<cv::Vec3i>(xC, yC);
+        const auto xD = std::min<int>(x + r + 1, nRow - 1);
+        const auto yD = std::min<int>(y + r + 1, nCol - 1);
+        const auto &sD = integralImg.at<cv::Vec3i>(xD, yD);
         meanImg.at<cv::Vec3b>(x, y) = (sD + sA - sB - sC) / ((2 * r + 1) * (2 * r + 1));
       }
 
-    for (size_t x = r; x < img.rows - r; ++x)
-      for (size_t y = r; y < img.cols - r; ++y)
+    for (size_t x = 0; x < img.rows; ++x)
+      for (size_t y = 0; y < img.cols; ++y)
         REQUIRE(boxImg.at<cv::Vec3b>(x, y) == meanImg.at<cv::Vec3b>(x, y));
   }
 }
