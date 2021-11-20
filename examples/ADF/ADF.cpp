@@ -3,6 +3,7 @@
  * @brief Attribute-aware Dynamic Guided Filter.
  *
  */
+#include "fabsoften/GuidedFilter.h"
 #include <dlib/image_processing.h>
 #include <dlib/image_processing/frontal_face_detector.h>
 #include <dlib/opencv.h>
@@ -417,9 +418,9 @@ int main(int argc, char **argv) {
   skinModel->trainEM(skinSamples);
 
   cv::RNG rng(1);
-  std::array<cv::Scalar, K> colors;
+  std::array<cv::Vec3b, K> colors;
   for (const auto i : std::views::iota(0, K))
-    colors[i] = cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
+    colors[i] = cv::Vec3b(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255));
 
   // Generate a non-skin mask cluster
   // cv::Mat nonSkinPreDn;
@@ -448,16 +449,39 @@ int main(int argc, char **argv) {
   cv::Mat probs;
   cv::Mat skinProbMask = cv::Mat::zeros(skinPreDn.size(), CV_8UC3);
   for (const auto i : std::views::iota(0) | std::views::take(predictImgDn.total())) {
-    auto v = predictImgDn.at<cv::Vec3b>(i);
+    auto &v = predictImgDn.at<cv::Vec3b>(i);
     sample.at<double>(0) = v[0];
     sample.at<double>(1) = v[1];
     sample.at<double>(2) = v[2];
     auto result = skinModel->predict2(sample, probs);
     int idx = cvRound(result[1]);
-    auto c = colors[idx];
     // if (probs.at<double>(idx) > 0.9)
-    skinProbMask.at<cv::Vec3b>(i) = cv::Vec3b(c[0], c[1], c[2]);
+    skinProbMask.at<cv::Vec3b>(i) = colors[idx];
   }
+
+  // Attribute-aware Dynamic Guided Filter
+  constexpr auto alphaRadius = 10;
+  constexpr auto betaRadius = 10;
+  const auto P = [&](auto x) { return 1; };
+  auto radius = 20; // alphaRadius * P(1) + betaRadius;
+
+  const double nSpots = std::ranges::count_if(contours, isBlemish);
+  const double spotFactor = nSpots / 60;
+  const double alphaEps = 5 * spotFactor;
+  const double betaEps = 100 * spotFactor;
+  const double eps = 50; // alphaEps *nSpots + betaEps;
+
+  cv::Mat guideImg = preprocessedImg.clone();
+  guideImg.convertTo(guideImg, CV_32FC3);
+  std::array<cv::Mat, 3> channels;
+  cv::Mat radiusMat = radius * cv::Mat::ones(workImg.size(), CV_32FC1);
+  std::array<cv::Mat, 3> gfChannels;
+  cv::split(workImg, channels);
+  fabsoften::dynamicGuidedFilter(channels[0], guideImg, gfChannels[0], radiusMat, eps);
+  fabsoften::dynamicGuidedFilter(channels[1], guideImg, gfChannels[1], radiusMat, eps);
+  fabsoften::dynamicGuidedFilter(channels[2], guideImg, gfChannels[2], radiusMat, eps);
+  cv::Mat gfedImg;
+  cv::merge(gfChannels, gfedImg);
 
   // Fit image to the screen and show image
   cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
@@ -476,18 +500,19 @@ int main(int argc, char **argv) {
   cv::resizeWindow(mapWin, scaledW, scaledH);
   cv::moveWindow(mapWin, scaledW, 0);
   cv::addWeighted(skinMaskEx3C, 0.3, workImg, 1, 0, skinMaskEx3C);
-  // predictImgDn.convertTo(predictImgDn, CV_8U);
-  cv::imshow(mapWin, skinProbMask);
+  cv::imshow(mapWin, preprocessedImg);
 
   // Show preprocessed image
   cv::namedWindow(processedWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(processedWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   cv::resizeWindow(processedWin, scaledW, scaledH);
   cv::moveWindow(processedWin, 2 * scaledW, 0);
-  cv::Mat skinProbMaskUp;
-  cv::resize(skinProbMask, skinProbMaskUp, workImg.size(), cv::INTER_LINEAR);
-  cv::addWeighted(skinProbMaskUp, 0.3, workImg, 1, 0, skinProbMaskUp);
-  cv::imshow(processedWin, skinProbMaskUp);
+  // cv::Mat skinProbMaskUp;
+  // cv::resize(skinProbMask, skinProbMaskUp, workImg.size(), cv::INTER_LINEAR);
+  // cv::addWeighted(skinProbMaskUp, 0.3, workImg, 1, 0, skinProbMaskUp);
+  gfedImg.convertTo(gfedImg, CV_8UC3);
+  cv::imshow(processedWin, gfedImg);
+
   cv::waitKey();
   cv::destroyAllWindows();
 

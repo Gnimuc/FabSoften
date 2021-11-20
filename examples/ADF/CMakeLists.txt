@@ -1,5 +1,5 @@
 add_executable(ADF ADF.cpp)
-target_link_libraries(ADF PRIVATE dlib::dlib ${OpenCV_LIBS} tinysplinecxx)
+target_link_libraries(ADF PRIVATE dlib::dlib ${OpenCV_LIBS} tinysplinecxx FabSoften)
 target_compile_features(ADF PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>) # to enable `/std:c++latest` 
 
 target_compile_options(ADF PRIVATE
