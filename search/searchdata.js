@@ -1,30 +1,33 @@
 var indexSectionsWithContent =
 {
-  0: "abcefilmprst",
-  1: "abflprs",
-  2: "fmt",
-  3: "cilmps",
-  4: "f",
-  5: "abeflms"
+  0: "abcdefgilmprst",
+  1: "f",
+  2: "abfglprs",
+  3: "dfmt",
+  4: "cilmps",
+  5: "f",
+  6: "abeflms"
 };
 
 var indexSectionNames =
 {
   0: "all",
-  1: "files",
-  2: "functions",
-  3: "variables",
-  4: "defines",
-  5: "pages"
+  1: "namespaces",
+  2: "files",
+  3: "functions",
+  4: "variables",
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
 {
   0: "All",
-  1: "Files",
-  2: "Functions",
-  3: "Variables",
-  4: "Macros",
-  5: "Pages"
+  1: "Namespaces",
+  2: "Files",
+  3: "Functions",
+  4: "Variables",
+  5: "Macros",
+  6: "Pages"
 };
 

@@ -1,4 +1,11 @@
 var searchData=
 [
-  ['imagewin_0',['imageWin',['../examples_2_a_d_f_2_a_d_f_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77',1,'imageWin():&#160;ADF.cpp'],['../_skin_map_generation_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77',1,'imageWin():&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#acf13bbae2f00f893b4f0ddff8b165a77',1,'imageWin():&#160;SpotConcealment.cpp']]]
+  ['fabsoften_0',['fabsoften',['../namespacefabsoften.html',1,'']]],
+  ['fabsoften_1',['FabSoften',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['fabsoften_5fdeprecated_2',['FABSOFTEN_DEPRECATED',['../_platform_8h.html#a9c394ceb2e562f119c9b7bde1556f39f',1,'Platform.h']]],
+  ['fabsoften_5fexports_3',['FABSOFTEN_EXPORTS',['../_platform_8h.html#a6c1c4f8c0ce0be3ba6beb7ae96fadecb',1,'Platform.h']]],
+  ['fabsoften_5flinkage_4',['FABSOFTEN_LINKAGE',['../_platform_8h.html#a644f2c5bdb8ade3b9eeab18dd1cb3bf7',1,'Platform.h']]],
+  ['fabsoften_5fsanity_5fcheck_5',['fabsoften_sanity_check',['../_lib_fab_soften_8h.html#a4ebfee04bff98bcd2361dc3b9dddedc3',1,'fabsoften_sanity_check(void):&#160;LibFabSoften.cpp'],['../_lib_fab_soften_8cpp.html#ad4785ff9d0ffd5e1098befd6f526d5be',1,'fabsoften_sanity_check(void):&#160;LibFabSoften.cpp']]],
+  ['face_20landmark_20detection_6',['Face Landmark Detection',['../md_examples__face_landmark_detection__r_e_a_d_m_e.html',1,'']]],
+  ['facelandmarkdetection_2ecpp_7',['FaceLandmarkDetection.cpp',['../_face_landmark_detection_8cpp.html',1,'']]]
 ];

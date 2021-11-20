@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../examples_2_a_d_f_2_a_d_f_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;ADF.cpp'],['../_binary_skin_mask_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;FaceLandmarkDetection.cpp'],['../_skin_map_generation_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SpotConcealment.cpp']]]
+  ['fabsoften_5fsanity_5fcheck_0',['fabsoften_sanity_check',['../_lib_fab_soften_8h.html#a4ebfee04bff98bcd2361dc3b9dddedc3',1,'fabsoften_sanity_check(void):&#160;LibFabSoften.cpp'],['../_lib_fab_soften_8cpp.html#ad4785ff9d0ffd5e1098befd6f526d5be',1,'fabsoften_sanity_check(void):&#160;LibFabSoften.cpp']]]
 ];

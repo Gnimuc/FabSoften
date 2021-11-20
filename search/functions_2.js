@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['test_5fcase_0',['TEST_CASE',['../tests_2_a_d_f_2_a_d_f_8cpp.html#a9e20ea0b3ff5906c444dcc16c4fde053',1,'TEST_CASE(&quot;ADF&quot;, &quot;[integral image]&quot;):&#160;ADF.cpp'],['../_sanity_check_8cpp.html#ae878d53ac527792e7ff58f9a103e8495',1,'TEST_CASE(&quot;Sanity Check&quot;, &quot;[trivial]&quot;):&#160;SanityCheck.cpp']]]
+  ['main_0',['main',['../examples_2_a_d_f_2_a_d_f_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;ADF.cpp'],['../_binary_skin_mask_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;FaceLandmarkDetection.cpp'],['../_skin_map_generation_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SpotConcealment.cpp']]]
 ];

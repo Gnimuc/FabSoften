@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['platform_2eh_0',['Platform.h',['../_platform_8h.html',1,'']]],
-  ['processedwin_1',['processedWin',['../examples_2_a_d_f_2_a_d_f_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;ADF.cpp'],['../_skin_map_generation_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SpotConcealment.cpp']]]
+  ['landmarkwin_0',['landmarkWin',['../_binary_skin_mask_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;FaceLandmarkDetection.cpp']]],
+  ['libfabsoften_2ecpp_1',['LibFabSoften.cpp',['../_lib_fab_soften_8cpp.html',1,'']]],
+  ['libfabsoften_2eh_2',['LibFabSoften.h',['../_lib_fab_soften_8h.html',1,'']]],
+  ['license_3',['LICENSE',['../md_assets__r_e_a_d_m_e.html',1,'']]]
 ];
