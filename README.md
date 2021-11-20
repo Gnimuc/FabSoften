@@ -7,7 +7,7 @@
 
 <!-- This project is mainly developed on Windows, and there is no intention to support other platforms at the moment. PRs are always welcome! -->
 
-This project is an unofficial implementation of [FabSoften: face beautification via dynamic skin smoothing, guided feathering, and texture restoration](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w31/Velusamy_FabSoften_Face_Beautification_via_Dynamic_Skin_Smoothing_Guided_Feathering_and_CVPRW_2020_paper.pdf). This work is from Samsung R&D Institute Bangalore, India, and is very likely patented. This implementation is mainly for educational purposes, so the performance is not optimized.
+This project is an unofficial implementation of [FabSoften: face beautification via dynamic skin smoothing, guided feathering, and texture restoration](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w31/Velusamy_FabSoften_Face_Beautification_via_Dynamic_Skin_Smoothing_Guided_Feathering_and_CVPRW_2020_paper.pdf). This paper is from Samsung R&D Institute Bangalore, India, and is very likely patented. This implementation is mainly for educational purposes, so the performance is not optimized.
 
 ## Prerequisites
 
@@ -64,7 +64,7 @@ ctest --Release
   - [ ] Segmentation?
   - [ ] Guided Feathering (pending)
 - [x] Skin Imperfection Smoothing
-  - [x] Dynamic BoxFilter
+  - [x] Dynamic Mean Filter
   - [x] Attribute-aware Dynamic Guided Filter
 - [ ] Skin Texture Restoration (Wavelet-based STR)
 
