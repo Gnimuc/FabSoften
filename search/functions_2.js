@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['main_0',['main',['../examples_2_a_d_f_2_a_d_f_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;ADF.cpp'],['../_binary_skin_mask_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;FaceLandmarkDetection.cpp'],['../_skin_map_generation_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;SpotConcealment.cpp']]]
+  ['detectsingleface_0',['detectSingleFace',['../classfabsoften_1_1_face_landmark_detector.html#a2a3c8c182c2e66d9291a17cab81d7cd5',1,'fabsoften::FaceLandmarkDetector']]],
+  ['downsampling_1',['downsampling',['../classfabsoften_1_1_beautifier.html#a25c0f5f4f0a87d2ab4aa7c3859db4574',1,'fabsoften::Beautifier']]],
+  ['drawlandmark_2',['drawLandmark',['../classfabsoften_1_1_beautifier.html#a72838fa20c956e4999e6db2e43a94689',1,'fabsoften::Beautifier']]],
+  ['dynamicguidedfilter_3',['dynamicGuidedFilter',['../namespacefabsoften.html#a75b7ac63c597a3cfb2aa7b6cf8d8ec3d',1,'fabsoften']]],
+  ['dynamicmeanfilter_4',['dynamicMeanFilter',['../namespacefabsoften.html#af5ccd45704e1fdcf3cd0ce55743e08b0',1,'fabsoften']]]
 ];
