@@ -1,7 +1,12 @@
 var searchData=
 [
-  ['getfacelandmarkdetector_0',['getFaceLandmarkDetector',['../classfabsoften_1_1_beautifier.html#a6be3efdaf819a7ef688795852faf10df',1,'fabsoften::Beautifier']]],
-  ['getlandmarks_1',['getLandmarks',['../classfabsoften_1_1_face_landmark_detector.html#aca05b9a22d80d68b8a8d0714dce7b43f',1,'fabsoften::FaceLandmarkDetector']]],
-  ['guidedfilter_2ecpp_2',['GuidedFilter.cpp',['../_guided_filter_8cpp.html',1,'']]],
-  ['guidedfilter_2eh_3',['GuidedFilter.h',['../_guided_filter_8h.html',1,'']]]
+  ['getcurves_0',['getCurves',['../classfabsoften_1_1_face.html#a5791c08f07d849639e8bf6e119f13ec0',1,'fabsoften::Face']]],
+  ['getfacelandmarkdetector_1',['getFaceLandmarkDetector',['../classfabsoften_1_1_beautifier.html#a6be3efdaf819a7ef688795852faf10df',1,'fabsoften::Beautifier']]],
+  ['getidxs_2',['getIdxs',['../classfabsoften_1_1_jaw.html#abd8a08df5a6b6d13b7e77173b1a103bd',1,'fabsoften::Jaw::getIdxs()'],['../classfabsoften_1_1_eye.html#a13c482cd30aa550cc2bd50c0a7aa83d1',1,'fabsoften::Eye::getIdxs()'],['../classfabsoften_1_1_eye_brow.html#abed1312ddf64bbddabeb2340f5d64ae9',1,'fabsoften::EyeBrow::getIdxs()'],['../classfabsoften_1_1_nose.html#a838b6d19e14fa8b436bbcb889ae732cd',1,'fabsoften::Nose::getIdxs()'],['../classfabsoften_1_1_mouth.html#afb894eb16052a52acaae2656dbdedd83',1,'fabsoften::Mouth::getIdxs()'],['../classfabsoften_1_1_cheek.html#a847c972b63bf3994efc61fbdaa86f671',1,'fabsoften::Cheek::getIdxs()']]],
+  ['getkind_3',['getKind',['../classfabsoften_1_1_eye.html#aeb9f9aa3ee4fc6874f04123e8419bd66',1,'fabsoften::Eye::getKind()'],['../classfabsoften_1_1_left_eye.html#af1cc05d7e8c316a47d495bdc5b5e8c36',1,'fabsoften::LeftEye::getKind()'],['../classfabsoften_1_1_right_eye.html#add9405f87e8e185532decbb4d21bcda4',1,'fabsoften::RightEye::getKind()'],['../classfabsoften_1_1_eye_brow.html#a52bfd4306a34ea285838ac133ea8f1e8',1,'fabsoften::EyeBrow::getKind()'],['../classfabsoften_1_1_left_eye_brow.html#a142bb2409a874066f31b1f20cdd241b7',1,'fabsoften::LeftEyeBrow::getKind()'],['../classfabsoften_1_1_right_eye_brow.html#ab1decd102daf0b59fa02f56f97c75ec4',1,'fabsoften::RightEyeBrow::getKind()'],['../classfabsoften_1_1_cheek.html#abea778d5edfe20ac470b74f42afb1480',1,'fabsoften::Cheek::getKind()'],['../classfabsoften_1_1_left_cheek.html#a368f66d22748b1486b74c0e8dd352e0d',1,'fabsoften::LeftCheek::getKind()'],['../classfabsoften_1_1_right_cheek.html#ab34fb0c1ec25da24c0caba9c3d5692ed',1,'fabsoften::RightCheek::getKind()']]],
+  ['getlandmarks_4',['getLandmarks',['../classfabsoften_1_1_face_landmark_detector.html#a9577ec2d6e50fd5e1d246fd99f62f640',1,'fabsoften::FaceLandmarkDetector']]],
+  ['getmouthidxs_5',['getMouthIdxs',['../namespacefabsoften.html#a579b35e4088cb66245621ca215e12194',1,'fabsoften']]],
+  ['getregions_6',['getRegions',['../classfabsoften_1_1_face.html#a4f17270364324f1acde14d33e73c87b2',1,'fabsoften::Face']]],
+  ['guidedfilter_2ecpp_7',['GuidedFilter.cpp',['../_guided_filter_8cpp.html',1,'']]],
+  ['guidedfilter_2eh_8',['GuidedFilter.h',['../_guided_filter_8h.html',1,'']]]
 ];

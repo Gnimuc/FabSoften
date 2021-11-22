@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['processedwin_0',['processedWin',['../examples_2_a_d_f_2_a_d_f_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;ADF.cpp'],['../_skin_map_generation_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SkinMapGeneration.cpp'],['../_spot_concealment_8cpp.html#ac1b86d2ded07170b5b35847ad413cb56',1,'processedWin():&#160;SpotConcealment.cpp']]]
+  ['mapwin_0',['mapWin',['../examples_2_a_d_f_2_a_d_f_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38',1,'mapWin():&#160;ADF.cpp'],['../_skin_map_generation_8cpp.html#a2b0389fcc6ce047db51a9a915a06de38',1,'mapWin():&#160;SkinMapGeneration.cpp']]],
+  ['mouthidxs_1',['mouthIdxs',['../namespacefabsoften.html#a971647169e2d1099b539d1d72cd84fde',1,'fabsoften']]]
 ];
