@@ -1,4 +1,5 @@
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/LibFabSoften.cpp)
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/FaceLandmarkDetector.cpp)
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/FaceRegion.cpp)
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/GuidedFilter.cpp)
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Beautifier.cpp)

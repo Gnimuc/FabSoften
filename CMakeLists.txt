@@ -27,7 +27,7 @@ target_include_directories(FabSoften PUBLIC
 
 target_compile_features(FabSoften PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>)
 
-target_link_libraries(FabSoften PRIVATE ${OpenCV_LIBS} dlib::dlib)
+target_link_libraries(FabSoften PRIVATE ${OpenCV_LIBS} dlib::dlib tinysplinecxx)
 
 set_target_properties(FabSoften PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 

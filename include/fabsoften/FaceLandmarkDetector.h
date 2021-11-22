@@ -8,7 +8,7 @@
 namespace fabsoften {
 
 /**
- * @brief
+ * @brief Face Landmark Detector
  *
  */
 class FaceLandmarkDetector {
