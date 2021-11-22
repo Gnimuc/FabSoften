@@ -12,6 +12,8 @@ namespace fabsoften {
  *
  */
 class FaceLandmarkDetector {
+  using PointVec = std::vector<cv::Point>;
+
 public:
   explicit FaceLandmarkDetector(const std::string landmarkModelPath, const cv::Mat cvImg);
   FaceLandmarkDetector(const FaceLandmarkDetector &) = delete;
@@ -26,10 +28,10 @@ public:
   // TODO: support multiple faces
 
   /**
-   * @brief Return a vector of landmark positions.
+   * @brief Return a shared pointer to a vector of landmark positions.
    *
    */
-  const std::vector<cv::Point> &getLandmarks() const { return landmarks; }
+  std::shared_ptr<PointVec> getLandmarks() const { return landmarks; }
 
 private:
   /// Work image
@@ -39,7 +41,7 @@ private:
   dlib::shape_predictor shapePredictor;
 
   /// A vector of detected facial landmarks
-  std::vector<cv::Point> landmarks;
+  std::shared_ptr<PointVec> landmarks;
 };
 
 } // namespace fabsoften

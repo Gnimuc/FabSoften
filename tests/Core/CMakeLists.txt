@@ -1,8 +1,8 @@
 add_executable(Core_UNITTEST Core.cpp Core.h)
-target_link_libraries(Core_UNITTEST PRIVATE FabSoften Catch2::Catch2WithMain ${OpenCV_LIBS} dlib::dlib)
+target_link_libraries(Core_UNITTEST PRIVATE FabSoften Catch2::Catch2WithMain ${OpenCV_LIBS} dlib::dlib tinysplinecxx)
 
 target_compile_definitions(Core_UNITTEST PRIVATE UNITTEST_PROJECT_DIR="${PROJECT_SOURCE_DIR}")
-target_compile_features(Core_UNITTEST PRIVATE cxx_std_17)
+target_compile_features(Core_UNITTEST PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>) # to enable `/std:c++latest`
 
 if (WIN32)
     add_custom_command(TARGET Core_UNITTEST POST_BUILD

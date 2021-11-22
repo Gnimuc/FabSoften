@@ -233,7 +233,10 @@ private:
   CheekKind kind;
 };
 
-// TODO: add docs
+/**
+ * @brief Utility class for storing facial region info
+ *
+ */
 class Face {
   using FaceRegionMap = std::map<std::string, std::unique_ptr<FaceRegion>>;
   using CurveMap = std::map<std::string, std::vector<cv::Point>>;
@@ -251,7 +254,13 @@ private:
   CurveMap curves;
 };
 
-// TODO: add docs
+/**
+ * @brief Curve Fitting Options
+ *
+ * For now, it stores the length of the curve of each facial region.
+ * If the value <= 0, then this facial region will be ignore when traversing facial regions.
+ *
+ */
 class CurveFittingOptions {
 public:
   int nJaw;
@@ -270,7 +279,10 @@ class CurveFittingVisitor : public FaceRegionVisitor {
   using CurveMap = std::map<std::string, std::vector<cv::Point>>;
 
 public:
-  CurveFittingVisitor(std::vector<cv::Point> landmarks,
+  CurveFittingOptions opts;
+
+public:
+  CurveFittingVisitor(const std::vector<cv::Point> &landmarks,
                       CurveFittingOptions options = CurveFittingOptions())
       : landmarks(landmarks), opts(options) {}
 
@@ -285,13 +297,12 @@ public:
     for (const auto &[key, region] : face.getRegions())
       region->dispatch(*this);
 
-    // Store results in Face
+    // Store results
     face.setCurves(curves);
   }
 
 private:
   std::vector<cv::Point> landmarks;
-  CurveFittingOptions opts;
   mutable CurveMap curves;
   mutable std::vector<tinyspline::real> knots;
 };

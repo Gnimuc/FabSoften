@@ -14,14 +14,14 @@ Face::Face() {
 }
 
 void CurveFittingVisitor::handleRegion(Jaw &jaw) const {
-  if (opts.nJaw < 0)
+  if (opts.nJaw <= 0)
     return;
 
   // TODO: add impl
 }
 
 void CurveFittingVisitor::handleRegion(Eye &eye) const {
-  if (opts.nEye < 0)
+  if (opts.nEye <= 0)
     return;
 
   knots.clear();
@@ -52,7 +52,7 @@ void CurveFittingVisitor::handleRegion(Eye &eye) const {
 }
 
 void CurveFittingVisitor::handleRegion(EyeBrow &brow) const {
-  if (opts.nEyeBrow < 0)
+  if (opts.nEyeBrow <= 0)
     return;
 
   knots.clear();
@@ -79,14 +79,14 @@ void CurveFittingVisitor::handleRegion(EyeBrow &brow) const {
 }
 
 void CurveFittingVisitor::handleRegion(Nose &nose) const {
-  if (opts.nNose < 0)
+  if (opts.nNose <= 0)
     return;
 
   // TODO: add impl
 }
 
 void CurveFittingVisitor::handleRegion(Mouth &mouth) const {
-  if (opts.nMouth < 0)
+  if (opts.nMouth <= 0)
     return;
 
   knots.clear();
@@ -116,7 +116,7 @@ void CurveFittingVisitor::handleRegion(Mouth &mouth) const {
 }
 
 void CurveFittingVisitor::handleRegion(Cheek &cheek) const {
-  if (opts.nCheek < 0)
+  if (opts.nCheek <= 0)
     return;
 
   knots.clear();
