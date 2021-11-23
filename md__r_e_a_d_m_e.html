@@ -67,7 +67,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p ><a href="https://dev.azure.com/Gnimuc/FabSoften/_build/latest?definitionId=1&amp;branchName=main"><img src="https://dev.azure.com/Gnimuc/FabSoften/_apis/build/status/Gnimuc.FabSoften?branchName=main" alt="Build Status" class="inline"/></a> <a href="https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml"><img src="https://github.com/Gnimuc/FabSoften/actions/workflows/CI.yml/badge.svg" alt="CI" style="pointer-events: none;" class="inline"/></a> <a href="https://svgshare.com/i/ZhY.svg"><img src="https://svgshare.com/i/ZhY.svg" alt="Windows" style="pointer-events: none;" class="inline"/></a> <a href="https://gnimuc.github.io/FabSoften"><img src="https://img.shields.io/badge/docs-dev-blue.svg" alt="Documentation" style="pointer-events: none;" class="inline"/></a></p>
 <p >This project is an unofficial implementation of <a href="https://openaccess.thecvf.com/content_CVPRW_2020/papers/w31/Velusamy_FabSoften_Face_Beautification_via_Dynamic_Skin_Smoothing_Guided_Feathering_and_CVPRW_2020_paper.pdf">FabSoften: face beautification via dynamic skin smoothing, guided feathering, and texture restoration</a>. This paper is from Samsung R&amp;D Institute Bangalore, India, and is very likely patented. This implementation is mainly for educational purposes, so the performance is not optimized.</p>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md23"></a>
 Prerequisites</h1>
 <p >This project uses some C++20 features(e.g. <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0896r4.pdf">The One Ranges Proposal</a>), so you need a relatively new C++ compiler. As for the <code>ranges</code> feature, you need GCC 10+, Clang++ 13+, Microsoft Visual Studio 2019 16.10+. For other features, please check <a href="https://en.cppreference.com/w/cpp/compiler_support">https://en.cppreference.com/w/cpp/compiler_support</a>.</p>
 <p >Before you begin, you'll install the following softwares on your system:</p>
@@ -88,7 +88,7 @@ Prerequisites</h1>
 <div class="line">  a : Add files to archive</div>
 <div class="line">  b : Benchmark</div>
 <div class="line">...</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
 Build</h1>
 <p >On Windows, it's highly recommended to use <code>Powershell</code> or <a href="https://aka.ms/terminal">Windows Terminal</a> to build this project:</p>
 <div class="fragment"><div class="line">mkdir build</div>
@@ -96,9 +96,9 @@ Build</h1>
 <div class="line">cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/your_install_prefix_dir</div>
 <div class="line">cmake --build . --config Release</div>
 <div class="line">ctest --Release</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
 Examples</h1>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 TODO List</h1>
 <ul>
 <li>[x] Preprocessing<ul>
@@ -120,7 +120,7 @@ TODO List</h1>
 </li>
 <li>[ ] Skin Texture Restoration (Wavelet-based STR)</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 LICENSE</h1>
 <p >FabSoften is primarily distributed under the terms of the MIT license.</p>
 <p >All <em>code</em> in this repository is released under the terms of the MIT license.</p>

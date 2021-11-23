@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['landmarkwin_0',['landmarkWin',['../_binary_skin_mask_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;BinarySkinMask.cpp'],['../_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;FaceLandmarkDetection.cpp']]],
+  ['landmarkwin_0',['landmarkWin',['../_binary_skin_mask_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;BinarySkinMask.cpp'],['../_demo_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;Demo.cpp'],['../_face_landmark_detection_8cpp.html#aabd421bfb23e21854b3b1c88c6c056e9',1,'landmarkWin():&#160;FaceLandmarkDetection.cpp']]],
   ['left_1',['Left',['../classfabsoften_1_1_eye.html#ae90266f405ef50e9b5a05e70cb3a3f1da945d5e233cf7d6240f6b783b36a374ff',1,'fabsoften::Eye::Left()'],['../classfabsoften_1_1_eye_brow.html#a33159e8eedf69c445a0a357aa0796edea945d5e233cf7d6240f6b783b36a374ff',1,'fabsoften::EyeBrow::Left()'],['../classfabsoften_1_1_cheek.html#ab8f114a78f4c3f0828fe941c842079fca945d5e233cf7d6240f6b783b36a374ff',1,'fabsoften::Cheek::Left()']]],
   ['leftcheek_2',['LeftCheek',['../classfabsoften_1_1_left_cheek.html',1,'fabsoften::LeftCheek'],['../classfabsoften_1_1_left_cheek.html#ab3e8d4c8f41325774167b6a1ea177588',1,'fabsoften::LeftCheek::LeftCheek()']]],
   ['leftcheekidxs_3',['leftCheekIdxs',['../namespacefabsoften.html#ac17b5ee4632b34872e56900a38c11b2a',1,'fabsoften']]],
