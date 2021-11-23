@@ -12,7 +12,8 @@ using namespace fabsoften;
 Beautifier::Beautifier(const std::string inputImgPath, const std::string landmarkModelPath)
     : imgPath(inputImgPath), modelPath(landmarkModelPath),
       curveFitVis(std::make_unique<CurveFittingVisitor>()),
-      maskGen(std::make_unique<SkinMaskGenerator>()) {
+      maskGen(std::make_unique<SkinMaskGenerator>()),
+      blemishRM(std::make_unique<BlemishRemover>()) {
   inputImg = cv::imread(inputImgPath);
   assert(!inputImg.empty() && "Could not load image!");
   workImg = inputImg.clone();

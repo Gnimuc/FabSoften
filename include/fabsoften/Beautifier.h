@@ -1,6 +1,7 @@
 #ifndef BEAUTIFIER_H
 #define BEAUTIFIER_H
 
+#include "fabsoften/BlemishRemover.h"
 #include "fabsoften/FaceLandmarkDetector.h"
 #include "fabsoften/SkinMaskGenerator.h"
 
@@ -66,6 +67,20 @@ public:
   /// \param img Drawing target with eltype `CV_8UC1`.
   void drawBinaryMask(cv::Mat &img) { maskGen->generateBinaryMask(getFace(), img); }
 
+  bool hasBlemishRemover() const { return blemishRM != nullptr; }
+
+  BlemishRemover &getBlemishRemover() const {
+    assert(blemishRM && "Beautifier has no BlemishRemover!");
+    return *blemishRM;
+  }
+
+  BlemishRemoverOptions &getBlemishRemoverOpts() { return blemishRM->opts; }
+  const BlemishRemoverOptions &getBlemishRemoverOpts() const { return blemishRM->opts; }
+
+  void concealBlemish(const cv::Mat &mask) {
+    blemishRM->concealBlemish(workImg.clone(), workImg, mask);
+  }
+
   const cv::Mat getInputImage() const { return inputImg; }
   const cv::Mat getWorkImage() const { return workImg; }
 
@@ -97,7 +112,7 @@ private:
   std::unique_ptr<SkinMaskGenerator> maskGen;
 
   /// Blemish Remover
-  // std::unique_ptr<BlemishRemover> blemishRM;
+  std::unique_ptr<BlemishRemover> blemishRM;
 
   /// Attribute-aware Dynamic Guided Filter
   // std::unique_ptr<DynamicGuidedFilter> dynamicGF;

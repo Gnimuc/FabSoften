@@ -94,6 +94,27 @@ int main(int argc, char **argv) {
   cv::Mat maskImg = cv::Mat::zeros(workImg.size(), CV_8UC1);
   bf.drawBinaryMask(maskImg);
 
+  cv::Mat maskChannels[3] = {maskImg, maskImg, maskImg};
+  cv::Mat maskImg3C;
+  cv::merge(maskChannels, 3, maskImg3C);
+
+  cv::Mat maskOverlay;
+  cv::addWeighted(workImg, 0.7, maskImg3C, 1, 0, maskOverlay);
+
+  // Make a preserved image for future use
+  cv::Mat backgroundImg, maskBG;
+  cv::bitwise_not(maskImg3C, maskBG);
+  cv::bitwise_and(workImg, maskBG, backgroundImg);
+
+  // Spot Concealment
+  bf.concealBlemish(maskImg);
+  const auto &cannyImg = bf.getWorkImage();
+
+  // Undo blemish concealment in the preserved facial zone
+  cv::Mat spotImg;
+  cv::bitwise_and(cannyImg, maskImg3C, spotImg);
+  cv::add(spotImg, backgroundImg, spotImg);
+
   const auto &inputImg = bf.getInputImage();
   // Fit image to the screen and show image
   cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
@@ -118,11 +139,14 @@ int main(int argc, char **argv) {
   cv::setWindowProperty(maskWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   cv::resizeWindow(maskWin, scaledW, scaledH);
   cv::moveWindow(maskWin, 2 * scaledW, 0);
-  cv::Mat maskChannels[3] = {maskImg, maskImg, maskImg};
-  cv::Mat maskImg3C;
-  cv::merge(maskChannels, 3, maskImg3C);
-  cv::addWeighted(maskImg3C, 0.35, workImg, 1, 0, maskImg3C);
-  cv::imshow(maskWin, maskImg3C);
+  cv::imshow(maskWin, maskOverlay);
+
+  // Canny Edge Detection Window
+  cv::namedWindow(cannyWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(cannyWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(cannyWin, scaledW, scaledH);
+  cv::moveWindow(cannyWin, 3 * scaledW, 0);
+  cv::imshow(cannyWin, spotImg);
 
   cv::waitKey();
   cv::destroyAllWindows();
