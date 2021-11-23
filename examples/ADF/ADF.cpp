@@ -61,8 +61,7 @@ int main(int argc, char **argv) {
       cv::imread(cv::samples::findFile(imgArg, /*required=*/false, /*silentMode=*/true));
   if (inputImg.empty()) {
     std::cout << "Could not open or find the image: " << imgArg << "\n"
-              << "The image should be located in `images_dir`.\n"
-              << std::endl;
+              << "The image should be located in `images_dir`.\n";
     parser.printMessage();
     return -1;
   }
@@ -86,8 +85,7 @@ int main(int argc, char **argv) {
   auto landmarkModelPath = cv::samples::findFile(landmarkModelArg, /*required=*/false);
   if (landmarkModelPath.empty()) {
     std::cout << "Could not find the landmark model file: " << landmarkModelArg << "\n"
-              << "The model should be located in `models_dir`.\n"
-              << std::endl;
+              << "The model should be located in `models_dir`.\n";
     parser.printMessage();
     return -1;
   }

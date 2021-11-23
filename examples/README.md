@@ -1,22 +1,29 @@
 # Examples
 
-## Preprocessing
+## FabSoften C++ API
+
+- [Deme](./Demo): A demo shows how to use the high-level C++ API.
+
+## FabSoften Pipeline 
+
+These step-by-step examples are self-contained scripts for implementing the FabSoften pipeline.
+
+### Preprocessing
 
 - [FaceLandmarkDetection](./FaceLandmarkDetection)
 - [BinarySkinMask](./BinarySkinMask) 
 - [SpotConcealment](./SpotConcealment)
 
-## Skin Mask Generation
+### Skin Mask Generation
 
 - [SkinMapGeneration](./SkinMapGeneration)
-- SkinMapGuidedFiltering(pending...)
+- GuidedFeathering(pending...)
 
-## Skin Imperfection Smoothing
+### Skin Imperfection Smoothing
 
 - [Attribute-aware Dynamic Guided Filter(ADF)](./ADF)
 
-## Skin Texture Restoration
+### Skin Texture Restoration
 
+- TODO
 
-
-## FabSoften
