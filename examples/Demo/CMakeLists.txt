@@ -8,6 +8,12 @@ target_compile_options(Demo PRIVATE
 )
 
 set_target_properties(Demo PROPERTIES 
-    VS_DEBUGGER_COMMAND_ARGUMENTS "-images_dir=${PROJECT_SOURCE_DIR}/assets pexels-aadil-2598024.jpg"
+    VS_DEBUGGER_COMMAND_ARGUMENTS "-images_dir=${PROJECT_SOURCE_DIR}/assets -models_dir=${PROJECT_SOURCE_DIR}/models pexels-aadil-2598024.jpg shape_predictor_68_face_landmarks.dat"
 )
 
+if (WIN32)
+    add_custom_command(TARGET Demo POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_RUNTIME_DLLS:Demo> $<TARGET_FILE_DIR:Demo>
+        COMMAND_EXPAND_LISTS
+    )
+endif()

@@ -10,6 +10,7 @@ Face::Face(std::shared_ptr<PointVec> landmarks)
     : landmarks(std::move(landmarks)), regions(std::make_shared<FaceRegionMap>()),
       curves(std::make_shared<CurveMap>()) {
   (*regions)["Jaw"] = std::make_unique<Jaw>();
+  (*regions)["mouth"] = std::make_unique<Mouth>();
   (*regions)["LeftEye"] = std::make_unique<LeftEye>();
   (*regions)["RightEye"] = std::make_unique<RightEye>();
   (*regions)["LeftEyeBrow"] = std::make_unique<LeftEyeBrow>();

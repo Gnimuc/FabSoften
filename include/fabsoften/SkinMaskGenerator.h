@@ -26,10 +26,20 @@ public:
   /// Control the size of face region
   float faceScaleRate;
 
+  /// Control the position of eyebrow mask
+  float BrowOffsetRate;
+
+  /// Control the thickness of eyebrow mask
+  float BrowThicknessRate;
+
+  /// Control the size of the morph element
+  unsigned int ErodingSize;
+
 public:
   SkinMaskOptions()
       : EnableFace(true), EnableMouth(true), EnableEye(true), EnableEyeBrow(true),
-        EnableCheek(false), faceScaleRate(0.85f) {}
+        EnableCheek(false), faceScaleRate(0.85f), BrowOffsetRate(0.01),
+        BrowThicknessRate(0.02), ErodingSize(71) {}
 };
 
 /// \brief Class for generating skin masks.

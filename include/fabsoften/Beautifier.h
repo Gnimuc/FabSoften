@@ -45,6 +45,9 @@ public:
     return *theFace;
   }
 
+  /// Sampling fine-grained landmarks from curves.
+  void interpolateLandmarks() { curveFitVis->fit(getFace()); };
+
   CurveFittingOptions &getCurveFittingOpts() { return curveFitVis->opts; }
   const CurveFittingOptions &getCurveFittingOpts() const { return curveFitVis->opts; }
 
@@ -55,9 +58,24 @@ public:
     return *maskGen;
   }
 
-  void drawLandmarks();
+  SkinMaskOptions &getSkinMaskOpts() { return maskGen->opts; }
+  const SkinMaskOptions &getSkinMaskOpts() const { return maskGen->opts; }
 
-  static void drawLandmark(cv::Mat &img, cv::Point pt);
+  /// \brief Draw a simple binary mask on the input image.
+  ///
+  /// \param img Drawing target with eltype `CV_8UC1`.
+  void drawBinaryMask(cv::Mat &img) { maskGen->generateBinaryMask(getFace(), img); }
+
+  const cv::Mat getInputImage() const { return inputImg; }
+  const cv::Mat getWorkImage() const { return workImg; }
+
+  /// \brief Draw landmarks on the input image
+  ///
+  /// \param img The drawing target.
+  /// \param interpolated Draw sampled points from curve fitting.
+  void drawLandmarks(cv::Mat &img, bool interpolated = true);
+
+  static void drawLandmark(cv::Mat &img, const cv::Point pt);
 
 private:
   /// Path to the input image
@@ -84,7 +102,7 @@ private:
   /// Attribute-aware Dynamic Guided Filter
   // std::unique_ptr<DynamicGuidedFilter> dynamicGF;
 
-  /// Maintain a copy of the input image
+  /// Maintain a intact copy of the input image
   cv::Mat inputImg;
 
   /// Work image

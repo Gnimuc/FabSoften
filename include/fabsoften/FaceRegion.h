@@ -47,13 +47,8 @@ constexpr auto nNose = 9;
 static constexpr std::array<int, nNose> noseIdxs{27, 28, 29, 30, 31, 32, 33, 34, 35};
 
 constexpr auto nMouth = 12;
-consteval auto getMouthIdxs() {
-  std::array<int, nMouth> mouthIdxs{};
-  for (const auto i : std::views::iota(0) | std::views::take(nMouth))
-    mouthIdxs[i] = i;
-  return mouthIdxs;
-}
-static constexpr auto mouthIdxs = getMouthIdxs();
+static constexpr std::array<int, nMouth> mouthIdxs{48, 49, 50, 51, 52, 53,
+                                                   54, 55, 56, 57, 58, 59};
 
 constexpr auto nCheek = 15;
 static constexpr std::array<int, nCheek> rightCheekIdxs{1,  2,  3,  4,  31, 32, 33, 30,

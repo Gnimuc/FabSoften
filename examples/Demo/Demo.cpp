@@ -2,7 +2,7 @@
 /// \brief A demo shows how to use the high-level C++ API.
 ///
 
-#include "fabsoften\"
+#include "fabsoften\Beautifier.h"
 #include <iostream>
 #include <opencv2/highgui.hpp>
 
@@ -19,6 +19,9 @@ static constexpr auto imageWin = "Input Image";
 
 /// \brief Show landmarks
 static constexpr auto landmarkWin = "Landmarks";
+
+/// \brief Show binary mask
+static constexpr auto maskWin = "Mask";
 
 /// \brief Show Canny edge detection results
 static constexpr auto cannyWin = "Canny Edges";
@@ -51,7 +54,8 @@ int main(int argc, char **argv) {
   }
   // Set `required=false` to prevent `findFile` from throwing an exception.
   // Instead, we check whether the image is valid via the `empty` method.
-  const auto inputImgPath = cv::samples::findFile(imgArg, /*required=*/false, /*silentMode=*/true);
+  const auto inputImgPath =
+      cv::samples::findFile(imgArg, /*required=*/false, /*silentMode=*/true);
   if (inputImgPath.empty()) {
     std::cout << "Could not find the image: " << imgArg << "\n"
               << "The image should be located in `images_dir`.\n";
@@ -74,32 +78,51 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  // Create helper class
+  fabsoften::Beautifier bf(inputImgPath, landmarkModelPath);
 
+  // Detect and draw landmarks
+  bf.createFaceLandmarkDetector();
+  bf.createFace();
+  bf.interpolateLandmarks();
 
+  const auto &workImg = bf.getWorkImage();
+  cv::Mat landmarkImg = workImg.clone();
+  bf.drawLandmarks(landmarkImg);
+
+  // Create a simple binary mask
+  cv::Mat maskImg = cv::Mat::zeros(workImg.size(), CV_8UC1);
+  bf.drawBinaryMask(maskImg);
+
+  const auto &inputImg = bf.getInputImage();
   // Fit image to the screen and show image
   cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(imageWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   const auto [x, y, resW, resH] = cv::getWindowImageRect(imageWin);
-  const auto [imgW, imgH] = landmarkImg.size();
-  const auto scaleFactor = 50;
+  const auto [imgW, imgH] = inputImg.size();
+  const auto scaleFactor = 20;
   const auto scaledW = scaleFactor * resW / 100;
   const auto scaledH = scaleFactor * imgH * resW / (imgW * 100);
   cv::resizeWindow(imageWin, scaledW, scaledH);
   cv::imshow(imageWin, inputImg);
 
-  // Canny edge Window
-  cv::namedWindow(cannyWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(cannyWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(cannyWin, scaledW, scaledH);
-  cv::moveWindow(cannyWin, scaledW, 0);
-  cv::imshow(cannyWin, edgeImg);
+  // Landmarks Window
+  cv::namedWindow(landmarkWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(landmarkWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(landmarkWin, scaledW, scaledH);
+  cv::moveWindow(landmarkWin, scaledW, 0);
+  cv::imshow(landmarkWin, landmarkImg);
 
-  // 
-  cv::namedWindow(processedWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(processedWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(processedWin, scaledW, scaledH);
-  cv::moveWindow(processedWin, 2 * scaledW, 0);
-  cv::imshow(processedWin, preprocssedImg);
+  // Mask Window
+  cv::namedWindow(maskWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(maskWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(maskWin, scaledW, scaledH);
+  cv::moveWindow(maskWin, 2 * scaledW, 0);
+  cv::Mat maskChannels[3] = {maskImg, maskImg, maskImg};
+  cv::Mat maskImg3C;
+  cv::merge(maskChannels, 3, maskImg3C);
+  cv::addWeighted(maskImg3C, 0.35, workImg, 1, 0, maskImg3C);
+  cv::imshow(maskWin, maskImg3C);
 
   cv::waitKey();
   cv::destroyAllWindows();

@@ -41,7 +41,20 @@ void Beautifier::createFace() {
   theFace = std::make_unique<Face>(detector->getLandmarks());
 }
 
-void Beautifier::drawLandmark(cv::Mat &img, cv::Point pt) {
+void Beautifier::drawLandmarks(cv::Mat &img, bool interpolated) {
+  if (interpolated) {
+    const auto curves = theFace->getCurves();
+    for (const auto &map = *(curves); auto &[key, pts] : map)
+      if (key != "leftCheek" && key != "rightCheek")
+        for (const auto &pt : pts)
+          Beautifier::drawLandmark(img, pt);
+  } else {
+    for (const auto landmarks = theFace->getLandmarks(); auto &pt : *landmarks)
+      Beautifier::drawLandmark(img, pt);
+  }
+}
+
+void Beautifier::drawLandmark(cv::Mat &img, const cv::Point pt) {
   const auto color = cv::Scalar(0, 255, 255);
   const auto radius = img.rows / 300;
   const auto thickness = radius / 2;
