@@ -1,7 +1,6 @@
-/**
- * @file Beautifier.cpp
- * @brief Beautifier Implmentation
- */
+/// \file Beautifier.cpp
+/// \brief Beautifier Implmentation
+///
 
 #include "fabsoften/Beautifier.h"
 #include <opencv2/imgcodecs.hpp>
@@ -11,7 +10,9 @@
 using namespace fabsoften;
 
 Beautifier::Beautifier(const std::string inputImgPath, const std::string landmarkModelPath)
-    : imgPath(inputImgPath), modelPath(landmarkModelPath) {
+    : imgPath(inputImgPath), modelPath(landmarkModelPath),
+      curveFitVis(std::make_unique<CurveFittingVisitor>()),
+      maskGen(std::make_unique<SkinMaskGenerator>()) {
   inputImg = cv::imread(inputImgPath);
   assert(!inputImg.empty() && "Could not load image!");
   workImg = inputImg.clone();
@@ -28,6 +29,16 @@ void Beautifier::createFaceLandmarkDetector() {
 void Beautifier::setFaceLandmarkDetector(
     std::unique_ptr<FaceLandmarkDetector> newDetector) {
   detector = std::move(newDetector);
+}
+
+void Beautifier::createFace() {
+  assert(hasFaceLandmarkDetector() && "No FaceLandmarkDetector found in the Beautifier!");
+
+  // Run detector if there is no available results
+  if (detector->getLandmarks()->size() == 0)
+    detector->detectSingleFace();
+
+  theFace = std::make_unique<Face>(detector->getLandmarks());
 }
 
 void Beautifier::drawLandmark(cv::Mat &img, cv::Point pt) {

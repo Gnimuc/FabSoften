@@ -22,7 +22,11 @@ void CurveFittingVisitor::handleRegion(Jaw &jaw) const {
   if (opts.nJaw <= 0)
     return;
 
-  // TODO: add impl
+  // No interpolation for Jaw
+  for (const auto &idx : jaw.getIdxs()) {
+    const auto &point = (*landmarks)[idx];
+    (*curves)["jaw"].push_back(point);
+  }
 }
 
 void CurveFittingVisitor::handleRegion(Eye &eye) const {

@@ -1,6 +1,5 @@
 #include "ADF.h"
 #include <catch2/catch_test_macros.hpp>
-#include <iostream>
 #include <opencv2/imgproc.hpp>
 
 TEST_CASE("ADF", "[integral image]") {

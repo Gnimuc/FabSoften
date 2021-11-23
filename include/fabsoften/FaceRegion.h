@@ -279,7 +279,7 @@ public:
 
 public:
   CurveFittingOptions()
-      : nJaw(-1), nEye(25), nEyeBrow(50), nNose(-1), nMouth(40), nCheek(-1) {}
+      : nJaw(INT_MAX), nEye(25), nEyeBrow(50), nNose(-1), nMouth(40), nCheek(50) {}
 };
 
 /// CurveFittingVisitor - Join the landmark points using cubic curves.

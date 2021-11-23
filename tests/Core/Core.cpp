@@ -11,12 +11,27 @@ TEST_CASE("Core", "[Beautifier]") {
 
   fabsoften::Beautifier bf(testImgPath.string(), testModelPath.string());
   bf.createFaceLandmarkDetector();
+
   SECTION("Face Landmark Detector") {
     REQUIRE(bf.hasFaceLandmarkDetector());
-    // Run detector
     auto &detector = bf.getFaceLandmarkDetector();
     detector.detectSingleFace();
     const auto landmarks = detector.getLandmarks();
     REQUIRE(landmarks->size() == 68);
+  }
+
+  SECTION("Face Creation") {
+    bf.createFace();
+    REQUIRE(bf.hasFace());
+  }
+
+  SECTION("Curve Fitting Options") {
+    const auto &opts = bf.getCurveFittingOpts();
+    REQUIRE(opts.nJaw > 0);
+    REQUIRE(opts.nEye > 0);
+    REQUIRE(opts.nEyeBrow > 0);
+    REQUIRE(opts.nMouth > 0);
+    REQUIRE(opts.nNose <= 0);
+    REQUIRE(opts.nCheek > 0);
   }
 }
