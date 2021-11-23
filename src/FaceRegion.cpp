@@ -1,16 +1,21 @@
+/// \file FaceRegion.cpp
+/// \brief FaceRegion Implmentation
+
 #include "fabsoften/FaceRegion.h"
 #include "ranges"
 
 using namespace fabsoften;
 
-Face::Face() {
-  regions["Jaw"] = std::make_unique<Jaw>();
-  regions["LeftEye"] = std::make_unique<LeftEye>();
-  regions["RightEye"] = std::make_unique<RightEye>();
-  regions["LeftEyeBrow"] = std::make_unique<LeftEyeBrow>();
-  regions["RightEyeBrow"] = std::make_unique<RightEyeBrow>();
-  regions["LeftCheek"] = std::make_unique<LeftCheek>();
-  regions["RightCheek"] = std::make_unique<RightCheek>();
+Face::Face(std::shared_ptr<PointVec> landmarks)
+    : landmarks(std::move(landmarks)), regions(std::make_shared<FaceRegionMap>()),
+      curves(std::make_shared<CurveMap>()) {
+  (*regions)["Jaw"] = std::make_unique<Jaw>();
+  (*regions)["LeftEye"] = std::make_unique<LeftEye>();
+  (*regions)["RightEye"] = std::make_unique<RightEye>();
+  (*regions)["LeftEyeBrow"] = std::make_unique<LeftEyeBrow>();
+  (*regions)["RightEyeBrow"] = std::make_unique<RightEyeBrow>();
+  (*regions)["LeftCheek"] = std::make_unique<LeftCheek>();
+  (*regions)["RightCheek"] = std::make_unique<RightCheek>();
 }
 
 void CurveFittingVisitor::handleRegion(Jaw &jaw) const {
@@ -28,7 +33,7 @@ void CurveFittingVisitor::handleRegion(Eye &eye) const {
 
   // Make a curve
   for (const auto &idx : eye.getIdxs()) {
-    const auto &point = landmarks[idx];
+    const auto &point = (*landmarks)[idx];
     knots.push_back(point.x);
     knots.push_back(point.y);
   }
@@ -47,7 +52,7 @@ void CurveFittingVisitor::handleRegion(Eye &eye) const {
     const auto net = spline(1.0 / num * i);
     const auto result = net.result();
     const auto x = result[0], y = result[1];
-    curves[name].push_back(cv::Point(x, y));
+    (*curves)[name].push_back(cv::Point(x, y));
   }
 }
 
@@ -59,7 +64,7 @@ void CurveFittingVisitor::handleRegion(EyeBrow &brow) const {
 
   // Make a curve
   for (const auto &idx : brow.getIdxs()) {
-    const auto &point = landmarks[idx];
+    const auto &point = (*landmarks)[idx];
     knots.push_back(point.x);
     knots.push_back(point.y);
   }
@@ -74,7 +79,7 @@ void CurveFittingVisitor::handleRegion(EyeBrow &brow) const {
     const auto net = spline(1.0 / num * i);
     const auto result = net.result();
     const auto x = result[0], y = result[1];
-    curves[name].push_back(cv::Point(x, y));
+    (*curves)[name].push_back(cv::Point(x, y));
   }
 }
 
@@ -93,7 +98,7 @@ void CurveFittingVisitor::handleRegion(Mouth &mouth) const {
 
   // Make a curve
   for (const auto &idx : mouth.getIdxs()) {
-    const auto &point = landmarks[idx];
+    const auto &point = (*landmarks)[idx];
     knots.push_back(point.x);
     knots.push_back(point.y);
   }
@@ -111,7 +116,7 @@ void CurveFittingVisitor::handleRegion(Mouth &mouth) const {
     const auto net = spline(1.0 / num * i);
     const auto result = net.result();
     const auto x = result[0], y = result[1];
-    curves["mouth"].push_back(cv::Point(x, y));
+    (*curves)["mouth"].push_back(cv::Point(x, y));
   }
 }
 
@@ -123,7 +128,7 @@ void CurveFittingVisitor::handleRegion(Cheek &cheek) const {
 
   // Make a curve
   for (const auto &idx : cheek.getIdxs()) {
-    const auto &point = landmarks[idx];
+    const auto &point = (*landmarks)[idx];
     knots.push_back(point.x);
     knots.push_back(point.y);
   }
@@ -138,6 +143,6 @@ void CurveFittingVisitor::handleRegion(Cheek &cheek) const {
     const auto net = spline(1.0 / num * i);
     const auto result = net.result();
     const auto x = result[0], y = result[1];
-    curves[name].push_back(cv::Point(x, y));
+    (*curves)[name].push_back(cv::Point(x, y));
   }
 }

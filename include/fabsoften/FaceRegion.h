@@ -233,34 +233,41 @@ private:
   CheekKind kind;
 };
 
-/**
- * @brief Utility class for storing facial region info
- *
- */
+/// Utility class for storing facial region info.
 class Face {
+  using PointVec = std::vector<cv::Point>;
   using FaceRegionMap = std::map<std::string, std::unique_ptr<FaceRegion>>;
   using CurveMap = std::map<std::string, std::vector<cv::Point>>;
 
 public:
-  Face();
+  explicit Face(std::shared_ptr<PointVec> landmarks);
 
-  const FaceRegionMap &getRegions() const { return regions; }
+  std::shared_ptr<const PointVec> getLandmarks() const { return landmarks; }
+  std::shared_ptr<PointVec> getLandmarks() { return landmarks; }
 
-  const CurveMap &getCurves() const { return curves; }
-  void setCurves(const CurveMap &x) { curves = x; }
+  std::shared_ptr<const FaceRegionMap> getRegions() const { return regions; }
+  std::shared_ptr<FaceRegionMap> getRegions() { return regions; }
+
+  std::shared_ptr<CurveMap> getCurves() const { return curves; }
+
+  void setCurves(std::shared_ptr<CurveMap> x) { curves = std::move(x); }
 
 private:
-  FaceRegionMap regions;
-  CurveMap curves;
+  /// Store the landmarks from FaceLandmarkDetector
+  std::shared_ptr<PointVec> landmarks;
+
+  /// Store the indices of each face region
+  std::shared_ptr<FaceRegionMap> regions;
+
+  /// Store the results from CurveFittingVisitor
+  std::shared_ptr<CurveMap> curves;
 };
 
-/**
- * @brief Curve Fitting Options
- *
- * For now, it stores the length of the curve of each facial region.
- * If the value <= 0, then this facial region will be ignore when traversing facial regions.
- *
- */
+/// \brief Curve Fitting Options
+///
+/// This class stores the length of the curve of each facial region.
+/// If the value <= 0, then this facial region will be ignore when traversing facial
+/// regions.
 class CurveFittingOptions {
 public:
   int nJaw;
@@ -275,16 +282,17 @@ public:
       : nJaw(-1), nEye(25), nEyeBrow(50), nNose(-1), nMouth(40), nCheek(-1) {}
 };
 
+/// CurveFittingVisitor - Join the landmark points using cubic curves.
 class CurveFittingVisitor : public FaceRegionVisitor {
+  using PointVec = std::vector<cv::Point>;
   using CurveMap = std::map<std::string, std::vector<cv::Point>>;
 
 public:
   CurveFittingOptions opts;
 
 public:
-  CurveFittingVisitor(const std::vector<cv::Point> &landmarks,
-                      CurveFittingOptions options = CurveFittingOptions())
-      : landmarks(landmarks), opts(options) {}
+  CurveFittingVisitor(CurveFittingOptions options = CurveFittingOptions())
+      : opts(options) {}
 
   void handleRegion(Jaw &jaw) const override;
   void handleRegion(Eye &eye) const override;
@@ -293,17 +301,19 @@ public:
   void handleRegion(Mouth &mouth) const override;
   void handleRegion(Cheek &cheek) const override;
 
-  void fit(Face &face) const {
-    for (const auto &[key, region] : face.getRegions())
-      region->dispatch(*this);
+  /// \brief Run the curve fitting.
+  /// \param face The face object which carries facial region info.
+  void fit(Face &face) {
+    curves = face.getCurves();
+    landmarks = face.getLandmarks();
 
-    // Store results
-    face.setCurves(curves);
+    for (auto regions = face.getRegions(); const auto &[key, region] : *regions)
+      region->dispatch(*this);
   }
 
 private:
-  std::vector<cv::Point> landmarks;
-  mutable CurveMap curves;
+  std::shared_ptr<PointVec> landmarks;
+  mutable std::shared_ptr<CurveMap> curves;
   mutable std::vector<tinyspline::real> knots;
 };
 

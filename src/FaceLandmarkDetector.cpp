@@ -1,7 +1,7 @@
-/**
- * @file FaceLandmarkDetector.cpp
- * @brief FaceLandmarkDetector Implmentation
- */
+/// \file FaceLandmarkDetector.cpp
+/// \brief FaceLandmarkDetector Implmentation
+///
+/// TODO: Add implementation for multiple facial landmark detection.
 
 #include "fabsoften/FaceLandmarkDetector.h"
 #include <ranges>
@@ -9,13 +9,12 @@
 using namespace fabsoften;
 
 FaceLandmarkDetector::FaceLandmarkDetector(const std::string landmarkModelPath,
-                                           const cv::Mat cvImg) {
+                                           const cv::Mat cvImg)
+    : landmarks(std::make_shared<PointVec>()) {
   // Load model
   dlib::deserialize(landmarkModelPath) >> shapePredictor;
   // Bridge OpenCV and dlib
   img = dlib::cv_image<dlib::bgr_pixel>(cvImg);
-  // Allocate a vector for storing landmarks
-  landmarks = std::make_shared<PointVec>();
 }
 
 void FaceLandmarkDetector::detectSingleFace() {

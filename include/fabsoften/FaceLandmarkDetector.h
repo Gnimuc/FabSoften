@@ -7,30 +7,19 @@
 
 namespace fabsoften {
 
-/**
- * @brief Face Landmark Detector
- *
- */
+/// Class to detect and generate facial landmarks.
 class FaceLandmarkDetector {
   using PointVec = std::vector<cv::Point>;
 
 public:
   explicit FaceLandmarkDetector(const std::string landmarkModelPath, const cv::Mat cvImg);
-  FaceLandmarkDetector(const FaceLandmarkDetector &) = delete;
-  FaceLandmarkDetector &operator=(const FaceLandmarkDetector &) = delete;
 
-  /**
-   * @brief Run the facial detector and store detected landmarks for the first detected face
-   *
-   */
+  /// Run the facial detector and store detected landmarks for the first detected face.
   void detectSingleFace();
 
   // TODO: support multiple faces
 
-  /**
-   * @brief Return a shared pointer to a vector of landmark positions.
-   *
-   */
+  /// Return a shared pointer to a vector of landmark positions.
   std::shared_ptr<PointVec> getLandmarks() const { return landmarks; }
 
 private:
