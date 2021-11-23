@@ -127,6 +127,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7e1f9e49d003559c71208ab0e51a47cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a7e1f9e49d003559c71208ab0e51a47cf">drawBinaryMask</a> (cv::Mat &amp;img)</td></tr>
 <tr class="memdesc:a7e1f9e49d003559c71208ab0e51a47cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a simple binary mask on the input image.  <a href="classfabsoften_1_1_beautifier.html#a7e1f9e49d003559c71208ab0e51a47cf">More...</a><br /></td></tr>
 <tr class="separator:a7e1f9e49d003559c71208ab0e51a47cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e5ef348646772993f3fe1521daade1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#af9e5ef348646772993f3fe1521daade1">hasBlemishRemover</a> () const</td></tr>
+<tr class="separator:af9e5ef348646772993f3fe1521daade1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200137d4ed27f3d54cbfd79cf08cf3f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfabsoften_1_1_blemish_remover.html">BlemishRemover</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a200137d4ed27f3d54cbfd79cf08cf3f7">getBlemishRemover</a> () const</td></tr>
+<tr class="separator:a200137d4ed27f3d54cbfd79cf08cf3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18c3ca93a5f67128ec64b5f32ab602e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfabsoften_1_1_blemish_remover_options.html">BlemishRemoverOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a18c3ca93a5f67128ec64b5f32ab602e0">getBlemishRemoverOpts</a> ()</td></tr>
+<tr class="separator:a18c3ca93a5f67128ec64b5f32ab602e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab436f1ca04f7ba9e97044c8d5e0aa6a1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classfabsoften_1_1_blemish_remover_options.html">BlemishRemoverOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#ab436f1ca04f7ba9e97044c8d5e0aa6a1">getBlemishRemoverOpts</a> () const</td></tr>
+<tr class="separator:ab436f1ca04f7ba9e97044c8d5e0aa6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58cd568e361504d5f245d731176ecb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#ae58cd568e361504d5f245d731176ecb5">concealBlemish</a> (const cv::Mat &amp;mask)</td></tr>
+<tr class="separator:ae58cd568e361504d5f245d731176ecb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58bc0f8d21c801feb6b8f178a1e5a2be"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a58bc0f8d21c801feb6b8f178a1e5a2be">getInputImage</a> () const</td></tr>
 <tr class="separator:a58bc0f8d21c801feb6b8f178a1e5a2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1240157b70e82a92d8e6c4e302fc8012"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a1240157b70e82a92d8e6c4e302fc8012">getWorkImage</a> () const</td></tr>
@@ -180,6 +190,32 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae58cd568e361504d5f245d731176ecb5" name="ae58cd568e361504d5f245d731176ecb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58cd568e361504d5f245d731176ecb5">&#9670;&nbsp;</a></span>concealBlemish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fabsoften::Beautifier::concealBlemish </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>mask</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9b125dd6579c0d0b4ddfa6489eb980e8" name="a9b125dd6579c0d0b4ddfa6489eb980e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9b125dd6579c0d0b4ddfa6489eb980e8">&#9670;&nbsp;</a></span>createFace()</h2>
 
@@ -341,6 +377,81 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a200137d4ed27f3d54cbfd79cf08cf3f7" name="a200137d4ed27f3d54cbfd79cf08cf3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200137d4ed27f3d54cbfd79cf08cf3f7">&#9670;&nbsp;</a></span>getBlemishRemover()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfabsoften_1_1_blemish_remover.html">BlemishRemover</a> &amp; fabsoften::Beautifier::getBlemishRemover </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18c3ca93a5f67128ec64b5f32ab602e0" name="a18c3ca93a5f67128ec64b5f32ab602e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18c3ca93a5f67128ec64b5f32ab602e0">&#9670;&nbsp;</a></span>getBlemishRemoverOpts() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfabsoften_1_1_blemish_remover_options.html">BlemishRemoverOptions</a> &amp; fabsoften::Beautifier::getBlemishRemoverOpts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab436f1ca04f7ba9e97044c8d5e0aa6a1" name="ab436f1ca04f7ba9e97044c8d5e0aa6a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab436f1ca04f7ba9e97044c8d5e0aa6a1">&#9670;&nbsp;</a></span>getBlemishRemoverOpts() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classfabsoften_1_1_blemish_remover_options.html">BlemishRemoverOptions</a> &amp; fabsoften::Beautifier::getBlemishRemoverOpts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -555,6 +666,31 @@ Static Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const cv::Mat fabsoften::Beautifier::getWorkImage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af9e5ef348646772993f3fe1521daade1" name="af9e5ef348646772993f3fe1521daade1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e5ef348646772993f3fe1521daade1">&#9670;&nbsp;</a></span>hasBlemishRemover()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool fabsoften::Beautifier::hasBlemishRemover </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
