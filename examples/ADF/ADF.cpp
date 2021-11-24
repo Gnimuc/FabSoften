@@ -3,7 +3,7 @@
  * @brief Attribute-aware Dynamic Guided Filter.
  *
  */
-#include "fabsoften/GuidedFilter.h"
+#include "ADF.h"
 #include <dlib/image_processing.h>
 #include <dlib/image_processing/frontal_face_detector.h>
 #include <dlib/opencv.h>
@@ -61,8 +61,7 @@ int main(int argc, char **argv) {
       cv::imread(cv::samples::findFile(imgArg, /*required=*/false, /*silentMode=*/true));
   if (inputImg.empty()) {
     std::cout << "Could not open or find the image: " << imgArg << "\n"
-              << "The image should be located in `images_dir`.\n"
-              << std::endl;
+              << "The image should be located in `images_dir`.\n";
     parser.printMessage();
     return -1;
   }
@@ -86,8 +85,7 @@ int main(int argc, char **argv) {
   auto landmarkModelPath = cv::samples::findFile(landmarkModelArg, /*required=*/false);
   if (landmarkModelPath.empty()) {
     std::cout << "Could not find the landmark model file: " << landmarkModelArg << "\n"
-              << "The model should be located in `models_dir`.\n"
-              << std::endl;
+              << "The model should be located in `models_dir`.\n";
     parser.printMessage();
     return -1;
   }
@@ -477,9 +475,9 @@ int main(int argc, char **argv) {
   cv::Mat radiusMat = radius * cv::Mat::ones(workImg.size(), CV_32FC1);
   std::array<cv::Mat, 3> gfChannels;
   cv::split(workImg, channels);
-  fabsoften::dynamicGuidedFilter(channels[0], guideImg, gfChannels[0], radiusMat, eps);
-  fabsoften::dynamicGuidedFilter(channels[1], guideImg, gfChannels[1], radiusMat, eps);
-  fabsoften::dynamicGuidedFilter(channels[2], guideImg, gfChannels[2], radiusMat, eps);
+  dynamicGuidedFilter(channels[0], guideImg, gfChannels[0], radiusMat, eps);
+  dynamicGuidedFilter(channels[1], guideImg, gfChannels[1], radiusMat, eps);
+  dynamicGuidedFilter(channels[2], guideImg, gfChannels[2], radiusMat, eps);
   cv::Mat gfedImg;
   cv::merge(gfChannels, gfedImg);
 

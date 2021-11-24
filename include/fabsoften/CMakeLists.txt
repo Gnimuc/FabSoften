@@ -1,3 +1,8 @@
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/LibFabSoften.h)
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Platform.h)
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/FaceLandmarkDetector.h)
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/FaceRegion.h)
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/SkinMaskGenerator.h)
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/BlemishRemover.h)
 target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/GuidedFilter.h)
+target_sources(FabSoften PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Beautifier.h)
