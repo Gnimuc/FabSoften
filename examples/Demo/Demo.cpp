@@ -115,6 +115,11 @@ int main(int argc, char **argv) {
   cv::bitwise_and(cannyImg, maskImg3C, spotImg);
   cv::add(spotImg, backgroundImg, spotImg);
 
+  // Attribute-aware Dynamic Guided Filter
+  cv::Mat gfImg;
+  bf.runADF(maskImg, spotImg, workImg, gfImg);
+  gfImg.convertTo(gfImg, CV_8U);
+
   const auto &inputImg = bf.getInputImage();
   // Fit image to the screen and show image
   cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
@@ -147,6 +152,13 @@ int main(int argc, char **argv) {
   cv::resizeWindow(cannyWin, scaledW, scaledH);
   cv::moveWindow(cannyWin, 3 * scaledW, 0);
   cv::imshow(cannyWin, spotImg);
+
+  // Processed Window
+  cv::namedWindow(processedWin, cv::WINDOW_NORMAL);
+  cv::setWindowProperty(processedWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+  cv::resizeWindow(processedWin, scaledW, scaledH);
+  cv::moveWindow(processedWin, 4 * scaledW, 0);
+  cv::imshow(processedWin, gfImg);
 
   cv::waitKey();
   cv::destroyAllWindows();

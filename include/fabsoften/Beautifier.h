@@ -3,6 +3,7 @@
 
 #include "fabsoften/BlemishRemover.h"
 #include "fabsoften/FaceLandmarkDetector.h"
+#include "fabsoften/GuidedFilter.h"
 #include "fabsoften/SkinMaskGenerator.h"
 
 namespace fabsoften {
@@ -81,6 +82,26 @@ public:
     blemishRM->concealBlemish(workImg.clone(), workImg, mask);
   }
 
+  bool hasGuidedFilter() const { return gf != nullptr; }
+
+  GuidedFilter &getGuidedFilter() const {
+    assert(gf && "Beautifier has no GuidedFilter!");
+    return *gf;
+  }
+
+  GFOptions &getGuidedFilterOpts() { return gf->opts; }
+  const GFOptions &getGuidedFilterOpts() const { return gf->opts; }
+
+  /// \brief
+  /// \param mask
+  /// \param guidance
+  /// \param src
+  /// \param dst
+  void runADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
+              cv::Mat &dst) {
+    gf->runADF(mask, guidance, src, dst);
+  }
+
   const cv::Mat getInputImage() const { return inputImg; }
   const cv::Mat getWorkImage() const { return workImg; }
 
@@ -115,7 +136,7 @@ private:
   std::unique_ptr<BlemishRemover> blemishRM;
 
   /// Attribute-aware Dynamic Guided Filter
-  // std::unique_ptr<DynamicGuidedFilter> dynamicGF;
+  std::unique_ptr<GuidedFilter> gf;
 
   /// Maintain a intact copy of the input image
   cv::Mat inputImg;

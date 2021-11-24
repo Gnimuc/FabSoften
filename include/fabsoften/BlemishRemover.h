@@ -8,11 +8,11 @@ namespace fabsoften {
 /// BlemishRemoverOptions - Options for controlling the effect of blemish concealment.
 class BlemishRemoverOptions {
 public:
-  /// Enable the lower and upper face region
-  unsigned EnableFace : 1;
+  /// Reserved
+  unsigned Reserved : 1;
 
 public:
-  BlemishRemoverOptions() : EnableFace(true) {}
+  BlemishRemoverOptions() : Reserved(true) {}
 };
 
 /// \brief Class for removing blemishes.
@@ -31,9 +31,9 @@ public:
 
   void runCannyEdgeDetection();
 
-  /// \brief
-  /// \param src
-  /// \param dst
+  /// \brief Replace blemish pixel values with nearby skin pixel values.
+  /// \param src [in] Input Image. e.g. the `workImg` of \ref Beautifier.
+  /// \param dst [out] Output image.
   void removeBlemishes(const cv::Mat &src, cv::Mat &dst);
 
   /// \brief Blemish Concealment.

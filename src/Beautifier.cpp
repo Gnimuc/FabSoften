@@ -13,7 +13,7 @@ Beautifier::Beautifier(const std::string inputImgPath, const std::string landmar
     : imgPath(inputImgPath), modelPath(landmarkModelPath),
       curveFitVis(std::make_unique<CurveFittingVisitor>()),
       maskGen(std::make_unique<SkinMaskGenerator>()),
-      blemishRM(std::make_unique<BlemishRemover>()) {
+      blemishRM(std::make_unique<BlemishRemover>()), gf(std::make_unique<GuidedFilter>()) {
   inputImg = cv::imread(inputImgPath);
   assert(!inputImg.empty() && "Could not load image!");
   workImg = inputImg.clone();
