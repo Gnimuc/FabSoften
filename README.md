@@ -9,6 +9,8 @@
 
 This project is an unofficial implementation of [FabSoften: face beautification via dynamic skin smoothing, guided feathering, and texture restoration](https://openaccess.thecvf.com/content_CVPRW_2020/papers/w31/Velusamy_FabSoften_Face_Beautification_via_Dynamic_Skin_Smoothing_Guided_Feathering_and_CVPRW_2020_paper.pdf). This paper is from Samsung R&D Institute Bangalore, India, and is very likely patented. This implementation is mainly for educational purposes, so the performance is not optimized.
 
+![](./assets/result.png)
+
 ## Prerequisites
 
 This project uses some C++20 features(e.g. [The One Ranges Proposal](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0896r4.pdf)), so you need a relatively new C++ compiler.
