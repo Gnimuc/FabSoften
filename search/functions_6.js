@@ -4,5 +4,6 @@ var searchData=
   ['hasblemishremover_1',['hasBlemishRemover',['../classfabsoften_1_1_beautifier.html#af9e5ef348646772993f3fe1521daade1',1,'fabsoften::Beautifier']]],
   ['hasface_2',['hasFace',['../classfabsoften_1_1_beautifier.html#a882dcfee80e9d3890769b88ac7402802',1,'fabsoften::Beautifier']]],
   ['hasfacelandmarkdetector_3',['hasFaceLandmarkDetector',['../classfabsoften_1_1_beautifier.html#a91bcec2fc6c2f2fbd7ce43c15cb8a8f5',1,'fabsoften::Beautifier']]],
-  ['hasskinmaskgenerator_4',['hasSkinMaskGenerator',['../classfabsoften_1_1_beautifier.html#ad69f3bcc47115d8b381aa7bfb9580a9a',1,'fabsoften::Beautifier']]]
+  ['hasguidedfilter_4',['hasGuidedFilter',['../classfabsoften_1_1_beautifier.html#a64c19b2a8dc0c4d656c370119723ae25',1,'fabsoften::Beautifier']]],
+  ['hasskinmaskgenerator_5',['hasSkinMaskGenerator',['../classfabsoften_1_1_beautifier.html#ad69f3bcc47115d8b381aa7bfb9580a9a',1,'fabsoften::Beautifier']]]
 ];

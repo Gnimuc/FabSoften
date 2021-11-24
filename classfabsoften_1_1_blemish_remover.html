@@ -89,6 +89,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adbe14aa2bab8388d1a0f0890061b0c65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_blemish_remover.html#adbe14aa2bab8388d1a0f0890061b0c65">runCannyEdgeDetection</a> ()</td></tr>
 <tr class="separator:adbe14aa2bab8388d1a0f0890061b0c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91d13e15bebf047a03b3aa410c6c97b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_blemish_remover.html#a91d13e15bebf047a03b3aa410c6c97b4">removeBlemishes</a> (const cv::Mat &amp;src, cv::Mat &amp;dst)</td></tr>
+<tr class="memdesc:a91d13e15bebf047a03b3aa410c6c97b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replace blemish pixel values with nearby skin pixel values.  <a href="classfabsoften_1_1_blemish_remover.html#a91d13e15bebf047a03b3aa410c6c97b4">More...</a><br /></td></tr>
 <tr class="separator:a91d13e15bebf047a03b3aa410c6c97b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b2ae0b67339e448609479eacc6cfbfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_blemish_remover.html#a5b2ae0b67339e448609479eacc6cfbfb">concealBlemish</a> (const cv::Mat &amp;src, cv::Mat &amp;dst, const cv::Mat &amp;mask)</td></tr>
 <tr class="memdesc:a5b2ae0b67339e448609479eacc6cfbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blemish Concealment.  <a href="classfabsoften_1_1_blemish_remover.html#a5b2ae0b67339e448609479eacc6cfbfb">More...</a><br /></td></tr>
@@ -235,10 +236,12 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Replace blemish pixel values with nearby skin pixel values. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src</td><td></td></tr>
-    <tr><td class="paramname">dst</td><td></td></tr>
+    <tr><td class="paramname">src</td><td>[in] Input Image. e.g. the <code>workImg</code> of <a class="el" href="classfabsoften_1_1_beautifier.html">Beautifier</a>. </td></tr>
+    <tr><td class="paramname">dst</td><td>[out] Output image. </td></tr>
   </table>
   </dd>
 </dl>

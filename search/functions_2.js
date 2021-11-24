@@ -6,6 +6,6 @@ var searchData=
   ['drawbinarymask_3',['drawBinaryMask',['../classfabsoften_1_1_beautifier.html#a7e1f9e49d003559c71208ab0e51a47cf',1,'fabsoften::Beautifier']]],
   ['drawlandmark_4',['drawLandmark',['../classfabsoften_1_1_beautifier.html#ae07d1002965c2590cb6d662c332bf88b',1,'fabsoften::Beautifier']]],
   ['drawlandmarks_5',['drawLandmarks',['../classfabsoften_1_1_beautifier.html#a6ca61b2e75bf634ce269e9cc10f64fe9',1,'fabsoften::Beautifier']]],
-  ['dynamicguidedfilter_6',['dynamicGuidedFilter',['../namespacefabsoften.html#a75b7ac63c597a3cfb2aa7b6cf8d8ec3d',1,'fabsoften']]],
-  ['dynamicmeanfilter_7',['dynamicMeanFilter',['../namespacefabsoften.html#af5ccd45704e1fdcf3cd0ce55743e08b0',1,'fabsoften']]]
+  ['dynamicguidedfilter_6',['dynamicGuidedFilter',['../classfabsoften_1_1_guided_filter.html#a098e2eed4f8d0fcd0456cc034727e45a',1,'fabsoften::GuidedFilter::dynamicGuidedFilter()'],['../examples_2_a_d_f_2_a_d_f_8h.html#aa3de42faaf6ea4a7d635cb798d81edee',1,'dynamicGuidedFilter():&#160;ADF.h']]],
+  ['dynamicmeanfilter_7',['dynamicMeanFilter',['../classfabsoften_1_1_guided_filter.html#a211188f133d551d0e9cf988d32761ae9',1,'fabsoften::GuidedFilter::dynamicMeanFilter()'],['../examples_2_a_d_f_2_a_d_f_8h.html#ac88578a6a6d4548e1c3b571597b70be7',1,'dynamicMeanFilter():&#160;ADF.h']]]
 ];

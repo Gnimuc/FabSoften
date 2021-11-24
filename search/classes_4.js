@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['jaw_0',['Jaw',['../classfabsoften_1_1_jaw.html',1,'fabsoften']]]
+  ['gfoptions_0',['GFOptions',['../classfabsoften_1_1_g_f_options.html',1,'fabsoften']]],
+  ['guidedfilter_1',['GuidedFilter',['../classfabsoften_1_1_guided_filter.html',1,'fabsoften']]]
 ];

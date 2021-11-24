@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['skinmaskgenerator_0',['SkinMaskGenerator',['../classfabsoften_1_1_skin_mask_generator.html',1,'fabsoften']]],
-  ['skinmaskoptions_1',['SkinMaskOptions',['../classfabsoften_1_1_skin_mask_options.html',1,'fabsoften']]]
+  ['rightcheek_0',['RightCheek',['../classfabsoften_1_1_right_cheek.html',1,'fabsoften']]],
+  ['righteye_1',['RightEye',['../classfabsoften_1_1_right_eye.html',1,'fabsoften']]],
+  ['righteyebrow_2',['RightEyeBrow',['../classfabsoften_1_1_right_eye_brow.html',1,'fabsoften']]]
 ];

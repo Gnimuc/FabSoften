@@ -137,6 +137,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab436f1ca04f7ba9e97044c8d5e0aa6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae58cd568e361504d5f245d731176ecb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#ae58cd568e361504d5f245d731176ecb5">concealBlemish</a> (const cv::Mat &amp;mask)</td></tr>
 <tr class="separator:ae58cd568e361504d5f245d731176ecb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64c19b2a8dc0c4d656c370119723ae25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a64c19b2a8dc0c4d656c370119723ae25">hasGuidedFilter</a> () const</td></tr>
+<tr class="separator:a64c19b2a8dc0c4d656c370119723ae25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c16ef37a9cbf3516036d5a349747042"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfabsoften_1_1_guided_filter.html">GuidedFilter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a7c16ef37a9cbf3516036d5a349747042">getGuidedFilter</a> () const</td></tr>
+<tr class="separator:a7c16ef37a9cbf3516036d5a349747042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa7750fafa99aa10269d7040c1b101a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfabsoften_1_1_g_f_options.html">GFOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a2fa7750fafa99aa10269d7040c1b101a">getGuidedFilterOpts</a> ()</td></tr>
+<tr class="separator:a2fa7750fafa99aa10269d7040c1b101a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a883c8c309ecf671fdfa92dfc3f5eebab"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classfabsoften_1_1_g_f_options.html">GFOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a883c8c309ecf671fdfa92dfc3f5eebab">getGuidedFilterOpts</a> () const</td></tr>
+<tr class="separator:a883c8c309ecf671fdfa92dfc3f5eebab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd87878aadc1a2a9b6a10b20b37e1822"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#abd87878aadc1a2a9b6a10b20b37e1822">runADF</a> (const cv::Mat &amp;mask, const cv::Mat &amp;guidance, const cv::Mat &amp;src, cv::Mat &amp;dst)</td></tr>
+<tr class="separator:abd87878aadc1a2a9b6a10b20b37e1822"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58bc0f8d21c801feb6b8f178a1e5a2be"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a58bc0f8d21c801feb6b8f178a1e5a2be">getInputImage</a> () const</td></tr>
 <tr class="separator:a58bc0f8d21c801feb6b8f178a1e5a2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1240157b70e82a92d8e6c4e302fc8012"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a1240157b70e82a92d8e6c4e302fc8012">getWorkImage</a> () const</td></tr>
@@ -555,6 +565,81 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7c16ef37a9cbf3516036d5a349747042" name="a7c16ef37a9cbf3516036d5a349747042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c16ef37a9cbf3516036d5a349747042">&#9670;&nbsp;</a></span>getGuidedFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfabsoften_1_1_guided_filter.html">GuidedFilter</a> &amp; fabsoften::Beautifier::getGuidedFilter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fa7750fafa99aa10269d7040c1b101a" name="a2fa7750fafa99aa10269d7040c1b101a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa7750fafa99aa10269d7040c1b101a">&#9670;&nbsp;</a></span>getGuidedFilterOpts() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classfabsoften_1_1_g_f_options.html">GFOptions</a> &amp; fabsoften::Beautifier::getGuidedFilterOpts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a883c8c309ecf671fdfa92dfc3f5eebab" name="a883c8c309ecf671fdfa92dfc3f5eebab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a883c8c309ecf671fdfa92dfc3f5eebab">&#9670;&nbsp;</a></span>getGuidedFilterOpts() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classfabsoften_1_1_g_f_options.html">GFOptions</a> &amp; fabsoften::Beautifier::getGuidedFilterOpts </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a58bc0f8d21c801feb6b8f178a1e5a2be" name="a58bc0f8d21c801feb6b8f178a1e5a2be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a58bc0f8d21c801feb6b8f178a1e5a2be">&#9670;&nbsp;</a></span>getInputImage()</h2>
 
@@ -755,6 +840,31 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a64c19b2a8dc0c4d656c370119723ae25" name="a64c19b2a8dc0c4d656c370119723ae25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c19b2a8dc0c4d656c370119723ae25">&#9670;&nbsp;</a></span>hasGuidedFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool fabsoften::Beautifier::hasGuidedFilter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad69f3bcc47115d8b381aa7bfb9580a9a" name="ad69f3bcc47115d8b381aa7bfb9580a9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad69f3bcc47115d8b381aa7bfb9580a9a">&#9670;&nbsp;</a></span>hasSkinMaskGenerator()</h2>
 
@@ -804,6 +914,63 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sampling fine-grained landmarks from curves. </p>
+
+</div>
+</div>
+<a id="abd87878aadc1a2a9b6a10b20b37e1822" name="abd87878aadc1a2a9b6a10b20b37e1822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd87878aadc1a2a9b6a10b20b37e1822">&#9670;&nbsp;</a></span>runADF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fabsoften::Beautifier::runADF </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>mask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>guidance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask</td><td></td></tr>
+    <tr><td class="paramname">guidance</td><td></td></tr>
+    <tr><td class="paramname">src</td><td></td></tr>
+    <tr><td class="paramname">dst</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
