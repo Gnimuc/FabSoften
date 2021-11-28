@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['left_0',['Left',['../classfabsoften_1_1_eye.html#ae90266f405ef50e9b5a05e70cb3a3f1da945d5e233cf7d6240f6b783b36a374ff',1,'fabsoften::Eye::Left()'],['../classfabsoften_1_1_eye_brow.html#a33159e8eedf69c445a0a357aa0796edea945d5e233cf7d6240f6b783b36a374ff',1,'fabsoften::EyeBrow::Left()'],['../classfabsoften_1_1_cheek.html#ab8f114a78f4c3f0828fe941c842079fca945d5e233cf7d6240f6b783b36a374ff',1,'fabsoften::Cheek::Left()']]]
+  ['fabsoften_5ferror_0',['fabsoften_error',['../_lib_fab_soften_8h.html#a84b2e97fa7ea96f4d575a99fab6c4861a138954c295c6a7fe135ec94a10696c7a',1,'LibFabSoften.h']]],
+  ['fabsoften_5fsuccess_1',['fabsoften_success',['../_lib_fab_soften_8h.html#a84b2e97fa7ea96f4d575a99fab6c4861ab2c4186258b9b0881eccf1754152290f',1,'LibFabSoften.h']]]
 ];

@@ -91,8 +91,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a098e2eed4f8d0fcd0456cc034727e45a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55c452bc0b521e1506034f551e304cec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_guided_filter.html#a55c452bc0b521e1506034f551e304cec">checkAndInit</a> (const cv::Mat &amp;src, const cv::Mat &amp;guidance)</td></tr>
 <tr class="separator:a55c452bc0b521e1506034f551e304cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3f7c266f21c14f2192d57b471436bbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_guided_filter.html#ac3f7c266f21c14f2192d57b471436bbd">runADF</a> (const cv::Mat &amp;mask, const cv::Mat &amp;guidance, const cv::Mat &amp;src, cv::Mat &amp;dst)</td></tr>
-<tr class="separator:ac3f7c266f21c14f2192d57b471436bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a621f13945603b576a6c596d951d9f9d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_guided_filter.html#a621f13945603b576a6c596d951d9f9d6">applyADF</a> (const cv::Mat &amp;mask, const cv::Mat &amp;guidance, const cv::Mat &amp;src, cv::Mat &amp;dst)</td></tr>
+<tr class="memdesc:a621f13945603b576a6c596d951d9f9d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blurs a color image with guided filtering.  <a href="classfabsoften_1_1_guided_filter.html#a621f13945603b576a6c596d951d9f9d6">More...</a><br /></td></tr>
+<tr class="separator:a621f13945603b576a6c596d951d9f9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -129,6 +130,57 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a621f13945603b576a6c596d951d9f9d6" name="a621f13945603b576a6c596d951d9f9d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a621f13945603b576a6c596d951d9f9d6">&#9670;&nbsp;</a></span>applyADF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GuidedFilter::applyADF </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>mask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>guidance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blurs a color image with guided filtering. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask</td><td>[in] Binary mask(CV_8UC1). </td></tr>
+    <tr><td class="paramname">guidance</td><td>[in] Guidance Color Image. </td></tr>
+    <tr><td class="paramname">src</td><td>[in] Input color image. </td></tr>
+    <tr><td class="paramname">dst</td><td>[out] Output image of the same size and type as src. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a55c452bc0b521e1506034f551e304cec" name="a55c452bc0b521e1506034f551e304cec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55c452bc0b521e1506034f551e304cec">&#9670;&nbsp;</a></span>checkAndInit()</h2>
 
@@ -205,7 +257,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>[in] Input image. </td></tr>
-    <tr><td class="paramname">guidance</td><td>[in] Guidance Color Image. </td></tr>
+    <tr><td class="paramname">guidance</td><td>[in] Guidance color image. </td></tr>
     <tr><td class="paramname">dst</td><td>[out] Output image of the same size and type as src. </td></tr>
     <tr><td class="paramname">radius</td><td>[in] Float-valued matrix contains radius info for each pixel. </td></tr>
   </table>
@@ -252,55 +304,6 @@ Public Attributes</h2></td></tr>
     <tr><td class="paramname">src</td><td>[in] Input image(CV_32FC1). </td></tr>
     <tr><td class="paramname">dst</td><td>[out] Output image of the same size and type as src(CV_32FC1). </td></tr>
     <tr><td class="paramname">radius</td><td>[in] Float-valued matrix contains radius info for each pixel. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ac3f7c266f21c14f2192d57b471436bbd" name="ac3f7c266f21c14f2192d57b471436bbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3f7c266f21c14f2192d57b471436bbd">&#9670;&nbsp;</a></span>runADF()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GuidedFilter::runADF </td>
-          <td>(</td>
-          <td class="paramtype">const cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>mask</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>guidance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>dst</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mask</td><td></td></tr>
-    <tr><td class="paramname">guidance</td><td></td></tr>
-    <tr><td class="paramname">src</td><td></td></tr>
-    <tr><td class="paramname">dst</td><td></td></tr>
   </table>
   </dd>
 </dl>

@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['detectsingleface_0',['detectSingleFace',['../classfabsoften_1_1_face_landmark_detector.html#a2a3c8c182c2e66d9291a17cab81d7cd5',1,'fabsoften::FaceLandmarkDetector']]],
-  ['dispatch_1',['dispatch',['../structfabsoften_1_1_face_region.html#adb7d0aa4edcfe5aa994d75155d3a647b',1,'fabsoften::FaceRegion::dispatch()'],['../classfabsoften_1_1_jaw.html#a0f9992b7541db3c50bed734154274fa8',1,'fabsoften::Jaw::dispatch()'],['../classfabsoften_1_1_left_eye.html#afceb91603c19b81ee6113d7d5e3b3330',1,'fabsoften::LeftEye::dispatch()'],['../classfabsoften_1_1_right_eye.html#afccdb69e242ba1e7fa233e2ce191acd9',1,'fabsoften::RightEye::dispatch()'],['../classfabsoften_1_1_left_eye_brow.html#adeb0c06c74a2e2e63a9a5ece8a3fac93',1,'fabsoften::LeftEyeBrow::dispatch()'],['../classfabsoften_1_1_right_eye_brow.html#a4eeb9b82da1eebeaaeb5fdb3bacb4df2',1,'fabsoften::RightEyeBrow::dispatch()'],['../classfabsoften_1_1_nose.html#a70930a07d2470b3db87c9c7bb2c5148a',1,'fabsoften::Nose::dispatch()'],['../classfabsoften_1_1_mouth.html#a6aabffdf76c5a0a29134d21adf8b2f79',1,'fabsoften::Mouth::dispatch()'],['../classfabsoften_1_1_left_cheek.html#a9c734f5d5d4c9a3973280175355c8b0a',1,'fabsoften::LeftCheek::dispatch()'],['../classfabsoften_1_1_right_cheek.html#a801156db87e182f8b25d7b9afec13909',1,'fabsoften::RightCheek::dispatch()']]],
-  ['downsampling_2',['downsampling',['../classfabsoften_1_1_beautifier.html#a25c0f5f4f0a87d2ab4aa7c3859db4574',1,'fabsoften::Beautifier']]],
-  ['drawbinarymask_3',['drawBinaryMask',['../classfabsoften_1_1_beautifier.html#a7e1f9e49d003559c71208ab0e51a47cf',1,'fabsoften::Beautifier']]],
-  ['drawlandmark_4',['drawLandmark',['../classfabsoften_1_1_beautifier.html#ae07d1002965c2590cb6d662c332bf88b',1,'fabsoften::Beautifier']]],
-  ['drawlandmarks_5',['drawLandmarks',['../classfabsoften_1_1_beautifier.html#a6ca61b2e75bf634ce269e9cc10f64fe9',1,'fabsoften::Beautifier']]],
-  ['dynamicguidedfilter_6',['dynamicGuidedFilter',['../classfabsoften_1_1_guided_filter.html#a098e2eed4f8d0fcd0456cc034727e45a',1,'fabsoften::GuidedFilter::dynamicGuidedFilter()'],['../examples_2_a_d_f_2_a_d_f_8h.html#aa3de42faaf6ea4a7d635cb798d81edee',1,'dynamicGuidedFilter():&#160;ADF.h']]],
-  ['dynamicmeanfilter_7',['dynamicMeanFilter',['../classfabsoften_1_1_guided_filter.html#a211188f133d551d0e9cf988d32761ae9',1,'fabsoften::GuidedFilter::dynamicMeanFilter()'],['../examples_2_a_d_f_2_a_d_f_8h.html#ac88578a6a6d4548e1c3b571597b70be7',1,'dynamicMeanFilter():&#160;ADF.h']]]
+  ['checkandinit_0',['checkAndInit',['../classfabsoften_1_1_guided_filter.html#a55c452bc0b521e1506034f551e304cec',1,'fabsoften::GuidedFilter']]],
+  ['cheek_1',['Cheek',['../classfabsoften_1_1_cheek.html#a3963439bddd99958a012642257a4a94e',1,'fabsoften::Cheek']]],
+  ['computedog_2',['computeDoG',['../classfabsoften_1_1_blemish_remover.html#abc35f134743b9684a1183017efdd8077',1,'fabsoften::BlemishRemover']]],
+  ['concealblemish_3',['concealBlemish',['../classfabsoften_1_1_beautifier.html#ae58cd568e361504d5f245d731176ecb5',1,'fabsoften::Beautifier::concealBlemish()'],['../classfabsoften_1_1_blemish_remover.html#a5b2ae0b67339e448609479eacc6cfbfb',1,'fabsoften::BlemishRemover::concealBlemish()']]],
+  ['copycurrentmaskto_4',['copyCurrentMaskTo',['../classfabsoften_1_1_skin_mask_generator.html#a09f18d62c04e2a21100af8161529c5cc',1,'fabsoften::SkinMaskGenerator']]],
+  ['createface_5',['createFace',['../classfabsoften_1_1_beautifier.html#a9b125dd6579c0d0b4ddfa6489eb980e8',1,'fabsoften::Beautifier']]],
+  ['createfacelandmarkdetector_6',['createFaceLandmarkDetector',['../classfabsoften_1_1_beautifier.html#ac11216a0e069f2d211269eecc7b2158d',1,'fabsoften::Beautifier']]],
+  ['curvefittingoptions_7',['CurveFittingOptions',['../classfabsoften_1_1_curve_fitting_options.html#a4043d69faba5861149c5fc643985aa6c',1,'fabsoften::CurveFittingOptions']]],
+  ['curvefittingvisitor_8',['CurveFittingVisitor',['../classfabsoften_1_1_curve_fitting_visitor.html#a55bdaccc0082549836dc94b448fd27f5',1,'fabsoften::CurveFittingVisitor']]]
 ];

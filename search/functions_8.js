@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jaw_0',['Jaw',['../classfabsoften_1_1_jaw.html#a3d1614a12c6008f278922d63e945f0d4',1,'fabsoften::Jaw']]]
+  ['interpolatelandmarks_0',['interpolateLandmarks',['../classfabsoften_1_1_beautifier.html#a1a0d728ddb386320f0168c67c2de6939',1,'fabsoften::Beautifier']]]
 ];

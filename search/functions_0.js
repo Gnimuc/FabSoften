@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['beautifier_0',['Beautifier',['../classfabsoften_1_1_beautifier.html#ab6bf2dbded7264db4818199ba68f674e',1,'fabsoften::Beautifier']]],
-  ['blemishremover_1',['BlemishRemover',['../classfabsoften_1_1_blemish_remover.html#ac8ca32a13bb7149c62802b08bea3727a',1,'fabsoften::BlemishRemover']]],
-  ['blemishremoveroptions_2',['BlemishRemoverOptions',['../classfabsoften_1_1_blemish_remover_options.html#aaa1d4f3058337413cf08512805327f22',1,'fabsoften::BlemishRemoverOptions']]]
+  ['applyadf_0',['applyADF',['../classfabsoften_1_1_beautifier.html#ab4a73d72dda84ae764e7993c05db62ad',1,'fabsoften::Beautifier::applyADF()'],['../classfabsoften_1_1_guided_filter.html#a621f13945603b576a6c596d951d9f9d6',1,'fabsoften::GuidedFilter::applyADF()']]]
 ];

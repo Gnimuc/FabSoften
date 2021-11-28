@@ -11,6 +11,5 @@ var searchData=
   ['righteyebrow_8',['RightEyeBrow',['../classfabsoften_1_1_right_eye_brow.html',1,'fabsoften::RightEyeBrow'],['../classfabsoften_1_1_right_eye_brow.html#a71236480fc5cc02d0effa5d2cd02e7b3',1,'fabsoften::RightEyeBrow::RightEyeBrow()']]],
   ['righteyebrowidxs_9',['rightEyeBrowIdxs',['../namespacefabsoften.html#a261d5f745aae7aec1492c41e7b968d56',1,'fabsoften']]],
   ['righteyeidxs_10',['rightEyeIdxs',['../namespacefabsoften.html#a854879927d6e0f9f8507cd69fdd71a06',1,'fabsoften']]],
-  ['runadf_11',['runADF',['../classfabsoften_1_1_beautifier.html#abd87878aadc1a2a9b6a10b20b37e1822',1,'fabsoften::Beautifier::runADF()'],['../classfabsoften_1_1_guided_filter.html#ac3f7c266f21c14f2192d57b471436bbd',1,'fabsoften::GuidedFilter::runADF()']]],
-  ['runcannyedgedetection_12',['runCannyEdgeDetection',['../classfabsoften_1_1_blemish_remover.html#adbe14aa2bab8388d1a0f0890061b0c65',1,'fabsoften::BlemishRemover']]]
+  ['runcannyedgedetection_11',['runCannyEdgeDetection',['../classfabsoften_1_1_blemish_remover.html#adbe14aa2bab8388d1a0f0890061b0c65',1,'fabsoften::BlemishRemover']]]
 ];

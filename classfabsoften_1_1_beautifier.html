@@ -136,6 +136,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab436f1ca04f7ba9e97044c8d5e0aa6a1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classfabsoften_1_1_blemish_remover_options.html">BlemishRemoverOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#ab436f1ca04f7ba9e97044c8d5e0aa6a1">getBlemishRemoverOpts</a> () const</td></tr>
 <tr class="separator:ab436f1ca04f7ba9e97044c8d5e0aa6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae58cd568e361504d5f245d731176ecb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#ae58cd568e361504d5f245d731176ecb5">concealBlemish</a> (const cv::Mat &amp;mask)</td></tr>
+<tr class="memdesc:ae58cd568e361504d5f245d731176ecb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove blemishes.  <a href="classfabsoften_1_1_beautifier.html#ae58cd568e361504d5f245d731176ecb5">More...</a><br /></td></tr>
 <tr class="separator:ae58cd568e361504d5f245d731176ecb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64c19b2a8dc0c4d656c370119723ae25"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a64c19b2a8dc0c4d656c370119723ae25">hasGuidedFilter</a> () const</td></tr>
 <tr class="separator:a64c19b2a8dc0c4d656c370119723ae25"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,12 +146,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2fa7750fafa99aa10269d7040c1b101a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a883c8c309ecf671fdfa92dfc3f5eebab"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classfabsoften_1_1_g_f_options.html">GFOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a883c8c309ecf671fdfa92dfc3f5eebab">getGuidedFilterOpts</a> () const</td></tr>
 <tr class="separator:a883c8c309ecf671fdfa92dfc3f5eebab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd87878aadc1a2a9b6a10b20b37e1822"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#abd87878aadc1a2a9b6a10b20b37e1822">runADF</a> (const cv::Mat &amp;mask, const cv::Mat &amp;guidance, const cv::Mat &amp;src, cv::Mat &amp;dst)</td></tr>
-<tr class="separator:abd87878aadc1a2a9b6a10b20b37e1822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4a73d72dda84ae764e7993c05db62ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#ab4a73d72dda84ae764e7993c05db62ad">applyADF</a> (const cv::Mat &amp;mask, const cv::Mat &amp;guidance, const cv::Mat &amp;src, cv::Mat &amp;dst)</td></tr>
+<tr class="memdesc:ab4a73d72dda84ae764e7993c05db62ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blurs a color image with guided filtering.  <a href="classfabsoften_1_1_beautifier.html#ab4a73d72dda84ae764e7993c05db62ad">More...</a><br /></td></tr>
+<tr class="separator:ab4a73d72dda84ae764e7993c05db62ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58bc0f8d21c801feb6b8f178a1e5a2be"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a58bc0f8d21c801feb6b8f178a1e5a2be">getInputImage</a> () const</td></tr>
 <tr class="separator:a58bc0f8d21c801feb6b8f178a1e5a2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1240157b70e82a92d8e6c4e302fc8012"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a1240157b70e82a92d8e6c4e302fc8012">getWorkImage</a> () const</td></tr>
 <tr class="separator:a1240157b70e82a92d8e6c4e302fc8012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc0f738c5ad9073db4d2bea13eae8d2"><td class="memItemLeft" align="right" valign="top">const cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a6fc0f738c5ad9073db4d2bea13eae8d2">getOutputImage</a> () const</td></tr>
+<tr class="separator:a6fc0f738c5ad9073db4d2bea13eae8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030b32b0b5d2d4f59457a57234e950e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a030b32b0b5d2d4f59457a57234e950e5">encode</a> ()</td></tr>
+<tr class="memdesc:a030b32b0b5d2d4f59457a57234e950e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write outputImg to memory.  <a href="classfabsoften_1_1_beautifier.html#a030b32b0b5d2d4f59457a57234e950e5">More...</a><br /></td></tr>
+<tr class="separator:a030b32b0b5d2d4f59457a57234e950e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab4e28e91f9eb626ca156719ea6029b0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uchar &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#aab4e28e91f9eb626ca156719ea6029b0">getOutputImageBuffer</a> ()</td></tr>
+<tr class="separator:aab4e28e91f9eb626ca156719ea6029b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca61b2e75bf634ce269e9cc10f64fe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfabsoften_1_1_beautifier.html#a6ca61b2e75bf634ce269e9cc10f64fe9">drawLandmarks</a> (cv::Mat &amp;img, bool interpolated=true)</td></tr>
 <tr class="memdesc:a6ca61b2e75bf634ce269e9cc10f64fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw landmarks on the input image.  <a href="classfabsoften_1_1_beautifier.html#a6ca61b2e75bf634ce269e9cc10f64fe9">More...</a><br /></td></tr>
 <tr class="separator:a6ca61b2e75bf634ce269e9cc10f64fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,6 +209,65 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab4a73d72dda84ae764e7993c05db62ad" name="ab4a73d72dda84ae764e7993c05db62ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4a73d72dda84ae764e7993c05db62ad">&#9670;&nbsp;</a></span>applyADF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fabsoften::Beautifier::applyADF </td>
+          <td>(</td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>mask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>guidance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cv::Mat &amp;&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Blurs a color image with guided filtering. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask</td><td>[in] Binary Mask(CV_8UC1). </td></tr>
+    <tr><td class="paramname">guidance</td><td>[in] Guidance Color Image. </td></tr>
+    <tr><td class="paramname">src</td><td>[in] Input color image. </td></tr>
+    <tr><td class="paramname">dst</td><td>[out] Output image of the same size and type as src. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae58cd568e361504d5f245d731176ecb5" name="ae58cd568e361504d5f245d731176ecb5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae58cd568e361504d5f245d731176ecb5">&#9670;&nbsp;</a></span>concealBlemish()</h2>
 
@@ -223,6 +291,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Remove blemishes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mask</td><td>[in] Binary mask(CV_8UC1). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -387,6 +463,25 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a030b32b0b5d2d4f59457a57234e950e5" name="a030b32b0b5d2d4f59457a57234e950e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a030b32b0b5d2d4f59457a57234e950e5">&#9670;&nbsp;</a></span>encode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Beautifier::encode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write outputImg to memory. </p>
 
 </div>
 </div>
@@ -665,6 +760,56 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6fc0f738c5ad9073db4d2bea13eae8d2" name="a6fc0f738c5ad9073db4d2bea13eae8d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc0f738c5ad9073db4d2bea13eae8d2">&#9670;&nbsp;</a></span>getOutputImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const cv::Mat fabsoften::Beautifier::getOutputImage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab4e28e91f9eb626ca156719ea6029b0" name="aab4e28e91f9eb626ca156719ea6029b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab4e28e91f9eb626ca156719ea6029b0">&#9670;&nbsp;</a></span>getOutputImageBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; uchar &gt; &amp; fabsoften::Beautifier::getOutputImageBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af7a74e9198e1452ab686a5499870dc47" name="af7a74e9198e1452ab686a5499870dc47"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7a74e9198e1452ab686a5499870dc47">&#9670;&nbsp;</a></span>getSkinMaskGenerator()</h2>
 
@@ -914,63 +1059,6 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sampling fine-grained landmarks from curves. </p>
-
-</div>
-</div>
-<a id="abd87878aadc1a2a9b6a10b20b37e1822" name="abd87878aadc1a2a9b6a10b20b37e1822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd87878aadc1a2a9b6a10b20b37e1822">&#9670;&nbsp;</a></span>runADF()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void fabsoften::Beautifier::runADF </td>
-          <td>(</td>
-          <td class="paramtype">const cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>mask</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>guidance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">cv::Mat &amp;&#160;</td>
-          <td class="paramname"><em>dst</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mask</td><td></td></tr>
-    <tr><td class="paramname">guidance</td><td></td></tr>
-    <tr><td class="paramname">src</td><td></td></tr>
-    <tr><td class="paramname">dst</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
