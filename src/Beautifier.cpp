@@ -19,7 +19,35 @@ Beautifier::Beautifier(const std::string inputImgPath, const std::string landmar
   workImg = inputImg.clone();
 }
 
-void Beautifier::soften() {}
+void Beautifier::soften() {
+  if (!hasFaceLandmarkDetector())
+    createFaceLandmarkDetector();
+
+  if (!hasFace())
+    createFace();
+
+  interpolateLandmarks();
+
+  if (maskImg.size() != workImg.size())
+    maskImg = cv::Mat::zeros(workImg.size(), CV_8UC1);
+
+  drawBinaryMask(maskImg);
+
+  cv::Mat maskChannels[3] = {maskImg, maskImg, maskImg};
+  cv::merge(maskChannels, 3, maskImg3C);
+
+  cv::bitwise_not(maskImg3C, /*mask=*/tmpImg);
+  cv::bitwise_and(workImg, /*mask=*/tmpImg, /*background=*/tmpImg);
+  workImg.copyTo(tmpImg2);
+
+  concealBlemish(maskImg);
+
+  cv::bitwise_and(workImg, maskImg3C, workImg);
+  cv::add(workImg, tmpImg, workImg);
+
+  applyADF(maskImg, workImg, /*original image=*/tmpImg2, tmpImg);
+  tmpImg.convertTo(outputImg, CV_8U);
+}
 
 void Beautifier::downsampling() { cv::pyrDown(workImg, workImg); }
 
@@ -40,6 +68,11 @@ void Beautifier::createFace() {
     detector->detectSingleFace();
 
   theFace = std::make_unique<Face>(detector->getLandmarks());
+}
+
+void Beautifier::encode() {
+  std::vector<int> params{cv::IMWRITE_JPEG_QUALITY, 100};
+  cv::imencode(".jpg", outputImg, buf, params);
 }
 
 void Beautifier::drawLandmarks(cv::Mat &img, bool interpolated) {

@@ -1,8 +1,8 @@
-/// \file Demo.cpp
-/// \brief A demo shows how to use the high-level C++ API.
+/// \file LibFabSoftenAPI.cpp
+/// \brief A demo shows how to use the C API.
 ///
 
-#include "fabsoften\Beautifier.h"
+#include "fabsoften\LibFabSoften.h"
 #include <iostream>
 #include <opencv2/highgui.hpp>
 
@@ -17,25 +17,16 @@ static constexpr auto cmdKeys =
 /// \brief Show input image
 static constexpr auto imageWin = "Input Image";
 
-/// \brief Show landmarks
-static constexpr auto landmarkWin = "Landmarks";
-
-/// \brief Show binary mask
-static constexpr auto maskWin = "Mask";
-
-/// \brief Show Canny edge detection results
-static constexpr auto cannyWin = "Canny Edges";
-
 /// \brief Show preprocessed image
 static constexpr auto processedWin = "Preprocessed Image";
 
-/// \brief C++ API demo
+/// \brief C API demo
 ///
-/// Usage: Demo.exe [params] image landmark_model
+/// Usage: LibFabSoftenAPI.exe [params] image landmark_model
 int main(int argc, char **argv) {
   // Handle command line arguments
   cv::CommandLineParser parser(argc, argv, cmdKeys);
-  parser.about("C++ API demo");
+  parser.about("C API demo");
   if (parser.has("help")) {
     parser.printMessage();
     return 0;
@@ -78,49 +69,28 @@ int main(int argc, char **argv) {
     return -1;
   }
 
-  // Create helper class
-  fabsoften::Beautifier bf(inputImgPath, landmarkModelPath);
+  // C API
+  fabsoften_err err = fabsoften_success;
+  fabsoften_context ctx =
+      fabsoften_create_context(inputImgPath.c_str(), landmarkModelPath.c_str(), &err);
+  assert(*err == fabsoften_success);
 
-  // Detect and draw landmarks
-  bf.createFaceLandmarkDetector();
-  bf.createFace();
-  bf.interpolateLandmarks();
+  fabsoften_beautify(ctx);
 
-  const auto &workImg = bf.getWorkImage();
-  cv::Mat landmarkImg = workImg.clone();
-  bf.drawLandmarks(landmarkImg);
+  fabsoften_encode(ctx);
 
-  // Create a simple binary mask
-  cv::Mat maskImg = cv::Mat::zeros(workImg.size(), CV_8UC1);
-  bf.drawBinaryMask(maskImg);
+  size_t n = fabsoften_get_buffer_size(ctx);
 
-  cv::Mat maskChannels[3] = {maskImg, maskImg, maskImg};
-  cv::Mat maskImg3C;
-  cv::merge(maskChannels, 3, maskImg3C);
+  std::vector<uchar> img(n);
 
-  cv::Mat maskOverlay;
-  cv::addWeighted(workImg, 0.7, maskImg3C, 1, 0, maskOverlay);
+  fabsoften_get_data(ctx, img.data());
 
-  // Make a background image for future use
-  cv::Mat tmpImg;
-  cv::bitwise_not(maskImg3C, tmpImg);
-  cv::bitwise_and(workImg, tmpImg, tmpImg);
+  fabsoften_dispose(ctx);
 
-  // Spot Concealment
-  bf.concealBlemish(maskImg);
-  const auto &cannyImg = bf.getWorkImage();
+  cv::Mat outputImg = cv::imdecode(img, cv::IMREAD_COLOR);
 
-  // Undo blemish concealment in the non-facial zone
-  cv::Mat spotImg;
-  cv::bitwise_and(cannyImg, maskImg3C, spotImg);
-  cv::add(spotImg, tmpImg, spotImg);
+  const auto inputImg = cv::imread(inputImgPath);
 
-  // Attribute-aware Dynamic Guided Filter
-  cv::Mat gfImg;
-  bf.applyADF(maskImg, spotImg, workImg, gfImg);
-  gfImg.convertTo(gfImg, CV_8U);
-
-  const auto &inputImg = bf.getInputImage();
   // Fit image to the screen and show image
   cv::namedWindow(imageWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(imageWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
@@ -132,33 +102,12 @@ int main(int argc, char **argv) {
   cv::resizeWindow(imageWin, scaledW, scaledH);
   cv::imshow(imageWin, inputImg);
 
-  // Landmarks Window
-  cv::namedWindow(landmarkWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(landmarkWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(landmarkWin, scaledW, scaledH);
-  cv::moveWindow(landmarkWin, scaledW, 0);
-  cv::imshow(landmarkWin, landmarkImg);
-
-  // Mask Window
-  cv::namedWindow(maskWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(maskWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(maskWin, scaledW, scaledH);
-  cv::moveWindow(maskWin, 2 * scaledW, 0);
-  cv::imshow(maskWin, maskOverlay);
-
-  // Canny Edge Detection Window
-  cv::namedWindow(cannyWin, cv::WINDOW_NORMAL);
-  cv::setWindowProperty(cannyWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-  cv::resizeWindow(cannyWin, scaledW, scaledH);
-  cv::moveWindow(cannyWin, 3 * scaledW, 0);
-  cv::imshow(cannyWin, spotImg);
-
   // Processed Window
   cv::namedWindow(processedWin, cv::WINDOW_NORMAL);
   cv::setWindowProperty(processedWin, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
   cv::resizeWindow(processedWin, scaledW, scaledH);
-  cv::moveWindow(processedWin, 4 * scaledW, 0);
-  cv::imshow(processedWin, gfImg);
+  cv::moveWindow(processedWin, scaledW, 0);
+  cv::imshow(processedWin, outputImg);
 
   cv::waitKey();
   cv::destroyAllWindows();

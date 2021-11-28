@@ -168,7 +168,7 @@ void GuidedFilter::checkAndInit(const cv::Mat &src, const cv::Mat &guidance) {
   }
 }
 
-void GuidedFilter::runADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
+void GuidedFilter::applyADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
                           cv::Mat &dst) {
   // constexpr auto alphaRadius = 10;
   // constexpr auto betaRadius = 10;

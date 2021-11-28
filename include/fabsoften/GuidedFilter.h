@@ -38,7 +38,7 @@ public:
 
   /// \brief Blurs a single channel image with guided filtering.
   /// \param src [in] Input image.
-  /// \param guidance [in] Guidance Color Image.
+  /// \param guidance [in] Guidance color image.
   /// \param dst [out] Output image of the same size and type as src.
   /// \param radius [in] Float-valued matrix contains radius info for each pixel.
   void dynamicGuidedFilter(const cv::Mat &src, const cv::Mat &guidance, cv::Mat &dst,
@@ -46,13 +46,13 @@ public:
 
   void checkAndInit(const cv::Mat &src, const cv::Mat &guidance);
 
-  /// \brief
-  /// \param mask
-  /// \param guidance
-  /// \param src
-  /// \param dst
-  void runADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
-              cv::Mat &dst);
+  /// \brief Blurs a color image with guided filtering.
+  /// \param mask [in] Binary mask(CV_8UC1).
+  /// \param guidance [in] Guidance Color Image.
+  /// \param src [in] Input color image.
+  /// \param dst [out] Output image of the same size and type as src.
+  void applyADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
+                cv::Mat &dst);
 
 private:
   cv::Mat inputImg;

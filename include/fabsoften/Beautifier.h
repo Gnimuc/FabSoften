@@ -78,6 +78,8 @@ public:
   BlemishRemoverOptions &getBlemishRemoverOpts() { return blemishRM->opts; }
   const BlemishRemoverOptions &getBlemishRemoverOpts() const { return blemishRM->opts; }
 
+  /// \brief Remove blemishes.
+  /// \param mask [in] Binary mask(CV_8UC1).
   void concealBlemish(const cv::Mat &mask) {
     blemishRM->concealBlemish(workImg.clone(), workImg, mask);
   }
@@ -92,18 +94,24 @@ public:
   GFOptions &getGuidedFilterOpts() { return gf->opts; }
   const GFOptions &getGuidedFilterOpts() const { return gf->opts; }
 
-  /// \brief
-  /// \param mask
-  /// \param guidance
-  /// \param src
-  /// \param dst
-  void runADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
-              cv::Mat &dst) {
-    gf->runADF(mask, guidance, src, dst);
+  /// \brief Blurs a color image with guided filtering.
+  /// \param mask [in] Binary Mask(CV_8UC1).
+  /// \param guidance [in] Guidance Color Image.
+  /// \param src [in] Input color image.
+  /// \param dst [out] Output image of the same size and type as src.
+  void applyADF(const cv::Mat &mask, const cv::Mat &guidance, const cv::Mat &src,
+                cv::Mat &dst) {
+    gf->applyADF(mask, guidance, src, dst);
   }
 
   const cv::Mat getInputImage() const { return inputImg; }
   const cv::Mat getWorkImage() const { return workImg; }
+  const cv::Mat getOutputImage() const { return outputImg; }
+
+  /// Write \ref outputImg to memory.
+  void encode();
+
+  std::vector<uchar> &getOutputImageBuffer() { return buf; }
 
   /// \brief Draw landmarks on the input image
   ///
@@ -143,6 +151,19 @@ private:
 
   /// Work image
   cv::Mat workImg;
+
+  /// Mask image
+  cv::Mat maskImg;
+
+  /// Output image
+  cv::Mat outputImg;
+
+  cv::Mat maskImg3C;
+
+  cv::Mat tmpImg;
+  cv::Mat tmpImg2;
+
+  std::vector<uchar> buf;
 };
 
 } // namespace fabsoften

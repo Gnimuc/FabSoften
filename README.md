@@ -55,6 +55,10 @@ ctest --Release
 
 ## Examples
 
+This library provides a thin C89 API over the C++ API, please check [this example](./examples/LibFabSoftenAPI) for details.
+
+The C++ API and other examples can also be found in the `examples` folder.
+
 ## TODO List
 
 - [x] Preprocessing
