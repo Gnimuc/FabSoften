@@ -12,6 +12,7 @@ var searchData=
   ['skinmaskoptions_9',['SkinMaskOptions',['../classfabsoften_1_1_skin_mask_options.html',1,'fabsoften::SkinMaskOptions'],['../classfabsoften_1_1_skin_mask_options.html#a4693fb1e98981601daf861c660469fce',1,'fabsoften::SkinMaskOptions::SkinMaskOptions()']]],
   ['skinmaskwin_10',['skinMaskWin',['../_binary_skin_mask_8cpp.html#aa580d3cc3e242d63069415cd2189c0f9',1,'BinarySkinMask.cpp']]],
   ['soften_11',['soften',['../classfabsoften_1_1_beautifier.html#a8aa1bb6949e39b198dd896d04fb927f5',1,'fabsoften::Beautifier']]],
-  ['spot_20concealment_12',['Spot Concealment',['../md_examples__spot_concealment__r_e_a_d_m_e.html',1,'']]],
-  ['spotconcealment_2ecpp_13',['SpotConcealment.cpp',['../_spot_concealment_8cpp.html',1,'']]]
+  ['soften_2ecpp_12',['Soften.cpp',['../_soften_8cpp.html',1,'']]],
+  ['spot_20concealment_13',['Spot Concealment',['../md_examples__spot_concealment__r_e_a_d_m_e.html',1,'']]],
+  ['spotconcealment_2ecpp_14',['SpotConcealment.cpp',['../_spot_concealment_8cpp.html',1,'']]]
 ];
