@@ -1,5 +1,5 @@
 add_executable(Soften Soften.cpp)
-target_link_libraries(Soften PRIVATE ${OpenCV_LIBS} FabSoften dlib::dlib tinysplinecxx)
+target_link_libraries(Soften PRIVATE ${OpenCV_LIBS} FabSoften)
 
 target_compile_options(Soften PRIVATE
   $<$<CXX_COMPILER_ID:MSVC>:/W3>
@@ -17,4 +17,4 @@ if (WIN32)
     )
 endif()
 
-# install(TARGETS Soften RUNTIME DESTINATION bin)
+install(TARGETS Soften RUNTIME DESTINATION bin)

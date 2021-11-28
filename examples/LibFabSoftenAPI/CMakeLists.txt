@@ -1,5 +1,5 @@
 add_executable(LibFabSoftenAPI LibFabSoftenAPI.cpp)
-target_link_libraries(LibFabSoftenAPI PRIVATE ${OpenCV_LIBS} FabSoften dlib::dlib tinysplinecxx)
+target_link_libraries(LibFabSoftenAPI PRIVATE ${OpenCV_LIBS} FabSoften)
 target_compile_features(LibFabSoftenAPI PRIVATE $<IF:$<PLATFORM_ID:Windows>,cxx_std_23,cxx_std_20>) # to enable `/std:c++latest` 
 
 target_compile_options(LibFabSoftenAPI PRIVATE
